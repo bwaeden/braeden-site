@@ -167,17 +167,91 @@ Explicitly excluded. Documented to prevent scope creep.
 
 ## Traceability
 
-Which phases cover which requirements. Updated during roadmap creation.
+Which phases cover which requirements. Updated 2026-05-07 by roadmapper.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (To be filled by roadmapper) | | |
+| FOUND-01 | Phase 1 | Pending |
+| FOUND-02 | Phase 1 | Pending |
+| FOUND-03 | Phase 1 | Pending |
+| FOUND-04 | Phase 1 | Pending |
+| FOUND-05 | Phase 1 | Pending |
+| FOUND-06 | Phase 1 | Pending |
+| FOUND-07 | Phase 1 | Pending |
+| FOUND-08 | Phase 1 | Pending |
+| DSGN-01 | Phase 1 | Pending |
+| DSGN-02 | Phase 1 | Pending |
+| DSGN-03 | Phase 1 | Pending |
+| DSGN-04 | Phase 1 | Pending |
+| DSGN-05 | Phase 1 | Pending |
+| DSGN-06 | Phase 1 | Pending |
+| DSGN-07 | Phase 1 | Pending |
+| DSGN-08 | Phase 1 | Pending |
+| DSGN-09 | Phase 1 | Pending |
+| HOME-01 | Phase 2 | Pending |
+| HOME-02 | Phase 2 | Pending |
+| HOME-03 | Phase 2 | Pending |
+| HOME-04 | Phase 2 | Pending |
+| HOME-05 | Phase 2 | Pending |
+| HOME-06 | Phase 2 | Pending |
+| ABOUT-01 | Phase 3 | Pending |
+| ABOUT-02 | Phase 3 | Pending |
+| ABOUT-03 | Phase 3 | Pending |
+| ABOUT-04 | Phase 3 | Pending |
+| WORK-01 | Phase 4 | Pending |
+| WORK-02 | Phase 4 | Pending |
+| WORK-03 | Phase 4 | Pending |
+| WORK-04 | Phase 4 | Pending |
+| WORK-05 | Phase 4 | Pending |
+| WORK-06 | Phase 4 | Pending |
+| CTCT-01 | Phase 5 | Pending |
+| CTCT-02 | Phase 5 | Pending |
+| CTCT-03 | Phase 5 | Pending |
+| CTCT-04 | Phase 5 | Pending |
+| CTCT-05 | Phase 5 | Pending |
+| CTCT-06 | Phase 5 | Pending |
+| CTCT-07 | Phase 5 | Pending |
+| SEO-01 | Phase 6 | Pending |
+| SEO-02 | Phase 6 | Pending |
+| SEO-03 | Phase 6 | Pending |
+| SEO-04 | Phase 6 | Pending |
+| SEO-05 | Phase 6 | Pending |
+| SEO-06 | Phase 6 | Pending |
+| SEO-07 | Phase 1 | Pending |
+| SEO-08 | Phase 6 | Pending |
+| SEO-09 | Phase 6 | Pending |
+| A11Y-01 | Phase 6 | Pending |
+| A11Y-02 | Phase 1 | Pending |
+| A11Y-03 | Phase 5 | Pending |
+| A11Y-04 | Phase 6 | Pending |
+| A11Y-05 | Phase 4 | Pending |
+| A11Y-06 | Phase 1 | Pending |
+| A11Y-07 | Phase 6 | Pending |
+| PERF-01 | Phase 6 | Pending |
+| PERF-02 | Phase 6 | Pending |
+| PERF-03 | Phase 6 | Pending |
+| PERF-04 | Phase 2 | Pending |
+| PERF-05 | Phase 6 | Pending |
+| PERF-06 | Phase 2 | Pending |
+| LNCH-01 | Phase 6 | Pending |
+| LNCH-02 | Phase 6 | Pending |
+| LNCH-03 | Phase 6 | Pending |
+| LNCH-04 | Phase 6 | Pending |
+| LNCH-05 | Phase 6 | Pending |
 
 **Coverage:**
-- v1 requirements: 71 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 71 ⚠
+- v1 requirements: 67 total
+- Mapped to phases: 67
+- Unmapped: 0
+
+**By phase:**
+- Phase 1 (Foundation + Design Tokens): 20 requirements
+- Phase 2 (Home Page): 8 requirements
+- Phase 3 (About Page): 4 requirements
+- Phase 4 (Work + Projects): 7 requirements
+- Phase 5 (Contact Modal): 8 requirements
+- Phase 6 (Polish + SEO + Launch): 20 requirements
 
 ---
 *Requirements defined: 2026-05-07*
-*Last updated: 2026-05-07 after initial definition*
+*Last updated: 2026-05-07 by roadmapper (traceability populated)*
