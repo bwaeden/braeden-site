@@ -24,7 +24,7 @@ Requirements for initial release at braehods.com. Each maps to roadmap phases.
 
 - [ ] **DSGN-01**: Charcoal gradient background (~#1a1a1f → #0a0a0a) implemented as CSS gradient on `<body>` or root layout
 - [ ] **DSGN-02**: Subtle grain overlay (SVG noise filter or tiny PNG) layered above gradient at low opacity, costs <2 KB
-- [ ] **DSGN-03**: Color tokens — text (cool white ~#e8e8e8), dim (~#707070), accent (soft electric blue ~#7c87ff) — exposed as CSS variables and Tailwind theme entries
+- [ ] **DSGN-03**: Color tokens — text (cool white ~#e8e8e8), muted (~#a8a8a8 — clears WCAG AA against #0a0a0a; updated 2026-05-08 from initial #707070 guess per Phase 1 discuss-phase D-06), accent (soft electric blue ~#7c87ff), border (~#2a2a2f) — exposed as CSS variables and Tailwind v4 theme entries
 - [ ] **DSGN-04**: Type system loaded via `next/font` — display serif (Fraunces or equivalent) + Geist Sans body + Geist Mono UI; zero CLS, font-display swap
 - [ ] **DSGN-05**: Custom "B" monogram designed as inline SVG React component, sized via prop, used in nav/hero/footer/favicon/404/OG
 - [ ] **DSGN-06**: Visible focus ring style (electric-blue outline) defined globally for all interactive elements
