@@ -23,19 +23,19 @@ export function Nav() {
           {/* Phase 1 stubs — all route to /; Phases 3/4/5 swap in real targets */}
           <Link
             href="/"
-            className="font-sans text-base hover:underline underline-offset-4 decoration-1 px-2 py-2"
+            className="px-2 py-2 font-sans text-base decoration-1 underline-offset-4 hover:underline"
           >
             About
           </Link>
           <Link
             href="/"
-            className="font-sans text-base hover:underline underline-offset-4 decoration-1 px-2 py-2"
+            className="px-2 py-2 font-sans text-base decoration-1 underline-offset-4 hover:underline"
           >
             Work
           </Link>
           <Link
             href="/"
-            className="font-sans text-base hover:underline underline-offset-4 decoration-1 px-2 py-2"
+            className="px-2 py-2 font-sans text-base decoration-1 underline-offset-4 hover:underline"
           >
             Contact
           </Link>

@@ -57,9 +57,9 @@ export default function TokensPage() {
         <h2 className="font-mono text-sm" style={{ color: 'var(--color-muted)' }}>
           Typography
         </h2>
-        <p className="mt-6 font-serif font-bold leading-[1.05] text-[6rem]">Display XL · 96</p>
-        <p className="font-serif font-bold leading-[1.10] text-[4rem]">Display L · 64</p>
-        <p className="font-serif font-semibold leading-[1.15] text-[2.5rem]">Display M · 40</p>
+        <p className="mt-6 font-serif text-[6rem] leading-[1.05] font-bold">Display XL · 96</p>
+        <p className="font-serif text-[4rem] leading-[1.10] font-bold">Display L · 64</p>
+        <p className="font-serif text-[2.5rem] leading-[1.15] font-semibold">Display M · 40</p>
         <p className="mt-6 font-sans text-base">
           Body 16 / Geist Sans · The quick brown fox jumps over the lazy dog.
         </p>
@@ -72,14 +72,14 @@ export default function TokensPage() {
         <h2 className="font-mono text-sm" style={{ color: 'var(--color-muted)' }}>
           Monogram
         </h2>
-        <div className="mt-6 flex items-end gap-6 flex-wrap">
+        <div className="mt-6 flex flex-wrap items-end gap-6">
           {[16, 24, 48, 96, 120].map((s) => (
             <MonogramMark key={s} size={s} aria-hidden />
           ))}
         </div>
         <div className="mt-6" style={{ color: 'var(--color-accent)' }}>
           <MonogramMark size={48} aria-hidden />
-          <p className="font-mono text-sm mt-2" style={{ color: 'var(--color-muted)' }}>
+          <p className="mt-2 font-mono text-sm" style={{ color: 'var(--color-muted)' }}>
             currentColor inherits — accent variant
           </p>
         </div>

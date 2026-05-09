@@ -12,10 +12,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${fraunces.variable} ${GeistSans.variable} ${GeistMono.variable}`}
-    >
+    <html lang="en" className={`${fraunces.variable} ${GeistSans.variable} ${GeistMono.variable}`}>
       <body>
         <Nav />
         <main className="mx-auto max-w-3xl px-6 py-16 lg:px-12">{children}</main>

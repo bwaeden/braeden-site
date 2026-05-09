@@ -12,11 +12,32 @@
  */
 import { test, expect } from '@playwright/test';
 
-const ACCENT_OUTLINE_RE = /2px solid (rgb\(124,\s*135,\s*255\)|#7c87ff)/i;
+// Chromium's computed-style serializer for the `outline` shorthand orders
+// the parts as `<color> <style> <width>` (e.g. "rgb(124, 135, 255) solid 2px"),
+// while authored CSS uses the canonical `<width> <style> <color>` order
+// ("2px solid var(--color-accent)"). Match either form so the assertion
+// verifies the *visual* contract (electric-blue 2px solid ring) rather than
+// a serializer artifact. Same family of fix as W2-T5's gradient-regex
+// correction (STATE.md: 59aae89).
+const ACCENT_OUTLINE_RE =
+  /(2px\s+solid\s+(rgb\(124,\s*135,\s*255\)|#7c87ff)|(rgb\(124,\s*135,\s*255\)|#7c87ff)\s+solid\s+2px)/i;
 
 test('DSGN-06: first 5 Tab targets show the accent focus ring', async ({ page }) => {
   await page.goto('/');
 
+  // Phase 1's `/` exposes 4 focusable elements: the nav <Link href="/">
+  // logo+name wrap + 3 placeholder nav links (About/Work/Contact). The
+  // footer renders monogram + (c) text + braehods.com all as plain text
+  // (UI-SPEC W3-T3: "braehods.com is plain text NOT a link in Phase 1").
+  //
+  // The contract DSGN-06 / A11Y-02 asserts is "every interactive element
+  // shows the accent focus ring on :focus-visible" — not "there are at
+  // least 5 focusable elements." Iterate up to 5 Tab steps, asserting the
+  // ring on each focusable element and stopping at the first wrap-around
+  // (activeElement === document.body, which means we've walked off the end
+  // of the focus chain). Phases 2-6 add more interactive surface (real
+  // route hrefs, contact button, etc.) — the loop will then walk all 5.
+  let visitedFocusable = 0;
   for (let i = 0; i < 5; i += 1) {
     await page.keyboard.press('Tab');
     const focusedOutline = await page.evaluate(() => {
@@ -25,10 +46,13 @@ test('DSGN-06: first 5 Tab targets show the accent focus ring', async ({ page })
       return getComputedStyle(el).outline;
     });
 
-    expect(
-      focusedOutline,
-      `Tab #${i + 1}: focused element should have an accent outline (got: ${focusedOutline})`
-    ).not.toBeNull();
-    expect(focusedOutline!).toMatch(ACCENT_OUTLINE_RE);
+    if (focusedOutline === null) break;
+    expect(focusedOutline).toMatch(ACCENT_OUTLINE_RE);
+    visitedFocusable += 1;
   }
+
+  expect(
+    visitedFocusable,
+    'expected at least one focusable element on / to receive the accent ring'
+  ).toBeGreaterThan(0);
 });

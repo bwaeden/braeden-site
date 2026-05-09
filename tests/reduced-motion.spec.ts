@@ -20,5 +20,11 @@ test('reduced-motion override forces 0.01ms transitions', async ({ page }) => {
     return getComputedStyle(el).transitionDuration;
   });
 
-  expect(transitionDuration).toBe('0.01ms');
+  // Chromium's computed-style serializer normalizes `0.01ms` (the authored
+  // CD-01 override in app/globals.css) to `1e-05s` — same numeric value,
+  // different unit/notation. Assert against either form so the contract
+  // verifies the *behavior* (transitions zeroed under reduced-motion) rather
+  // than a serializer artifact. Same family of fix as W2-T5's gradient-regex
+  // correction (STATE.md: 59aae89).
+  expect(['0.01ms', '1e-05s']).toContain(transitionDuration);
 });
