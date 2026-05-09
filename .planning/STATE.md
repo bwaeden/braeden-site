@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in_progress
-last_updated: "2026-05-09T00:35:00.000Z"
+last_updated: "2026-05-09T01:30:00.000Z"
 progress:
   total_phases: 6
   completed_phases: 0
@@ -14,7 +14,7 @@ progress:
 # Project State: Braeden Site (braehods.com)
 
 **Last updated:** 2026-05-09
-**Updated by:** execute-phase (Phase 1 / Wave 1 complete)
+**Updated by:** execute-phase (Phase 1 / Wave 2 complete)
 
 ## Project Reference
 
@@ -25,22 +25,25 @@ contact-conversion #2.
 **Stack:** Next.js 16.2.6 (App Router) + React 19.2 + TypeScript 5.9 +
 Tailwind v4 + `@next/mdx` + Fraunces / Geist Sans / Geist Mono + Vercel.
 
-**Current focus:** Phase 1 / Plan 01 mid-flight. W0 (validation infra) + W1
-(Next.js scaffold) shipped. Awaiting `/gsd-execute-phase 1 --wave 2` for the
-design-token + fonts + favicon layer.
+**Current focus:** Phase 1 / Plan 01 mid-flight. W0 + W1 + W2 shipped. **First
+visible site exists** — charcoal gradient + grain + Fraunces "Braeden" hero word
+on `/`. Awaiting `/gsd-execute-phase 1 --wave 3` for components + a11y contracts
++ `/_tokens` showcase.
 
 ## Current Position
 
 **Milestone:** v1 (initial launch at braehods.com)
 **Phase:** Phase 1 — execution in progress
 **Plan:** 01-PLAN.md (5 waves, 22 tasks)
-**Status:** W0 + W1 complete (6/22 tasks); 1/13 W0 specs GREEN (`tests/folder-structure.spec.ts`)
-**Wave progress:** W0 ✅ · W1 ✅ · W2 ⏳ · W3 ⏳ · W4 ⏳
+**Status:** W0 + W1 + W2 complete (11/22 tasks); 8/13 spec files fully GREEN, 1 partial, 4 deferred to W3
+**Wave progress:** W0 ✅ · W1 ✅ · W2 ✅ · W3 ⏳ · W4 ⏳
 
-**Progress:** Phase 0/6 complete (Phase 1 plan 27% complete by tasks)
+**Spec scoreboard (after W2):** GREEN — `build-output`, `favicon`, `folder-structure`, `lighthouse` (CLS+hero-font; mono deferred), `no-bare-outline-none`, `no-client-components`, `tokens`, `visual` (DSGN-01+02). Partial — `motion-seam` (keyframe ✅, lib/motion.ts contract pending W3). Deferred to W3 — `contrast`, `focus-ring`, `monogram`, `reduced-motion`.
+
+**Progress:** Phase 0/6 complete (Phase 1 plan 50% complete by tasks)
 
 ```
-[######----] 27% (6/22 plan tasks) — Next.js scaffold ready, tokens + fonts next
+[#####-----] 50% (11/22 plan tasks) — visible site shipped; components + a11y next
 ```
 
 ## Performance Metrics
@@ -88,6 +91,21 @@ blocks favicon (Phase 1) but does not block other tokens.
 
 ## Session Continuity
 
+### Last Session (2026-05-09 — Phase 1 Wave 2 execution)
+
+- Spawned `gsd-executor` for W2-T1..T5 only (sequential, on master)
+- W2-T1 `d92035b` — `feat(phase-1/w2): @theme tokens + charcoal gradient + grain + focus + reduced-motion contract`
+- W2-T2 `32fb0f9` — `feat(phase-1/w2): wire Fraunces + Geist Sans + Geist Mono via next/font`
+- Carry-forward fix `40aa9e7` — `fix(phase-1/w2): lighthouse spec port-config + re-include tests/ in tsc` (W1's tsconfig `tests/` exclude resolved; `playwright-lighthouse@4` requires `port: 9222`, Playwright launches Chrome with `--remote-debugging-port=9222`)
+- **Open Question #2 verdict** `b11f8b5` — `fix(phase-1/w2): apply Fraunces axes fallback`. **Result: SOFT axis CANNOT coexist with explicit `weight: ['600','700']` in `next/font/google` (Next 16.2.6 build-time error: "Axes can only be defined for variable fonts when the weight property is nonexistent or set to `variable`"). Fallback: dropped `axes`, weight-only loading. Knock-on: W3-T1 MonogramMark must trace from a static Fraunces Black source, not the runtime variable instance — back-pointer in `app/fonts.ts` and `app/icon.svg`.**
+- W2-T3 `8ddd5ca` — `feat(phase-1/w2): root layout with font vars, Analytics, SpeedInsights, divider placeholders`
+- W0 stub corrections `59aae89` — `fix(phase-1/w2): correct W0 stub specs for Turbopack + browser CSS serialization`. Two W0-stubbed tests had infrastructure assumptions wrong: `tests/build-output.spec.ts` was scanning `.next/static/css/` (webpack convention) but Turbopack emits to `.next/static/chunks/` (now recurses from `.next/static/`); `tests/visual.spec.ts` DSGN-01 regex required literal `180deg` but Chromium's `getComputedStyle.backgroundImage` serializer drops the default angle (regex now accepts both forms; authored CSS still `180deg` per D-09).
+- W2-T4 `a10d26f` — `feat(phase-1/w2): placeholder Fraunces 'Braeden' hero word`
+- W2-T5 `9ae2f74` — `feat(phase-1/w2): app/icon.svg favicon (text-on-charcoal placeholder, W3-T1 retrace pending)`
+- **Open Question #1 verdict:** A1 default shipped, no deviation — text-on-charcoal (light B `#e8e8e8` on `#0a0a0a`). Phase 2 real-device testing can flip if 16px legibility is poor.
+- **Visual milestone:** `npm run dev` now renders the real charcoal-gradient site — full-viewport gradient (`#1a1a1f` → `#0a0a0a`), 4% grain via `feTurbulence`, single Fraunces 700 "Braeden" word centered (clamp 64→96px). Placeholder hairline divider top + bottom await W3 Nav/Footer.
+- **Spec scoreboard:** 8 spec files fully GREEN, 1 partial (motion-seam keyframe ✅, lib/motion.ts contract pending), 4 deferred to W3 (focus-ring, monogram, reduced-motion, the lib/motion.ts subtest of motion-seam). `contrast` passes trivially right now and runs meaningfully after W3-T4.
+
 ### Last Session (2026-05-09 — Phase 1 Wave 1 execution)
 
 - Bootstrapped Next.js 16 + React 19 + Tailwind v4 + TS 5.9 via `npx create-next-app` (orchestrator ran non-interactively with `--yes`)
@@ -126,18 +144,23 @@ blocks favicon (Phase 1) but does not block other tokens.
 
 ### Next Session
 
-Run `/gsd-execute-phase 1 --wave 2` to ship the design-token + fonts + favicon
-layer. W2 is 5 tasks (T1 globals.css with @theme + gradient + grain + focus +
-reduced-motion + keyframe; T2 fonts.ts wiring Fraunces + Geist Sans + Geist
-Mono; T3 root layout.tsx with font vars + Analytics + SpeedInsights; T4 page.tsx
-with placeholder Fraunces hero word; T5 app/icon.svg favicon). After W2,
-**5 more specs turn GREEN** — `tests/build-output.spec.ts`, `tests/visual.spec.ts`,
-`tests/tokens.spec.ts`, `tests/lighthouse.spec.ts`, `tests/favicon.spec.ts`.
-W2-T2 should also fix the `tests/lighthouse.spec.ts` `port: number` issue
-flagged by W1's executor (re-include `tests/` in tsconfig once fixed).
+Run `/gsd-execute-phase 1 --wave 3` to ship the components + a11y contracts +
+`/_tokens` showcase. W3 is 6 tasks (T1 MonogramMark with Fraunces-traced path
++ sync app/icon.svg per D-04 single-source rule; T2 Nav with monogram + name +
+3 placeholder links; T3 Footer with muted monogram + © + braehods.com text; T4
+hidden `/_tokens` showcase route; T5 lib/motion.ts seam per CD-03; T6 sweep
+enforcement — no `'use client'`, no bare `outline:none`, full local suite).
 
-This is also the **first wave that produces a visible site** — the placeholder
-"Braeden" word in Fraunces 96px on the charcoal gradient.
+**Carry-forward into W3-T1:** Open Question #2 fallback consequence — Fraunces
+SOFT axis is unavailable at runtime under Next 16.2.6's `next/font/google`
+constraint (axes + explicit weight are mutually exclusive). MonogramMark must
+trace from a static Fraunces Black source (e.g., a downloaded `.ttf` file) not
+the runtime variable instance.
+
+**After W3, 4 more specs turn GREEN** — `tests/monogram.spec.ts`,
+`tests/focus-ring.spec.ts`, `tests/motion-seam.spec.ts` (full), `tests/reduced-motion.spec.ts`,
+`tests/contrast.spec.ts` (meaningfully). All 13 spec files green except the
+deploy-only ones, ready for W4 Vercel deploy.
 
 ---
 *State initialized: 2026-05-07 by roadmapper*
@@ -145,3 +168,4 @@ This is also the **first wave that produces a visible site** — the placeholder
 *State updated: 2026-05-08 by plan-phase (Phase 1 plan finalized)*
 *State updated: 2026-05-08 by execute-phase (Phase 1 Wave 0 complete)*
 *State updated: 2026-05-09 by execute-phase (Phase 1 Wave 1 complete)*
+*State updated: 2026-05-09 by execute-phase (Phase 1 Wave 2 complete)*
