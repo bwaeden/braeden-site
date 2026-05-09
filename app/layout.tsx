@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Nav } from '@/components/layout/Nav';
+import { Footer } from '@/components/layout/Footer';
 import { fraunces, GeistSans, GeistMono } from './fonts';
 import './globals.css';
 
@@ -18,8 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Nav />
         <main className="mx-auto max-w-3xl px-6 py-16 lg:px-12">{children}</main>
-        {/* Phase 1 W3 will replace this placeholder footer with <Footer/> */}
-        <footer className="divider-top px-6 py-8 lg:px-12" data-test="footer-placeholder" />
+        <Footer />
         <Analytics />
         <SpeedInsights />
       </body>
