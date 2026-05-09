@@ -34,7 +34,8 @@ gates are reviewable from Phase 1 onward.
   3. The B monogram appears as the favicon, in the nav, and in the footer at the right sizes (DSGN-05, SEO-07)
   4. Tabbing through any link shows a visible electric-blue focus ring; users with `prefers-reduced-motion: reduce` see no animation (DSGN-06, DSGN-08, A11Y-02, A11Y-06)
   5. Body and accent text colors clear WCAG AA against both gradient endpoints (DSGN-09)
-**Plans**: TBD
+**Plans**: 1 plan, 5 waves (W0 validation infrastructure, W1 scaffold, W2 tokens + fonts + favicon, W3 components + contracts + showcase, W4 deploy + sign-off)
+- [ ] 01-PLAN.md — Foundation + design-token surface in 5 sequential waves; ships Vercel preview URL with all 20 Phase 1 requirements verified by Playwright + axe + Lighthouse
 **UI hint**: yes
 
 ### Phase 2: Home Page
@@ -105,7 +106,7 @@ gates are reviewable from Phase 1 onward.
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation + Design Tokens | 0/0 | Not started | - |
+| 1. Foundation + Design Tokens | 0/1 | Not started | - |
 | 2. Home Page | 0/0 | Not started | - |
 | 3. About Page | 0/0 | Not started | - |
 | 4. Work + Projects | 0/0 | Not started | - |
@@ -135,3 +136,4 @@ A11Y, PERF, and SEO are NOT separate phases. They are baked into the phase that 
 ---
 *Roadmap created: 2026-05-07*
 *Source requirements: 67 v1 items across FOUND, DSGN, HOME, ABOUT, WORK, CTCT, SEO, A11Y, PERF, LNCH*
+*Last updated: 2026-05-08 by gsd-planner — Phase 1 plan finalized*
