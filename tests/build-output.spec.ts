@@ -1,11 +1,17 @@
 /**
  * FOUND-02: Tailwind v4 `@theme` compiles to CSS custom props.
  *
- * Reads every CSS file under `.next/static/css/` and asserts at least one
- * file contains `--color-bg-end: #0a0a0a` (whitespace tolerant).
+ * Recursively scans `.next/static/` (Turbopack emits CSS under
+ * `.next/static/chunks/`, NOT the webpack-era `.next/static/css/`) and
+ * asserts at least one CSS file contains `--color-bg-end: #0a0a0a`
+ * (whitespace tolerant).
  *
  * This spec is RED until W2 lands `@theme` tokens in `app/globals.css` and
  * a `npm run build` is performed before invoking the test.
+ *
+ * NOTE: W0 stubbed this with the webpack output path. W2 corrected the path
+ * to scan all of `.next/static/` because Next 16's default Turbopack bundler
+ * places compiled CSS under `chunks/` rather than `css/`.
  */
 import { test, expect } from '@playwright/test';
 import * as fs from 'node:fs';
@@ -27,12 +33,12 @@ function collectCssFiles(dir: string): string[] {
 }
 
 test('Tailwind @theme emits --color-bg-end: #0a0a0a in built CSS', () => {
-  const cssDir = path.resolve(process.cwd(), '.next/static/css');
+  const cssDir = path.resolve(process.cwd(), '.next/static');
   const cssFiles = collectCssFiles(cssDir);
 
   expect(
     cssFiles.length,
-    'expected at least one CSS file under .next/static/css/ — run `npm run build` first'
+    'expected at least one CSS file under .next/static/ — run `npm run build` first'
   ).toBeGreaterThan(0);
 
   // Whitespace-tolerant match for `--color-bg-end: #0a0a0a` (Tailwind may

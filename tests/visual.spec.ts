@@ -18,8 +18,14 @@ test.describe('Body gradient and grain overlay (DSGN-01, DSGN-02)', () => {
 
   test('DSGN-01: body backgroundImage is the charcoal linear-gradient', async ({ page }) => {
     const bg = await page.evaluate(() => getComputedStyle(document.body).backgroundImage);
+    // NOTE: Chromium's getComputedStyle normalizes `linear-gradient(180deg, ...)`
+    // by dropping the explicit 180deg (the default). Match either form so the
+    // assertion verifies the *visual* contract (top-to-bottom charcoal) rather
+    // than a serializer artifact. The 180deg literal is preserved in the
+    // authored CSS in app/globals.css (D-09) — only the computed-style
+    // serialization elides it.
     expect(bg).toMatch(
-      /linear-gradient\(180deg,\s*rgb\(26,\s*26,\s*31\),\s*rgb\(10,\s*10,\s*10\)\)/
+      /linear-gradient\((?:180deg,\s*)?rgb\(26,\s*26,\s*31\),\s*rgb\(10,\s*10,\s*10\)\)/
     );
   });
 
