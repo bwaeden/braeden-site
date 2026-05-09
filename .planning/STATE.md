@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in_progress
-last_updated: "2026-05-08T08:30:00.000Z"
+last_updated: "2026-05-09T00:35:00.000Z"
 progress:
   total_phases: 6
   completed_phases: 0
@@ -13,8 +13,8 @@ progress:
 
 # Project State: Braeden Site (braehods.com)
 
-**Last updated:** 2026-05-08
-**Updated by:** execute-phase (Phase 1 / Wave 0 complete)
+**Last updated:** 2026-05-09
+**Updated by:** execute-phase (Phase 1 / Wave 1 complete)
 
 ## Project Reference
 
@@ -25,21 +25,22 @@ contact-conversion #2.
 **Stack:** Next.js 16.2.6 (App Router) + React 19.2 + TypeScript 5.9 +
 Tailwind v4 + `@next/mdx` + Fraunces / Geist Sans / Geist Mono + Vercel.
 
-**Current focus:** Phase 1 / Plan 01 mid-flight. Wave 0 (validation infra)
-shipped. Awaiting `/gsd-execute-phase 1 --wave 1` for the project scaffold.
+**Current focus:** Phase 1 / Plan 01 mid-flight. W0 (validation infra) + W1
+(Next.js scaffold) shipped. Awaiting `/gsd-execute-phase 1 --wave 2` for the
+design-token + fonts + favicon layer.
 
 ## Current Position
 
 **Milestone:** v1 (initial launch at braehods.com)
 **Phase:** Phase 1 — execution in progress
 **Plan:** 01-PLAN.md (5 waves, 22 tasks)
-**Status:** W0 complete (2/22 tasks, 0/20 reqs GREEN — by design; W0 stubs are RED until W1-W3)
-**Wave progress:** W0 ✅ · W1 ⏳ · W2 ⏳ · W3 ⏳ · W4 ⏳
+**Status:** W0 + W1 complete (6/22 tasks); 1/13 W0 specs GREEN (`tests/folder-structure.spec.ts`)
+**Wave progress:** W0 ✅ · W1 ✅ · W2 ⏳ · W3 ⏳ · W4 ⏳
 
-**Progress:** Phase 0/6 complete (Phase 1 plan 0% complete by tasks)
+**Progress:** Phase 0/6 complete (Phase 1 plan 27% complete by tasks)
 
 ```
-[##--------] 9% (2/22 plan tasks) — validation infra in place, scaffold next
+[######----] 27% (6/22 plan tasks) — Next.js scaffold ready, tokens + fonts next
 ```
 
 ## Performance Metrics
@@ -87,13 +88,18 @@ blocks favicon (Phase 1) but does not block other tokens.
 
 ## Session Continuity
 
-### Last Session (2026-05-08 — Phase 1 discuss-phase)
+### Last Session (2026-05-09 — Phase 1 Wave 1 execution)
 
-- Loaded prior context (PROJECT.md, REQUIREMENTS.md, ROADMAP.md, all 5 research docs, CLAUDE.md)
-- Identified 4 gray areas; user selected 3: Monogram, Tokens, Bootstrap+Vercel
-- Ran 4 questions per area (12 total), captured 14 implementation decisions + 3 Claude-discretion items (CD-01..03 covering reduced-motion + focus-ring per PITFALLS.md)
-- Updated REQUIREMENTS.md DSGN-03 muted color from `~#707070` → `#a8a8a8` to clear AA against `#0a0a0a` (resolves PITFALLS Pitfall 1)
-- Wrote `.planning/phases/01-foundation-design-tokens/01-CONTEXT.md` and `01-DISCUSSION-LOG.md`
+- Bootstrapped Next.js 16 + React 19 + Tailwind v4 + TS 5.9 via `npx create-next-app` (orchestrator ran non-interactively with `--yes`)
+- Spawned `gsd-executor` for W1-T2..T4 only (W1-T1 was orchestrator-completed)
+- W1-T2 committed `e97a55f` — `chore(phase-1/w1): merge create-next-app bootstrap, pin versions, harden tsconfig`
+- W1-T3 committed `8c8670a` — `chore(phase-1/w1): folder layout, prettier, env scaffold, README`
+- W1-T4 committed `2e082cb` — `chore(phase-1/w1): mdx wiring, lib/utils, typed data scaffolds`
+- **`tests/folder-structure.spec.ts` GREEN** — first W1 milestone
+- Versions pinned: Next 16.2.6, React 19.2.4 (vs plan 19.2.6 — patch drift, within spec), Tailwind 4.3.0 (vs research 4.2.4 — minor drift, latest stable), `@playwright/test` ^1.59.1 (preserved from W0)
+- Bootstrap dir `../braeden-site-bootstrap/` deleted; `app/favicon.ico` deleted (D-04)
+- Executor deviations (all logged): excluded `tests/` from `tsconfig.json` (W0's lighthouse spec has a real type error against `playwright-lighthouse@4`'s API — W2-T2 revisits); added `.prettierignore` to protect `.planning/`, `CLAUDE.md`, `tests/`, `playwright.config.ts` from formatter
+- Carried-forward TODO: `tests/lighthouse.spec.ts` needs a `port: number` arg per `playwright-lighthouse@4` — W2-T2 (font work) is the natural place to fix it
 
 ### Last Session (2026-05-08 — Phase 1 Wave 0 execution)
 
@@ -110,14 +116,6 @@ blocks favicon (Phase 1) but does not block other tokens.
 - Committed `bc5b1ce plan(phase-1): finalize 01-PLAN.md (5 waves, 22 tasks, 20 reqs)`
 - ROADMAP updated to reflect 1 plan / 5 waves
 
-### Last Session (2026-05-08 — Phase 1 discuss-phase)
-
-- Loaded prior context (PROJECT.md, REQUIREMENTS.md, ROADMAP.md, all 5 research docs, CLAUDE.md)
-- Identified 4 gray areas; user selected 3: Monogram, Tokens, Bootstrap+Vercel
-- Ran 4 questions per area (12 total), captured 14 implementation decisions + 3 Claude-discretion items (CD-01..03 covering reduced-motion + focus-ring per PITFALLS.md)
-- Updated REQUIREMENTS.md DSGN-03 muted color from `~#707070` → `#a8a8a8` to clear AA against `#0a0a0a` (resolves PITFALLS Pitfall 1)
-- Wrote `.planning/phases/01-foundation-design-tokens/01-CONTEXT.md` and `01-DISCUSSION-LOG.md`
-
 ### Last Session (2026-05-07 — initialization)
 
 - Read PROJECT.md, REQUIREMENTS.md (67 v1 reqs), research SUMMARY/ARCHITECTURE/STACK/PITFALLS
@@ -128,15 +126,22 @@ blocks favicon (Phase 1) but does not block other tokens.
 
 ### Next Session
 
-Run `/gsd-execute-phase 1 --wave 1` to bootstrap Next.js 16 + React 19 + TS 5.9
-+ Tailwind v4 via `create-next-app`, merge into the repo (preserving `.git/`,
-`.planning/`, `CLAUDE.md`, `tests/`, `playwright.config.ts`), commit configs,
-ship typed data scaffolds + `mdx-components.tsx`. Turns
-`tests/folder-structure.spec.ts` GREEN. (W1 is 4 tasks: T1 bootstrap, T2 merge,
-T3 layout/configs/.env, T4 mdx + lib + data scaffolds.)
+Run `/gsd-execute-phase 1 --wave 2` to ship the design-token + fonts + favicon
+layer. W2 is 5 tasks (T1 globals.css with @theme + gradient + grain + focus +
+reduced-motion + keyframe; T2 fonts.ts wiring Fraunces + Geist Sans + Geist
+Mono; T3 root layout.tsx with font vars + Analytics + SpeedInsights; T4 page.tsx
+with placeholder Fraunces hero word; T5 app/icon.svg favicon). After W2,
+**5 more specs turn GREEN** — `tests/build-output.spec.ts`, `tests/visual.spec.ts`,
+`tests/tokens.spec.ts`, `tests/lighthouse.spec.ts`, `tests/favicon.spec.ts`.
+W2-T2 should also fix the `tests/lighthouse.spec.ts` `port: number` issue
+flagged by W1's executor (re-include `tests/` in tsconfig once fixed).
+
+This is also the **first wave that produces a visible site** — the placeholder
+"Braeden" word in Fraunces 96px on the charcoal gradient.
 
 ---
 *State initialized: 2026-05-07 by roadmapper*
 *State updated: 2026-05-08 by discuss-phase (Phase 1 context)*
 *State updated: 2026-05-08 by plan-phase (Phase 1 plan finalized)*
 *State updated: 2026-05-08 by execute-phase (Phase 1 Wave 0 complete)*
+*State updated: 2026-05-09 by execute-phase (Phase 1 Wave 1 complete)*
