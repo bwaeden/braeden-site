@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in_progress
-last_updated: "2026-05-09T01:30:00.000Z"
+last_updated: "2026-05-09T03:00:00.000Z"
 progress:
   total_phases: 6
   completed_phases: 0
@@ -14,7 +14,7 @@ progress:
 # Project State: Braeden Site (braehods.com)
 
 **Last updated:** 2026-05-09
-**Updated by:** execute-phase (Phase 1 / Wave 2 complete)
+**Updated by:** execute-phase (Phase 1 / Wave 3 complete — 13/13 specs GREEN locally)
 
 ## Project Reference
 
@@ -25,25 +25,26 @@ contact-conversion #2.
 **Stack:** Next.js 16.2.6 (App Router) + React 19.2 + TypeScript 5.9 +
 Tailwind v4 + `@next/mdx` + Fraunces / Geist Sans / Geist Mono + Vercel.
 
-**Current focus:** Phase 1 / Plan 01 mid-flight. W0 + W1 + W2 shipped. **First
-visible site exists** — charcoal gradient + grain + Fraunces "Braeden" hero word
-on `/`. Awaiting `/gsd-execute-phase 1 --wave 3` for components + a11y contracts
-+ `/_tokens` showcase.
+**Current focus:** Phase 1 / Plan 01 — all local work complete. W0 + W1 + W2 +
+W3 shipped; **13/13 spec files GREEN locally**. Site renders Nav + hero +
+Footer + hidden `/_tokens` showcase with real Fraunces-Black-traced monogram.
+Only W4 (Vercel deploy + sign-off) remains; user must do Vercel dashboard
+pre-work before running `/gsd-execute-phase 1 --wave 4`.
 
 ## Current Position
 
 **Milestone:** v1 (initial launch at braehods.com)
-**Phase:** Phase 1 — execution in progress
+**Phase:** Phase 1 — execution in progress (W4 deploy pending)
 **Plan:** 01-PLAN.md (5 waves, 22 tasks)
-**Status:** W0 + W1 + W2 complete (11/22 tasks); 8/13 spec files fully GREEN, 1 partial, 4 deferred to W3
-**Wave progress:** W0 ✅ · W1 ✅ · W2 ✅ · W3 ⏳ · W4 ⏳
+**Status:** W0 + W1 + W2 + W3 complete (17/22 tasks); 13/13 spec files GREEN locally
+**Wave progress:** W0 ✅ · W1 ✅ · W2 ✅ · W3 ✅ · W4 ⏳
 
-**Spec scoreboard (after W2):** GREEN — `build-output`, `favicon`, `folder-structure`, `lighthouse` (CLS+hero-font; mono deferred), `no-bare-outline-none`, `no-client-components`, `tokens`, `visual` (DSGN-01+02). Partial — `motion-seam` (keyframe ✅, lib/motion.ts contract pending W3). Deferred to W3 — `contrast`, `focus-ring`, `monogram`, `reduced-motion`.
+**Spec scoreboard (after W3):** All 13 spec files GREEN. Lighthouse Performance score not asserted locally (threshold=0); meaningful Performance number arrives in W4 against Vercel CDN. CLS=0 holds locally.
 
-**Progress:** Phase 0/6 complete (Phase 1 plan 50% complete by tasks)
+**Progress:** Phase 0/6 complete (Phase 1 plan 77% complete by tasks; only deploy + sign-off remain)
 
 ```
-[#####-----] 50% (11/22 plan tasks) — visible site shipped; components + a11y next
+[########--] 77% (17/22 plan tasks) — all code shipped; deploy is what's left
 ```
 
 ## Performance Metrics
@@ -90,6 +91,26 @@ research sprints required. The one design dependency is the B monogram, which
 blocks favicon (Phase 1) but does not block other tokens.
 
 ## Session Continuity
+
+### Last Session (2026-05-09 — Phase 1 Wave 3 execution)
+
+- Spawned `gsd-executor` for W3-T1..T6 sequentially on master
+- W3-T1 `fabeedd` — `feat(phase-1/w3): MonogramMark component + sync app/icon.svg path`
+- W3-T2 `a282ffd` — `feat(phase-1/w3): Nav component (monogram + name + 3 placeholder links)`
+- W3-T3 `6f0643b` — `feat(phase-1/w3): Footer component (muted monogram + (c) + braehods.com)`
+- W3-T4 `d1792a4` — `feat(phase-1/w3): hidden /_tokens showcase route (Colors + Typography + Monogram)`
+- W3-T5 `fd5cbcd` — `feat(phase-1/w3): lib/motion.ts isolation seam (CD-03)`
+- W3-T6 `ab215f6` — `chore(phase-1/w3): full local sweep — 13/13 specs GREEN, lint/typecheck/format clean`
+- **Monogram path provenance:** Real Fraunces tracing succeeded via opentype.js. Downloaded Fraunces v38 weight 900 (Black) TTF from gstatic.com, extracted "B" glyph via `font.charToGlyph('B').getPath()`, scaled to 64×64 viewBox with ~6px padding. Quadratic Bézier curves preserved (real letterforms, not geometric placeholder). MD5 of `<path d>` substring is byte-identical between `components/ui/MonogramMark.tsx` and `app/icon.svg` (`360deacfd3f695e5cb4b2cae542a7c42`) — D-04 single-source contract held. SOFT axis still unavailable (W2 OQ#2 verdict); Phase 6 designer-pass (D-01) replaces with the final designed mark. No font binaries committed (`opentype.js` was `--no-save`).
+- **3 deviations all logged in commit messages, all blocking-bugs in W0 stubs / Next.js conventions:**
+  1. **`app/_tokens/` route — Next App Router treats leading-underscore folders as private and excludes from routing.** Workaround: folder name on disk is `app/%5Ftokens/` (URL-encoded `_`); routes correctly to `/_tokens` per spec/test expectations. Significant: D-11 in CONTEXT.md said `app/_tokens/` literally — this workaround should be flagged for any future refactor.
+  2. Added `"type": "module"` to `package.json` so Node 24's TS-stripping handles `tests/motion-seam.spec.ts`'s dynamic absolute-path import of `lib/motion.ts`. Verified `next build`, ESLint, Prettier all still work (project uses explicit `.cjs`/`.mjs`/`.ts` extensions throughout).
+  3. Three browser-CSS-serialization quirks fixed in spec assertions (no authored CSS changed):
+     - `tests/focus-ring.spec.ts`: Chromium serializes `outline` shorthand as `rgb(...) solid 2px` (color-style-width), not `2px solid rgb(...)`. Regex now accepts both orderings. Also: Phase 1 has 4 focusable elements on `/` (logo + 3 nav stubs; footer is plain text per UI-SPEC) — spec walks up to 5 Tab steps and asserts ≥1 focusable visited.
+     - `tests/reduced-motion.spec.ts`: Chromium normalizes `0.01ms` to `1e-05s`. Assertion accepts either form.
+- **Spec scoreboard: 13/13 spec files GREEN locally** (16/16 individual tests). Lighthouse Performance score not asserted locally (threshold=0; W4 against Vercel CDN is the meaningful number). CLS=0 holds locally.
+- **Sweep audit clean:** 0 `'use client'` in `app/`/`components/`/`lib/` (after comment-strip); 0 bare `outline: none` in `app/globals.css` not paired with `:focus-visible`. `lint`/`typecheck`/`format` all exit 0.
+- **Visual milestone:** site is now feature-complete locally — Nav (monogram + name + About/Work/Contact placeholder links) → centered Fraunces 700 "Braeden" hero → Footer (muted monogram + © 2026 + braehods.com text). Tab cycles a 2px electric-blue accent ring. `/_tokens` shows 6 color swatches + typography ramp + 5 monogram sizes + accent variant.
 
 ### Last Session (2026-05-09 — Phase 1 Wave 2 execution)
 
@@ -144,23 +165,28 @@ blocks favicon (Phase 1) but does not block other tokens.
 
 ### Next Session
 
-Run `/gsd-execute-phase 1 --wave 3` to ship the components + a11y contracts +
-`/_tokens` showcase. W3 is 6 tasks (T1 MonogramMark with Fraunces-traced path
-+ sync app/icon.svg per D-04 single-source rule; T2 Nav with monogram + name +
-3 placeholder links; T3 Footer with muted monogram + © + braehods.com text; T4
-hidden `/_tokens` showcase route; T5 lib/motion.ts seam per CD-03; T6 sweep
-enforcement — no `'use client'`, no bare `outline:none`, full local suite).
+Run `/gsd-execute-phase 1 --wave 4` to deploy + observe + sign off. W4 is 5
+tasks (T1 connect Vercel + push to GitHub triggering preview deploy; T2 run
+full Playwright suite against deployed preview URL with `PLAYWRIGHT_BASE_URL`;
+T3 manual mix-blend-mode mobile-perf checkpoint per D-09 escape-hatch — keep
+overlay if Lighthouse mobile ≥95 else fall back to flat opacity; T4 manual
+FOUND-05 sign-off — push 3 commits, observe each preview deploys ≤2 min; T5
+final commit + merge to main + write `01-01-SUMMARY.md`).
 
-**Carry-forward into W3-T1:** Open Question #2 fallback consequence — Fraunces
-SOFT axis is unavailable at runtime under Next 16.2.6's `next/font/google`
-constraint (axes + explicit weight are mutually exclusive). MonogramMark must
-trace from a static Fraunces Black source (e.g., a downloaded `.ttf` file) not
-the runtime variable instance.
+**BLOCKING — user must complete Vercel-dashboard pre-work before W4 can run:**
 
-**After W3, 4 more specs turn GREEN** — `tests/monogram.spec.ts`,
-`tests/focus-ring.spec.ts`, `tests/motion-seam.spec.ts` (full), `tests/reduced-motion.spec.ts`,
-`tests/contrast.spec.ts` (meaningfully). All 13 spec files green except the
-deploy-only ones, ready for W4 Vercel deploy.
+1. **Create Vercel project** named `braeden-site` (framework Next.js, prod branch `main`). Push the local repo to GitHub first if not already (Vercel needs the GitHub integration).
+2. **Add custom domains** `braehods.com` and `www.braehods.com` in Vercel → Project Settings → Domains. **DNS still points at GitHub Pages — Vercel will show "Invalid Configuration", THAT IS EXPECTED** (Pitfall 17 per RESEARCH.md). SSL pre-stages anyway. The actual DNS swap happens in Phase 6.
+3. **Add env var** `NEXT_PUBLIC_FORMSPREE_ID=xqeypnkw` for Production + Preview + Development scopes (D-13).
+4. **Confirm Preview Deployments** are enabled on every branch + PR (Vercel default; verify in Project Settings → Git).
+
+When all 4 are done, run `/gsd-execute-phase 1 --wave 4`. If you don't have a
+GitHub remote yet, the orchestrator can help wire that up first.
+
+**Known carry-forward to Phase 6:**
+- `app/%5Ftokens/` URL-encoded folder (Next App Router private-folder workaround). Phase 6 deletes `/_tokens` entirely so this is naturally cleaned up.
+- Real designed monogram (D-01) replaces the Fraunces-Black-traced placeholder.
+- Real photo replaces v1 placeholder (Phase 2).
 
 ---
 *State initialized: 2026-05-07 by roadmapper*
@@ -169,3 +195,4 @@ deploy-only ones, ready for W4 Vercel deploy.
 *State updated: 2026-05-08 by execute-phase (Phase 1 Wave 0 complete)*
 *State updated: 2026-05-09 by execute-phase (Phase 1 Wave 1 complete)*
 *State updated: 2026-05-09 by execute-phase (Phase 1 Wave 2 complete)*
+*State updated: 2026-05-09 by execute-phase (Phase 1 Wave 3 complete — 13/13 specs GREEN locally)*

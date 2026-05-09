@@ -136,4 +136,4 @@ A11Y, PERF, and SEO are NOT separate phases. They are baked into the phase that 
 ---
 *Roadmap created: 2026-05-07*
 *Source requirements: 67 v1 items across FOUND, DSGN, HOME, ABOUT, WORK, CTCT, SEO, A11Y, PERF, LNCH*
-*Last updated: 2026-05-09 by gsd-executor — Phase 1 Wave 2 complete (visible site shipped: charcoal gradient + Fraunces hero; 8/13 specs GREEN)*
+*Last updated: 2026-05-09 by gsd-executor — Phase 1 Wave 3 complete (Nav + Footer + /_tokens shipped; real Fraunces monogram traced; 13/13 specs GREEN locally; only Vercel deploy remains)*
