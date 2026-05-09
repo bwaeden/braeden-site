@@ -1,0 +1,15 @@
+<!-- app/icon.svg
+     Source: CONTEXT.md D-04, D-05; nextjs.org/docs/app/api-reference/file-conventions/metadata/app-icons
+     Direction: text-on-charcoal (light B on dark bg) per RESEARCH.md A1 default.
+     If real-device 16px legibility is poor in Phase 2 testing, swap fill/background.
+     The <path> below is a Phase 1 W2 placeholder. W3-T1 (MonogramMark) will trace
+     the final path from Fraunces Black + SOFT axis full and update BOTH this file
+     AND components/ui/MonogramMark.tsx (D-04: single source). -->
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 64 64" shape-rendering="crispEdges">
+  <rect width="64" height="64" fill="#0a0a0a"/>
+  <!-- TODO(W3-T1): replace with traced Fraunces Black SOFT-axis-full B path -->
+  <path
+    d="M16 12 H36 C42 12 46 16 46 22 C46 26 44 29 41 30 C45 31 48 35 48 40 C48 47 43 52 36 52 H16 Z M22 18 V28 H35 C38 28 40 26 40 23 C40 20 38 18 35 18 Z M22 34 V46 H36 C40 46 42 43 42 40 C42 37 40 34 36 34 Z"
+    fill="#e8e8e8"
+  />
+</svg>
