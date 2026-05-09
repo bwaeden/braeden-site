@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: completed
-last_updated: "2026-05-08T07:42:42.578Z"
+status: in_progress
+last_updated: "2026-05-08T08:30:00.000Z"
 progress:
   total_phases: 6
   completed_phases: 0
-  total_plans: 0
+  total_plans: 1
   completed_plans: 0
 ---
 
 # Project State: Braeden Site (braehods.com)
 
 **Last updated:** 2026-05-08
-**Updated by:** discuss-phase (Phase 1 context)
+**Updated by:** execute-phase (Phase 1 / Wave 0 complete)
 
 ## Project Reference
 
@@ -25,20 +25,21 @@ contact-conversion #2.
 **Stack:** Next.js 16.2.6 (App Router) + React 19.2 + TypeScript 5.9 +
 Tailwind v4 + `@next/mdx` + Fraunces / Geist Sans / Geist Mono + Vercel.
 
-**Current focus:** Phase 1 context captured. Awaiting `/gsd-plan-phase 1` for
-Phase 1 (Foundation + Design Tokens).
+**Current focus:** Phase 1 / Plan 01 mid-flight. Wave 0 (validation infra)
+shipped. Awaiting `/gsd-execute-phase 1 --wave 1` for the project scaffold.
 
 ## Current Position
 
 **Milestone:** v1 (initial launch at braehods.com)
-**Phase:** Phase 1 — context gathered, ready for planning
-**Plan:** None
-**Status:** Discuss-phase complete, awaiting plan-phase
+**Phase:** Phase 1 — execution in progress
+**Plan:** 01-PLAN.md (5 waves, 22 tasks)
+**Status:** W0 complete (2/22 tasks, 0/20 reqs GREEN — by design; W0 stubs are RED until W1-W3)
+**Wave progress:** W0 ✅ · W1 ⏳ · W2 ⏳ · W3 ⏳ · W4 ⏳
 
-**Progress:** Phase 0/6 complete
+**Progress:** Phase 0/6 complete (Phase 1 plan 0% complete by tasks)
 
 ```
-[----------] 0% — Roadmap defined, no phases planned yet
+[##--------] 9% (2/22 plan tasks) — validation infra in place, scaffold next
 ```
 
 ## Performance Metrics
@@ -94,6 +95,29 @@ blocks favicon (Phase 1) but does not block other tokens.
 - Updated REQUIREMENTS.md DSGN-03 muted color from `~#707070` → `#a8a8a8` to clear AA against `#0a0a0a` (resolves PITFALLS Pitfall 1)
 - Wrote `.planning/phases/01-foundation-design-tokens/01-CONTEXT.md` and `01-DISCUSSION-LOG.md`
 
+### Last Session (2026-05-08 — Phase 1 Wave 0 execution)
+
+- Spawned `gsd-executor` for Phase 1 / Plan 01 / Wave 0 only (user is pacing wave-by-wave)
+- W0-T1 committed `1ecc966` — `chore(phase-1/w0): install Playwright + axe + Lighthouse, scaffold config`
+- W0-T2 committed `0a14e38` — `chore(phase-1/w0): stub 13 RED test specs (validation infra ready)`
+- Created `.gitignore` (executor deviation, sensible — needed for `node_modules/`)
+- `@playwright/test` resolved to `^1.59.1` (caret-resolved from `^1.55.0`; within spec)
+- 13 spec files in `tests/` collect cleanly; 15/16 fail with assertions (RED contract); `tests/no-client-components.spec.ts` passes trivially because target dirs (`app/`, `components/`, `lib/`) don't exist yet — gates meaningfully starting W1
+
+### Last Session (2026-05-08 — Phase 1 plan-phase finalization)
+
+- Finalized `01-PLAN.md` (1759 lines, 5 waves, 22 tasks, 20 requirements)
+- Committed `bc5b1ce plan(phase-1): finalize 01-PLAN.md (5 waves, 22 tasks, 20 reqs)`
+- ROADMAP updated to reflect 1 plan / 5 waves
+
+### Last Session (2026-05-08 — Phase 1 discuss-phase)
+
+- Loaded prior context (PROJECT.md, REQUIREMENTS.md, ROADMAP.md, all 5 research docs, CLAUDE.md)
+- Identified 4 gray areas; user selected 3: Monogram, Tokens, Bootstrap+Vercel
+- Ran 4 questions per area (12 total), captured 14 implementation decisions + 3 Claude-discretion items (CD-01..03 covering reduced-motion + focus-ring per PITFALLS.md)
+- Updated REQUIREMENTS.md DSGN-03 muted color from `~#707070` → `#a8a8a8` to clear AA against `#0a0a0a` (resolves PITFALLS Pitfall 1)
+- Wrote `.planning/phases/01-foundation-design-tokens/01-CONTEXT.md` and `01-DISCUSSION-LOG.md`
+
 ### Last Session (2026-05-07 — initialization)
 
 - Read PROJECT.md, REQUIREMENTS.md (67 v1 reqs), research SUMMARY/ARCHITECTURE/STACK/PITFALLS
@@ -104,11 +128,15 @@ blocks favicon (Phase 1) but does not block other tokens.
 
 ### Next Session
 
-Run `/gsd-plan-phase 1` to decompose Phase 1 (Foundation + Design Tokens) into
-plans, with `01-CONTEXT.md` as input. Phase 1 is on the critical path — every
-later phase depends on the token system, monogram, font loading, and motion
-contract.
+Run `/gsd-execute-phase 1 --wave 1` to bootstrap Next.js 16 + React 19 + TS 5.9
++ Tailwind v4 via `create-next-app`, merge into the repo (preserving `.git/`,
+`.planning/`, `CLAUDE.md`, `tests/`, `playwright.config.ts`), commit configs,
+ship typed data scaffolds + `mdx-components.tsx`. Turns
+`tests/folder-structure.spec.ts` GREEN. (W1 is 4 tasks: T1 bootstrap, T2 merge,
+T3 layout/configs/.env, T4 mdx + lib + data scaffolds.)
 
 ---
 *State initialized: 2026-05-07 by roadmapper*
 *State updated: 2026-05-08 by discuss-phase (Phase 1 context)*
+*State updated: 2026-05-08 by plan-phase (Phase 1 plan finalized)*
+*State updated: 2026-05-08 by execute-phase (Phase 1 Wave 0 complete)*
