@@ -1,0 +1,29 @@
+# Build artifacts
+.next/
+node_modules/
+out/
+build/
+coverage/
+playwright-report/
+test-results/
+
+# Lockfiles
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Project planning artifacts (manually edited, do not auto-format)
+.planning/
+
+# Project conventions doc (auto-generated sections + LLM-edited content)
+CLAUDE.md
+AGENTS.md
+
+# W0 test specs (owned by the W0 wave; reformatted only by W0 author)
+tests/
+
+# Playwright config (owned by W0)
+playwright.config.ts
+
+# Env files
+.env*

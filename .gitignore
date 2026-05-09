@@ -45,6 +45,9 @@ yarn-error.log*
 .env*
 !.env.local.example
 
+# bootstrap scratch dirs (e.g., create-next-app temp output)
+*-bootstrap/
+
 # vercel
 .vercel
 

@@ -28,6 +28,8 @@
     "eslint": "^9.39.4",
     "eslint-config-next": "16.2.6",
     "playwright-lighthouse": "^4.0.0",
+    "prettier": "^3.8.0",
+    "prettier-plugin-tailwindcss": "^0.8.0",
     "tailwindcss": "4.3.0",
     "typescript": "5.9.3"
   }
