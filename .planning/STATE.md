@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in_progress
-last_updated: "2026-05-09T03:00:00.000Z"
+last_updated: "2026-05-09T22:54:00.000Z"
 progress:
   total_phases: 6
   completed_phases: 0
@@ -13,8 +13,8 @@ progress:
 
 # Project State: Braeden Site (braehods.com)
 
-**Last updated:** 2026-05-09
-**Updated by:** execute-phase (Phase 1 / Wave 3 complete — 13/13 specs GREEN locally)
+**Last updated:** 2026-05-09 (resumed)
+**Updated by:** resume-work (Phase 1 / W4 mid-flight — T1+T2 done, T3..T5 pending)
 
 ## Project Reference
 
@@ -25,26 +25,29 @@ contact-conversion #2.
 **Stack:** Next.js 16.2.6 (App Router) + React 19.2 + TypeScript 5.9 +
 Tailwind v4 + `@next/mdx` + Fraunces / Geist Sans / Geist Mono + Vercel.
 
-**Current focus:** Phase 1 / Plan 01 — all local work complete. W0 + W1 + W2 +
-W3 shipped; **13/13 spec files GREEN locally**. Site renders Nav + hero +
-Footer + hidden `/_tokens` showcase with real Fraunces-Black-traced monogram.
-Only W4 (Vercel deploy + sign-off) remains; user must do Vercel dashboard
-pre-work before running `/gsd-execute-phase 1 --wave 4`.
+**Current focus:** Phase 1 / Plan 01 — W4 mid-flight on branch
+`test/phase-1-preview`. W4-T1 (Vercel project + GitHub push + env var +
+domains) done; W4-T2 (full Playwright suite vs preview URL) GREEN at
+**32/32 specs** against `https://braeden-site.vercel.app`. Remaining:
+W4-T3 mix-blend-mode mobile-perf checkpoint (manual), W4-T4 FOUND-05
+sign-off (3 timing pushes — 1/3 done via `f5e2b73`), W4-T5 merge to main
++ write `01-01-SUMMARY.md`.
 
 ## Current Position
 
 **Milestone:** v1 (initial launch at braehods.com)
-**Phase:** Phase 1 — execution in progress (W4 deploy pending)
+**Phase:** Phase 1 — W4 in progress (T1+T2 done; T3..T5 pending)
 **Plan:** 01-PLAN.md (5 waves, 22 tasks)
-**Status:** W0 + W1 + W2 + W3 complete (17/22 tasks); 13/13 spec files GREEN locally
-**Wave progress:** W0 ✅ · W1 ✅ · W2 ✅ · W3 ✅ · W4 ⏳
+**Branch:** `test/phase-1-preview` (not yet merged to `main`)
+**Status:** W0+W1+W2+W3 complete + W4-T1+W4-T2 done (~19/22 tasks)
+**Wave progress:** W0 ✅ · W1 ✅ · W2 ✅ · W3 ✅ · W4 🟡 (2/5)
 
-**Spec scoreboard (after W3):** All 13 spec files GREEN. Lighthouse Performance score not asserted locally (threshold=0); meaningful Performance number arrives in W4 against Vercel CDN. CLS=0 holds locally.
+**Spec scoreboard (after W4-T2):** **32/32 specs GREEN against deployed Vercel preview** (`https://braeden-site.vercel.app`). One spec accommodation landed (`315afd6`): `tests/lighthouse.spec.ts` tolerates `CLS=undefined` flake on chromium-desktop runs (Lighthouse intermittently fails to collect frame data). Mobile CLS=0 still binding per phase target.
 
-**Progress:** Phase 0/6 complete (Phase 1 plan 77% complete by tasks; only deploy + sign-off remain)
+**Progress:** Phase 0/6 complete (Phase 1 plan ~86% complete by tasks; manual checkpoints + merge + SUMMARY remain)
 
 ```
-[########--] 77% (17/22 plan tasks) — all code shipped; deploy is what's left
+[########.-] ~86% (≈19/22 plan tasks) — code shipped + deployed + verified; manual sign-off + merge remain
 ```
 
 ## Performance Metrics
@@ -163,25 +166,32 @@ blocks favicon (Phase 1) but does not block other tokens.
 - Distributed cross-cutting A11Y / PERF / SEO across phases per instructions
 - Wrote ROADMAP.md, STATE.md, updated REQUIREMENTS.md traceability table
 
-### Next Session
+### Next Session — RESUME W4 mid-flight
 
-Run `/gsd-execute-phase 1 --wave 4` to deploy + observe + sign off. W4 is 5
-tasks (T1 connect Vercel + push to GitHub triggering preview deploy; T2 run
-full Playwright suite against deployed preview URL with `PLAYWRIGHT_BASE_URL`;
-T3 manual mix-blend-mode mobile-perf checkpoint per D-09 escape-hatch — keep
-overlay if Lighthouse mobile ≥95 else fall back to flat opacity; T4 manual
-FOUND-05 sign-off — push 3 commits, observe each preview deploys ≤2 min; T5
-final commit + merge to main + write `01-01-SUMMARY.md`).
+**W4-T1 done** (Vercel project `braeden-site` linked to `bwaeden/braeden-site`,
+preview live at `https://braeden-site.vercel.app`, `NEXT_PUBLIC_FORMSPREE_ID`
+set, custom domains added with expected "Invalid Configuration" pending DNS
+swap in Phase 6).
 
-**BLOCKING — user must complete Vercel-dashboard pre-work before W4 can run:**
+**W4-T2 done** (`315afd6 fix(phase-1/w4): tolerate Lighthouse CLS=undefined
+flake on chromium-desktop`) — 32/32 specs GREEN vs the deployed preview.
 
-1. **Create Vercel project** named `braeden-site` (framework Next.js, prod branch `main`). Push the local repo to GitHub first if not already (Vercel needs the GitHub integration).
-2. **Add custom domains** `braehods.com` and `www.braehods.com` in Vercel → Project Settings → Domains. **DNS still points at GitHub Pages — Vercel will show "Invalid Configuration", THAT IS EXPECTED** (Pitfall 17 per RESEARCH.md). SSL pre-stages anyway. The actual DNS swap happens in Phase 6.
-3. **Add env var** `NEXT_PUBLIC_FORMSPREE_ID=xqeypnkw` for Production + Preview + Development scopes (D-13).
-4. **Confirm Preview Deployments** are enabled on every branch + PR (Vercel default; verify in Project Settings → Git).
+**Remaining work (currently on `test/phase-1-preview`, not yet merged to
+`main`):**
 
-When all 4 are done, run `/gsd-execute-phase 1 --wave 4`. If you don't have a
-GitHub remote yet, the orchestrator can help wire that up first.
+- **W4-T3** (manual checkpoint, blocking): mix-blend-mode mobile-perf
+  checkpoint per D-09 escape-hatch. Run Lighthouse mobile against the preview
+  URL; if Performance ≥95, keep `mix-blend-mode: overlay` on the grain layer.
+  If <95 (and grain layer is the cause via DevTools paint flame chart), swap
+  to flat `opacity` and re-test.
+- **W4-T4** (manual checkpoint, blocking): FOUND-05 sign-off — push **2 more**
+  empty/no-op commits to `test/phase-1-preview`, confirm each preview deploys
+  ≤2 min via Vercel dashboard. (`f5e2b73` already counts as 1/3.)
+- **W4-T5** (auto): final commit, merge `test/phase-1-preview` → `main`, write
+  `.planning/phases/01-foundation-design-tokens/01-01-SUMMARY.md`.
+
+**To resume:** `/gsd-execute-phase 1 --wave 4` — the executor should detect
+W4-T1+T2 are committed and pick up at W4-T3.
 
 **Known carry-forward to Phase 6:**
 - `app/%5Ftokens/` URL-encoded folder (Next App Router private-folder workaround). Phase 6 deletes `/_tokens` entirely so this is naturally cleaned up.
@@ -196,3 +206,4 @@ GitHub remote yet, the orchestrator can help wire that up first.
 *State updated: 2026-05-09 by execute-phase (Phase 1 Wave 1 complete)*
 *State updated: 2026-05-09 by execute-phase (Phase 1 Wave 2 complete)*
 *State updated: 2026-05-09 by execute-phase (Phase 1 Wave 3 complete — 13/13 specs GREEN locally)*
+*State updated: 2026-05-09 by resume-work (Phase 1 W4-T1+T2 logged from git; T3..T5 pending)*
