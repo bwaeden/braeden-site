@@ -25,13 +25,30 @@ contact-conversion #2.
 **Stack:** Next.js 16.2.6 (App Router) + React 19.2 + TypeScript 5.9 +
 Tailwind v4 + `@next/mdx` + Fraunces / Geist Sans / Geist Mono + Vercel.
 
-**Current focus:** Phase 1 / Plan 01 — W4 mid-flight on branch
-`test/phase-1-preview`. W4-T1 (Vercel project + GitHub push + env var +
-domains) done; W4-T2 (full Playwright suite vs preview URL) GREEN at
-**32/32 specs** against `https://braeden-site.vercel.app`. Remaining:
-W4-T3 mix-blend-mode mobile-perf checkpoint (manual), W4-T4 FOUND-05
-sign-off (3 timing pushes — 1/3 done via `f5e2b73`), W4-T5 merge to main
-+ write `01-01-SUMMARY.md`.
+**Current focus:** Phase 1 / Plan 01 — W4 nearly complete; awaiting user
+visual + Vercel-dashboard review before merge. Currently on branch
+`test/phase-1-found-05-final` (one ahead of `test/phase-1-preview`).
+
+W4-T1 (Vercel project setup) done. W4-T2 (Playwright 32/32 against preview)
+**caveat — see Preview URL note below**. W4-T3 code-fix shipped: mobile
+nav was failing UI-SPEC item #11 (320px viewport renders cleanly) — fixed
+in `a975967` with native `<details>`/`<summary>` hamburger (FOUND-07 still
+clean, zero `'use client'`). W4-T4 timing evidence staged: 3 preview
+deploys queued (f5e2b73, a975967, 2f219aa). User to review later.
+W4-T5 (merge to main + SUMMARY.md) — deferred until W4-T3 visual sign-off
++ W4-T4 dashboard duration check.
+
+**Preview URL correction (important):** `https://braeden-site.vercel.app`
+is Vercel's PRODUCTION alias, not the branch preview. Curl headers show
+it serving a ~44h-old cache (Age: 160062, X-Vercel-Cache: HIT) because no
+production deploy has happened yet (main has zero commits beyond bootstrap).
+All pushes to `test/phase-1-preview` and `test/phase-1-found-05-final`
+generate their own branch-preview URLs of the form
+`braeden-site-<hash>-<vercel-scope>.vercel.app`. STATE/W4-T2's "32/32 vs
+preview" claim was hitting the stale production alias; needs re-run vs the
+real branch preview before merge. **User must paste the actual preview URL
+from Vercel dashboard → Deployments → most recent (a975967 / 2f219aa) to
+unblock final verification.**
 
 ## Current Position
 
@@ -166,32 +183,56 @@ blocks favicon (Phase 1) but does not block other tokens.
 - Distributed cross-cutting A11Y / PERF / SEO across phases per instructions
 - Wrote ROADMAP.md, STATE.md, updated REQUIREMENTS.md traceability table
 
-### Next Session — RESUME W4 mid-flight
+### Next Session — RESUME W4 final review
 
 **W4-T1 done** (Vercel project `braeden-site` linked to `bwaeden/braeden-site`,
-preview live at `https://braeden-site.vercel.app`, `NEXT_PUBLIC_FORMSPREE_ID`
-set, custom domains added with expected "Invalid Configuration" pending DNS
-swap in Phase 6).
+`NEXT_PUBLIC_FORMSPREE_ID` set, custom domains added with expected "Invalid
+Configuration" pending DNS swap in Phase 6).
 
-**W4-T2 done** (`315afd6 fix(phase-1/w4): tolerate Lighthouse CLS=undefined
-flake on chromium-desktop`) — 32/32 specs GREEN vs the deployed preview.
+**W4-T2 needs re-run** — original "32/32 GREEN vs preview" was actually vs
+the stale production alias `braeden-site.vercel.app` (Age ~44h, cache HIT).
+Local 32/32 still GREEN against `npm start` as of `a975967`. Re-run against
+the real branch-preview URL once user supplies it from the Vercel dashboard.
 
-**Remaining work (currently on `test/phase-1-preview`, not yet merged to
-`main`):**
+**W4-T3 code-fix shipped** (`a975967 fix(phase-1/w4): mobile hamburger nav
+via <details>/<summary>`). User flagged UI-SPEC item #11 fail on mobile —
+nav wrapped at 320-400px viewport. Fixed with native `<details>`/`<summary>`
+disclosure: hamburger ≡ at <sm, original inline layout at sm+. CSS swaps
+≡↔× icons via `[open]` attribute selector. Zero `'use client'` added
+(FOUND-07 preserved). Local 32/32 GREEN both viewports.
 
-- **W4-T3** (manual checkpoint, blocking): mix-blend-mode mobile-perf
-  checkpoint per D-09 escape-hatch. Run Lighthouse mobile against the preview
-  URL; if Performance ≥95, keep `mix-blend-mode: overlay` on the grain layer.
-  If <95 (and grain layer is the cause via DevTools paint flame chart), swap
-  to flat `opacity` and re-test.
-- **W4-T4** (manual checkpoint, blocking): FOUND-05 sign-off — push **2 more**
-  empty/no-op commits to `test/phase-1-preview`, confirm each preview deploys
-  ≤2 min via Vercel dashboard. (`f5e2b73` already counts as 1/3.)
-- **W4-T5** (auto): final commit, merge `test/phase-1-preview` → `main`, write
-  `.planning/phases/01-foundation-design-tokens/01-01-SUMMARY.md`.
+  - User accepted PART A verbally ("performance is fine") → mix-blend-mode
+    RETAINED on `body::after`.
+  - PART B (12-item Phase Exit checklist): item #11 (320px nav) fixed.
+    Remaining items need user eyes on actual branch-preview URL.
 
-**To resume:** `/gsd-execute-phase 1 --wave 4` — the executor should detect
-W4-T1+T2 are committed and pick up at W4-T3.
+**W4-T4 timing evidence staged** — 3 non-cold preview deploys queued:
+  1. `f5e2b73` (2026-05-09, empty timing commit on `test/phase-1-preview`)
+  2. `a975967` (2026-05-10, hamburger fix on `test/phase-1-preview`)
+  3. `2f219aa` (2026-05-10, empty timing commit on `test/phase-1-found-05-final`)
+
+  User to inspect Vercel dashboard → Deployments → durations for all 3.
+  Acceptance: ≤120s each. Report as "found-05-pass <duration>" or fail
+  with cause.
+
+**W4-T5 deferred** — merge `test/phase-1-found-05-final` → `main` + write
+`01-01-SUMMARY.md` are held until W4-T3 visual sign-off + W4-T4 dashboard
+check come back. Both are user-only verifications.
+
+**Branch state:** Currently on `test/phase-1-found-05-final`. The merge
+path is this branch → main (per plan W4-T5 step 1). `test/phase-1-preview`
+is now 1 commit behind and effectively superseded.
+
+**To resume:** the next session needs three things from user:
+  1. The actual branch-preview URL (from Vercel dashboard Deployments tab)
+     so we can re-verify W4-T2 + walk the remaining 11 visual items.
+  2. The dashboard build durations for the 3 staged preview deploys
+     (W4-T4 sign-off).
+  3. Approval to merge `test/phase-1-found-05-final` → `main` and write
+     `01-01-SUMMARY.md`.
+
+Run `/gsd-resume-work` and orchestrator picks up at the review-not-build
+state.
 
 **Known carry-forward to Phase 6:**
 - `app/%5Ftokens/` URL-encoded folder (Next App Router private-folder workaround). Phase 6 deletes `/_tokens` entirely so this is naturally cleaned up.
@@ -207,3 +248,5 @@ W4-T1+T2 are committed and pick up at W4-T3.
 *State updated: 2026-05-09 by execute-phase (Phase 1 Wave 2 complete)*
 *State updated: 2026-05-09 by execute-phase (Phase 1 Wave 3 complete — 13/13 specs GREEN locally)*
 *State updated: 2026-05-09 by resume-work (Phase 1 W4-T1+T2 logged from git; T3..T5 pending)*
+*Session resumed: 2026-05-10 by resume-work — user chose to execute W4-T3→T5 via /gsd-execute-phase 1 --wave 4*
+*State updated: 2026-05-10 by execute-phase (W4-T3 mobile-nav fix shipped a975967; W4-T4 timing commits staged via 2f219aa on test/phase-1-found-05-final; review deferred per user)*
