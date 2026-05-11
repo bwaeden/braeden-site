@@ -1,0 +1,45 @@
+{
+  "version": "1.0",
+  "timestamp": "2026-05-10T23:29:06-07:00",
+  "phase": "1",
+  "phase_name": "Foundation + Design Tokens",
+  "phase_dir": ".planning/phases/01-foundation-design-tokens",
+  "plan": 1,
+  "task": 23,
+  "total_tasks": 22,
+  "status": "paused",
+  "branch": "test/phase-1-found-05-final",
+  "completed_tasks": [
+    {"id": "W0-T1", "name": "Install Playwright + axe + Lighthouse, scaffold config", "status": "done", "commit": "1ecc966"},
+    {"id": "W0-T2", "name": "Stub 13 RED test specs", "status": "done", "commit": "0a14e38"},
+    {"id": "W1-T1..T4", "name": "Next.js 16 bootstrap, folder layout, MDX wiring", "status": "done", "commit": "e97a55f..2e082cb"},
+    {"id": "W2-T1..T5", "name": "Tokens, fonts, layout, hero placeholder, favicon", "status": "done", "commit": "d92035b..9ae2f74"},
+    {"id": "W3-T1..T6", "name": "MonogramMark, Nav, Footer, /_tokens, lib/motion.ts, sweep", "status": "done", "commit": "fabeedd..ab215f6"},
+    {"id": "W4-T1", "name": "Vercel project + GitHub push + env var + domains", "status": "done", "commit": "pre-session"},
+    {"id": "W4-T2", "name": "Run full Playwright suite against deployed preview URL", "status": "needs_rerun", "commit": "315afd6", "note": "original run was against stale production alias braeden-site.vercel.app (Age ~44h, X-Vercel-Cache HIT). Local 32/32 GREEN against npm start as of a975967. Re-run against the real branch-preview URL once user supplies it."},
+    {"id": "W4-T3", "name": "Mobile mix-blend-mode perf + Phase Exit checklist", "status": "in_progress", "commit": "a975967", "progress": "PART A: user accepted verbally ('performance is fine') — mix-blend-mode RETAINED. PART B: item #11 (320px viewport renders cleanly) failed — mobile nav wrapped. Fixed with native <details>/<summary> hamburger (a975967). FOUND-07 preserved (zero 'use client'). 32/32 specs GREEN locally both viewports. Awaits user visual confirmation on the real Vercel branch-preview URL."},
+    {"id": "W4-T4", "name": "FOUND-05 deploy-duration sign-off", "status": "in_progress", "progress": "4 non-cold preview deploys queued for user dashboard inspection: f5e2b73 (empty timing 2026-05-09), a975967 (hamburger fix), 2f219aa (empty timing on test/phase-1-found-05-final), d2b0397 (state update). Acceptance: all ≤120s. Awaits user dashboard check."}
+  ],
+  "remaining_tasks": [
+    {"id": "W4-T5", "name": "Final commit, merge to main, write 01-01-SUMMARY.md", "status": "not_started", "blocked_by": ["W4-T3 visual sign-off", "W4-T4 dashboard sign-off"]}
+  ],
+  "blockers": [
+    {"description": "User must paste the actual branch-preview URL from Vercel dashboard — braeden-site.vercel.app is the production alias serving stale cache (Age ~44h, X-Vercel-Cache HIT), not the test/* branch preview. Without it, we cannot re-verify W4-T2's 32/32 claim against the actual deploy.", "type": "human_action", "workaround": "Local 32/32 GREEN against npm start was confirmed at a975967; this is suggestive but not the contracted W4-T2 surface."},
+    {"description": "User must inspect Vercel dashboard durations for 4 non-cold preview deploys.", "type": "human_action", "workaround": "none — FOUND-05 is explicitly a manual sign-off."},
+    {"description": "Custom domain braehods.com not yet configured (per user). Known Phase 6 carry-forward, NOT a Phase 1 blocker — FOUND-05 measures *.vercel.app preview deploy duration only.", "type": "external", "workaround": "deferred to Phase 6 per ROADMAP"}
+  ],
+  "human_actions_pending": [
+    {"action": "Open Vercel dashboard → braeden-site → Deployments → click most recent 'Ready' deploy → copy the assigned URL (form: braeden-site-<hash>-<scope>.vercel.app). Paste to Claude.", "context": "Required to re-run W4-T2 Playwright suite against the real deploy surface and to walk the remaining Phase Exit visual checklist items.", "blocking": true},
+    {"action": "On Vercel Deployments tab, record build durations for f5e2b73, a975967, 2f219aa, d2b0397.", "context": "FOUND-05 sign-off — acceptance is ≤120s each.", "blocking": true},
+    {"action": "Visually confirm on Pixel 5 emulation: hamburger ≡ collapses, opens to vertical About/Work/Contact, swaps to ×, closes; brand stays one row.", "context": "Phase Exit checklist item #11 verification.", "blocking": true},
+    {"action": "After 1-3 above pass, approve merge of test/phase-1-found-05-final → main.", "context": "W4-T5 — irreversible step, requires explicit user authorization.", "blocking": true}
+  ],
+  "decisions": [
+    {"decision": "Mobile nav uses native <details>/<summary> disclosure (not a client-component hamburger)", "rationale": "Preserves FOUND-07 (zero 'use client' in Phase 1). User wanted hamburger pattern. <details> gives ESC-to-close + outside-click semantics for free, zero JS, RSC-only.", "phase": "1", "commit": "a975967"},
+    {"decision": "mix-blend-mode: overlay on body::after grain RETAINED (not dropped)", "rationale": "User accepted Part A of W4-T3 verbally ('performance is fine'). Preserves D-09 grain dithering quality.", "phase": "1"},
+    {"decision": "FOUND-05 timing observation uses a real commit (a975967 hamburger fix) plus empty commits, not 3 empty commits.", "rationale": "Plan asked for empty commits; real commit gives equivalent timing signal and avoids commit-noise on the preview branch.", "phase": "1"}
+  ],
+  "uncommitted_files": [],
+  "next_action": "Ask user for the branch-preview URL from Vercel dashboard. With URL in hand: (1) re-run full Playwright suite via PLAYWRIGHT_BASE_URL=<url> npx playwright test, (2) walk the remaining Phase Exit visual items on Pixel 5 emulation, (3) collect FOUND-05 duration numbers from user, (4) request merge authorization, (5) write 01-01-SUMMARY.md with real numbers and merge to main.",
+  "context_notes": "Phase 1 is essentially done — all code shipped, all automated specs GREEN locally. The remaining work is human-only verification: visual sign-off on the deployed hamburger, dashboard duration check, and merge approval. The preview-URL misconception (braeden-site.vercel.app being a stale production alias, not the branch preview) is a discovery that needs to be reflected in 01-01-SUMMARY.md and likely flagged for the SUMMARY's 'Surprises' section. STATE.md is up to date; resume-work will route correctly."
+}
