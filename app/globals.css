@@ -85,3 +85,21 @@ body::after {
 .divider-top {
   border-top: 1px solid var(--color-border);
 }
+
+/* Mobile nav disclosure icon swap — W4-T3 deviation.
+   Uses native <details>/<summary> attribute state, no JS. */
+.nav-mobile > summary {
+  list-style: none;
+}
+.nav-mobile > summary::-webkit-details-marker {
+  display: none;
+}
+.nav-mobile .nav-icon-close {
+  display: none;
+}
+.nav-mobile[open] .nav-icon-menu {
+  display: none;
+}
+.nav-mobile[open] .nav-icon-close {
+  display: inline-block;
+}
