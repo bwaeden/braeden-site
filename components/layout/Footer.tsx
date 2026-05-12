@@ -22,6 +22,12 @@
 // github + instagram in v1, but the `&& (…)` guard means a future user
 // removing a key won't crash the render. The `youtube` conditional is
 // OMITTED entirely per 02-SCOPE-AMENDMENT.md (no dead code in source).
+//
+// Hover-color transition note: `transition-[color]` (arbitrary, single
+// property) rather than `transition-colors` — in Tailwind v4 the latter
+// shorthand also transitions `outline-color`, which would 200ms-interpolate
+// the focus-visible ring from the inherited muted color to the accent token
+// and regress tests/focus-ring.spec.ts. Same fix mirrored in SocialIconLink.
 
 import { MonogramMark } from '@/components/ui/MonogramMark';
 import { SocialIconLink } from '@/components/layout/SocialIconLink';
@@ -67,7 +73,7 @@ export function Footer() {
               href={site.socials.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-sans text-sm transition-colors duration-200 hover:text-[var(--color-text)]"
+              className="font-sans text-sm transition-[color] duration-200 hover:text-[var(--color-text)]"
             >
               View source →
             </a>

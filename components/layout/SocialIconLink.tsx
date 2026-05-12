@@ -14,6 +14,22 @@
 // with the project's inline-SVG icon modules at components/icons/*
 // (current v1 source — see components/icons/InstagramIcon.tsx and
 // components/icons/GithubIcon.tsx; both share the lucide signature).
+//
+// DEVIATION — Rule 1 (bug fix) caught at verification time:
+//   The original plan body specified `transition-colors duration-200` here.
+//   Tailwind v4's `transition-colors` shorthand includes `outline-color` in
+//   the transitioned-property list (verified in the served CSS bundle:
+//   `.transition-colors { transition-property: color,...,outline-color,... }`).
+//   Because the parent <footer> sets `color: var(--color-muted)` and
+//   `outline-color` defaults to `currentcolor`, the rest-state outline-color
+//   on this <a> resolves to muted — and when `*:focus-visible` fires
+//   (`outline: 2px solid var(--color-accent)`), the 200ms transition makes
+//   `getComputedStyle(el).outline` report the muted-tinted in-flight value
+//   on the first frame after Tab. This regressed tests/focus-ring.spec.ts.
+//   Narrowing the transition to `transition-[color]` (only the `color`
+//   property — not the full v4 colors group) leaves outline-color untouched
+//   so the focus ring renders the locked accent immediately. Same fix
+//   pattern applies to the Footer.tsx "View source" link.
 
 import type { ComponentType, SVGProps } from 'react';
 
@@ -30,7 +46,7 @@ export function SocialIconLink({ href, label, Icon }: SocialIconLinkProps) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="inline-flex items-center justify-center p-2 transition-colors duration-200 hover:text-[var(--color-text)]"
+      className="inline-flex items-center justify-center p-2 transition-[color] duration-200 hover:text-[var(--color-text)]"
     >
       <Icon size={18} strokeWidth={1.75} aria-hidden />
     </a>
