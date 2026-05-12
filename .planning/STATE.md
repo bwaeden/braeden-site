@@ -3,19 +3,19 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-12T05:39:22.411Z"
+last_updated: "2026-05-12T05:57:03.992Z"
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 8
-  completed_plans: 6
-  percent: 75
+  completed_plans: 7
+  percent: 88
 ---
 
 # Project State: Braeden Site (braehods.com)
 
 **Last updated:** 2026-05-12
-**Updated by:** execute-phase (Phase 2 / Plan 05 / Wave 2 complete — `app/about/page.tsx` + `app/work/page.tsx` stub pages shipping `Coming soon.` placeholders inheriting layout chrome; 1 atomic commit `9f7d16d` direct to main; zero deviations; turned `tests/ctas-resolve-200.spec.ts` GREEN — HOME-05 /about and /work routes return HTTP 200)
+**Updated by:** execute-phase (Phase 2 / Plan 06 / Wave 3 complete — `components/home/Hero.tsx` composes the 4 Wave 1/2 atoms (HeroPhoto + CurrentlyLine + ChannelButtonRow + CTAArrowLink) plus motion seam into the full home hero in CD-05 rhythm + D-01 responsive flex layout; `app/page.tsx` rewritten to one-line `<Hero />`; 3 atomic commits direct to main: `16fe2f2` (Hero.tsx), `149be22` (app/page.tsx rewrite), `072f45b` (Rule 1 fix: broadened lighthouse mono regex to accept GeistMono and Geist Mono); 5 Plan-01 RED specs flipped GREEN locally (hero-renders, currently-renders, channels-render, view-transition-name-present, mobile-hero-stacks-cleanly); PERF-06 LCP RED on local dev/start deferred to Plan 07 Vercel preview; 64/66 full suite GREEN with no Phase 1 regressions)
 
 ## Project Reference
 
@@ -56,16 +56,16 @@ unblock final verification.**
 
 **Milestone:** v1 (initial launch at braehods.com)
 **Phase:** Phase 2 — Home Page (7 plans, 5 waves)
-**Plan:** 02-05-PLAN.md COMPLETE (W2 stub routes — `/about` + `/work` Server Component placeholders inheriting Nav + Footer chrome; HOME-05 routes resolve HTTP 200)
+**Plan:** 02-06-PLAN.md COMPLETE (W3 Hero composition — `components/home/Hero.tsx` composes the 4 Wave 1/2 atoms; `app/page.tsx` rewritten to one-line `<Hero />` invocation; Phase 1 placeholder hero markup migrated into Hero.tsx)
 **Branch:** `main` (Phase 2 plans commit directly to main per project branching strategy)
-**Status:** Ready to execute Plan 02-06 (Wave 2 — Hero composition into `/`)
-**Phase 2 plan progress:** 02-01 ✅ · 02-02 ✅ · 02-03 ✅ · 02-04 ✅ · 02-05 ✅ · 02-06 ⏳ · 02-07 ⏳
+**Status:** Ready to execute Plan 02-07 (Wave 4 — Deploy + visual sign-off + 22-spec verification against Vercel branch preview)
+**Phase 2 plan progress:** 02-01 ✅ · 02-02 ✅ · 02-03 ✅ · 02-04 ✅ · 02-05 ✅ · 02-06 ✅ · 02-07 ⏳
 
-**Spec scoreboard (after 02-05):** **13 GREEN (Phase 1) + 1 GREEN (Plan 02-02 format.spec) + 3 GREEN (Plan 02-04 footer-socials-render) + 2 GREEN (Plan 02-05 ctas-resolve-200 — about/work both 200) + 3 RED (Plan 02-06-gated stubs) = 22 spec files**. `tests/no-client-components.spec.ts` still GREEN (both new pages are Server Components; Plan 05 introduced zero `'use client'`). Phase 1 chrome suite (visual, monogram, reduced-motion, tokens, contrast, no-bare-outline-none, folder-structure, build-output, favicon, motion-seam, focus-ring) GREEN, no regression. Remaining RED are Plan 06-gated (hero-renders, channels-render, currently-renders, mobile-hero-stacks-cleanly, photo-lcp, view-transition-name-present).
+**Spec scoreboard (after 02-06):** **21 of 22 spec files fully GREEN locally** (Phase 1: 13 GREEN incl. lighthouse mono assertion now meaningful + GREEN; Plan 02-02 format: GREEN; Plan 02-04 footer-socials-render: GREEN; Plan 02-05 ctas-resolve-200: GREEN; Plan 02-06: hero-renders + currently-renders + channels-render + view-transition-name-present + mobile-hero-stacks-cleanly all newly GREEN). The 22nd spec file (`tests/photo-lcp.spec.ts`) is half-GREEN: PERF-04 (hero `<img>` width=320 height=320) GREEN × 2 projects; PERF-06 (LCP < 2500ms via Lighthouse on /) RED on local `npm start` (measured 3365ms — local dev does not represent CDN-served production performance per plan body line 506-507; Plan 07 verifies on Vercel preview). Phase 1 chrome suite (visual, monogram, reduced-motion, tokens, contrast, no-bare-outline-none, folder-structure, build-output, favicon, motion-seam, focus-ring, lighthouse) GREEN × 34 assertions, no regression. **Net Plan 06 movement: +5 newly-GREEN specs, +1 half-spec, +1 surfaced-and-fixed (lighthouse mono regex)**.
 
 **Scope-amendment compliance (2026-05-11):** YouTube fully omitted from v1 — `data/channels.ts` is 1-entry (Instagram only), `data/site.ts.socials` literal carries only `github` + `instagram` keys, `tests/channels-render.spec.ts` asserts 1 external `<a>` with "DM me" CTA, `tests/footer-socials-render.spec.ts` asserts only GH+IG aria-labels with explicit `.toHaveCount(0)` guard against the YouTube channel aria-label.
 
-**Progress:** [███████░░░] 67%
+**Progress:** [█████████░] 88%
 
 ## Performance Metrics
 
@@ -82,6 +82,8 @@ unblock final verification.**
 | Phase 02 P03 | 12 min | 3 tasks | 3 files |
 | Phase 02 P04 | 22 min | 3 tasks (+1 refactor +1 fix) | 6 files |
 | Phase 02 P05 | 6 min | 2 tasks | 2 files |
+| Phase 02 P06 | 15 min | 2 tasks (+1 Rule 1 fix) | 3 files (1 created, 2 modified) |
+| Phase 02 P06 | 15 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -100,6 +102,8 @@ unblock final verification.**
 | A11Y/PERF/SEO are cross-cutting, not separate phases | Bake into the phase that builds the UI; bulk audit + remaining work in Phase 6 |
 | Brand icons via inline SVG (NOT lucide-react) — established Plan 02-03, extended Plan 02-04 | `lucide-react@1.14.0` dropped Instagram/Github/Youtube exports (verified at runtime). CLAUDE.md Supporting Libraries row claiming "Lucide has all three" is factually wrong. Adopted inline-SVG-with-currentColor approach per CLAUDE.md's "Monogram approach" precedent (MonogramMark.tsx). Plan 04 graduated the pattern to a shared `components/icons/` directory with Github + Instagram modules; Plan 03's inline IG sub-component was hoisted out for reuse with the Footer SocialIconLink. Plan 07 should ship a `chore(docs)` commit amending CLAUDE.md's lucide-react row to reflect "utility icons only — brand icons via inline SVG at components/icons/*". |
 | Tailwind v4 transition-colors includes outline-color — established Plan 02-04 | Plan 04 Rule 1 deviation: Tailwind v4's `transition-colors` shorthand transitions `outline-color` in addition to `color`/`border-color`/etc. Combined with the parent footer's inherited muted color cascading to `outline-color` via `currentcolor` default, this caused tests/focus-ring.spec.ts (DSGN-06 / A11Y-02) to regress because the 200ms transition made the *:focus-visible accent ring interpolate from muted to accent. Fix: use `transition-[color]` (arbitrary single-property) when only the text-color needs to animate AND the element will receive `:focus-visible`. Pattern to remember for any future link/button hover-color transitions. |
+| Plan 06 Rule 1: lighthouse mono regex must accept GeistMono and Geist Mono — established Plan 02-06 | The `geist@1.x` package populates `--font-geist-mono` with the CSS-identifier form `GeistMono` (no space — Vercel's package naming convention), not the display name `Geist Mono`. Phase 1's `tests/lighthouse.spec.ts` assumed the display-name form via `/Geist Mono/i`. The assertion was previously wave-pacing-skipped because no `.font-mono` element existed on `/` pre-Plan-06; Plan 06 mounting CurrentlyLine (whose `<time className="font-mono">` is the first such element on `/`) surfaced the over-specified regex. Fix: broadened to `/Geist\\s*Mono/i` so both forms match. Pattern to remember: any future spec asserting `next/font`-emitted font-family must accept both the display-name and CSS-identifier forms. |
+| Plan 06 added data-test=hero-flex — established Plan 02-06 | `tests/mobile-hero-stacks-cleanly.spec.ts` (Plan 01 RED stub) requires `[data-test="hero-flex"]` on the Hero's inner flex container, but the Plan 06 body's example markup omitted this selector. Added it without touching styling — selector is decorative-only and matches the existing hero-section / hero-display / hero-positioning / hero-photo-tile convention. Pattern: pre-Task spec re-reads catch this class of plan-body-vs-spec-shape mismatch before commit. |
 
 ### Open Todos
 
@@ -322,9 +326,24 @@ Plan 02-02 lands `components/home/HeroPhoto.tsx` + `components/home/CurrentlyLin
 - **`npm run typecheck` + `npm run lint` + `npm run build`:** all exit 0. Build shows both `/about` and `/work` prerendered as `○ (Static)` in Next 16 Turbopack output.
 - **Duration:** ~6 minutes orchestrator-to-SUMMARY-write. 1 atomic commit.
 
-### Next Session — Plan 02-06 (Wave 2 Hero composition)
+### Last Session (2026-05-12 — Phase 2 Plan 06 / Wave 3 execution)
 
-Plan 02-06 mounts the home-page hero into `/` (`app/page.tsx`), consuming Plan 02's HeroPhoto + CurrentlyLine + Plan 03's ChannelButtonRow + CTAArrowLink. After Plan 06, all currently-RED mount-gated specs (hero-renders, channels-render, currently-renders, mobile-hero-stacks-cleanly, photo-lcp, view-transition-name-present) should turn GREEN — completing the Wave 2 spec scoreboard. CTAArrowLink instances pointing at `/about` and `/work` now have real destinations thanks to Plan 05.
+- Spawned `gsd-executor` for Phase 2 / Plan 06 (Wave 3 — Hero composition + app/page.tsx rewrite)
+- 2 plan tasks (both `type="auto"`) + 1 atomic Rule 1 fix = 3 commits direct to main
+- T1 `16fe2f2` — `feat(phase-2/w3): Hero composition (h1 + positioning + Currently + channels + CTAs + photo per CD-05 rhythm, D-01 responsive)` (85-line Server Component composing the 4 Wave 1/2 atoms + Phase 1 motion seam; D-05 single-word `<h1>Braeden</h1>` with NO animation per D-24; D-06 stacking order preserved; D-01/CD-04 flex-col-reverse mobile + md:flex-row desktop; D-19/D-20 CTAs as inline accent text-links with mt-6 wrapper gap + staggerIndex 5/6; max-w-5xl via nested wrapper so root layout's max-w-3xl is preserved for stubs/footer; D-22 honored — no project-wide ViewTransition wrapper)
+- T2 `149be22` — `feat(phase-2/w3): rewrite app/page.tsx to <Hero /> (Phase 1 placeholder moved into Hero.tsx)` (12-line minimal Server Component default export; Phase 1's inline `<section data-test="hero-section">` + `<h1 data-test="hero-display">` markup migrated into Hero.tsx so Phase 1 lighthouse + visual specs continue to resolve)
+- Rule 1 fix `072f45b` — `fix(phase-2/w3): broaden lighthouse mono regex to accept GeistMono and Geist Mono` (caught at Phase 1 regression sweep — `tests/lighthouse.spec.ts` mono assertion failed because `geist@1.x` populates `--font-geist-mono` with the CSS-identifier form `GeistMono` (no space), not the display name `Geist Mono`. The Phase 1 spec previously skipped this assertion via wave-pacing — Plan 06 mounting CurrentlyLine's `<time className="font-mono">` on `/` was the first `.font-mono` element on `/`, surfacing the over-specification. Broadened regex from `/Geist Mono/i` to `/Geist\s*Mono/i`. 1-line + 5-line comment.)
+- **Plan 06 Rule 1 deviation #2 (in-Task-1 selector add):** `tests/mobile-hero-stacks-cleanly.spec.ts` (Plan 01 RED stub) locates `[data-test="hero-flex"]` on the inner flex container, but the plan body's example markup omitted this selector. Added it during Task 1 so the spec can resolve. Decorative-only selector — no CSS/logic depends on it.
+- **5 Plan-01 RED specs flipped GREEN locally:** hero-renders, currently-renders (HOME-02 statement + time + accent dot), channels-render (HOME-03 1 external IG `<a>` with "DM me"), view-transition-name-present (HOME-05 / D-21 hero-photo computed-style), mobile-hero-stacks-cleanly (HOME-04 / CD-04 column-reverse + no overflow). `tests/photo-lcp.spec.ts` is half-GREEN: PERF-04 (img width=320 height=320) GREEN × 2; PERF-06 (LCP < 2500ms via Lighthouse) RED on local `npm start` (3365ms; Plan body line 506-507 defers to Plan 07 Vercel preview).
+- **`npm run typecheck` + `npm run lint` + `npm run build`:** all exit 0 (Turbopack 1.7s, 7 static pages, no warnings).
+- **Full Playwright suite (serial workers):** 64 passed, 2 failed (`photo-lcp.spec.ts` PERF-06 only — Plan 07 territory), 2 skipped. Phase 1 chrome 34/34 GREEN, 0 regressions. Plan 04 + 05 + 02-02 spec assertions all unchanged GREEN.
+- **Visual sanity (curl http://localhost:3000/):** all 5 hero data-test selectors present (`hero-section`, `hero-flex` NEW, `hero-display`, `hero-positioning`, `hero-photo-tile`); all 6 content strings render (`Braeden`, `Business student and entrepreneur in LA...`, `Currently shipping CapitolLens`, `DM me`, `@braehods`, `More about me` + `See the work`); Nav + Footer chrome wraps automatically; build output shows `/` as `○ (Static)`.
+- **Out-of-scope discovery (NOT fixed):** `tests/photo-lcp.spec.ts` and `tests/lighthouse.spec.ts` have a CDP port-9222 contention when run in parallel — Plan 07 may want to serialize Lighthouse-audit specs or assign different ports. Logged in SUMMARY.
+- **Duration:** ~15 minutes orchestrator-to-SUMMARY-write. 3 atomic commits.
+
+### Next Session — Plan 02-07 (Wave 4 deploy + verify)
+
+Plan 02-07 deploys Phase 2 to Vercel branch preview, re-runs the 22-spec Playwright suite + axe smoke + Lighthouse mobile LCP against the CDN-served URL. After Plan 07, every Phase 2 RED spec from Plan 01 is GREEN end-to-end. The 28-item visual checklist requires user eyes on the branch-preview URL. The CLAUDE.md `chore(docs)` amendment for the lucide-react row (flagged in Plan 03 + Plan 04 SUMMARYs) and the Plan 06 lighthouse + photo-lcp port-contention workaround belong here. Plan 07 also owns the Wave-4 squash-merge to main.
 
 ---
 *State initialized: 2026-05-07 by roadmapper*
@@ -343,3 +362,4 @@ Plan 02-06 mounts the home-page hero into `/` (`app/page.tsx`), consuming Plan 0
 *State updated: 2026-05-12 by execute-phase (Phase 2 Plan 03 / Wave 1 parallel complete — ChannelButton + ChannelButtonRow + CTAArrowLink; 3 task commits, build canary 2.2s; lucide-react@1.14.0 brand-icon blocker auto-resolved via inline-SVG per CLAUDE.md MonogramMark precedent)*
 *State updated: 2026-05-11 by execute-phase (Phase 2 Plan 04 / Wave 2 complete — Footer extended + Nav LINKS rewired + SocialIconLink + components/icons/{Github,Instagram}Icon; 6 atomic commits; 1 Rule 1 deviation auto-fixed — Tailwind v4 transition-colors includes outline-color, narrowed to transition-[color]; net +3 GREEN footer-socials-render assertions, 0 regressions, Phase 1 chrome 34/34 GREEN)*
 *State updated: 2026-05-12 by execute-phase (Phase 2 Plan 05 / Wave 2 complete — app/about + app/work stub pages shipping `Coming soon.` placeholders; 1 atomic commit `9f7d16d` direct to main; zero deviations; net +2 GREEN — `tests/ctas-resolve-200.spec.ts` HOME-05 routes both return HTTP 200; metadata template composition verified via curl)*
+*State updated: 2026-05-12 by execute-phase (Phase 2 Plan 06 / Wave 3 complete — components/home/Hero.tsx composes 4 atoms + motion seam in CD-05 rhythm + D-01 responsive flex layout; app/page.tsx rewritten to one-line `<Hero />`; 3 atomic commits direct to main: `16fe2f2` (Hero.tsx), `149be22` (app/page.tsx rewrite), `072f45b` (Rule 1 fix: broadened lighthouse mono regex to accept GeistMono + Geist Mono after Plan 06 mount surfaced Phase 1 spec over-specification); 5 Plan-01 RED specs flipped GREEN locally; `tests/photo-lcp.spec.ts` PERF-04 GREEN, PERF-06 LCP RED on local dev/start deferred to Plan 07 Vercel preview; 64/66 full suite GREEN with 0 Phase 1 regressions)*
