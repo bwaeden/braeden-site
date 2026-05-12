@@ -22,10 +22,14 @@
 //   typecheck + build. Per CLAUDE.md's established "Monogram approach"
 //   (inline SVG with currentColor — already in repo at
 //   components/ui/MonogramMark.tsx), we ship the Instagram glyph as a tiny
-//   inline-SVG sub-component that inherits color from the parent. The
+//   inline-SVG component that inherits color from the parent. The
 //   ICON_BY_PLATFORM map keeps its shape (platform-keyed) so Plan 04
 //   (Footer) and any future YT branch can plug in the same way.
 //   See 02-03-SUMMARY.md "Deviations from Plan" for the full record.
+//
+//   Plan 02-04 refactor: InstagramIcon was hoisted from this file into
+//   components/icons/InstagramIcon.tsx so Footer.tsx can reuse the same
+//   glyph. This file just imports it now.
 //
 // HOVER MECHANICS (Option B per plan action — group/group-hover):
 //   The parent <a> carries `group` so `group-hover:text-[var(--color-text)]`
@@ -38,34 +42,7 @@
 //   convention (see CurrentlyLine.tsx for the inline-style baseline).
 
 import type { Channel } from '@/data/channels';
-
-// Inline Instagram glyph (stroke-based, matches lucide pitch: 24x24 viewBox,
-// strokeWidth 1.75 inherited via the <svg> stroke attribute, currentColor
-// fill/stroke). Geometry: rounded-square frame + inner circle (lens) +
-// upper-right dot (light) — the same shape Lucide shipped pre-removal.
-interface InstagramIconProps {
-  size?: number;
-  strokeWidth?: number;
-}
-function InstagramIcon({ size = 18, strokeWidth = 1.75 }: InstagramIconProps) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={strokeWidth}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-    </svg>
-  );
-}
+import { InstagramIcon } from '@/components/icons/InstagramIcon';
 
 // Platform-keyed lookup tables — kept platform-keyed (rather than collapsed
 // to IG-only literals) for forward-compat per 02-SCOPE-AMENDMENT.md. When
