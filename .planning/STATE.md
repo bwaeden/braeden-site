@@ -3,19 +3,19 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-12T05:30:00.000Z"
+last_updated: "2026-05-12T05:39:22.411Z"
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 8
-  completed_plans: 5
-  percent: 62
+  completed_plans: 6
+  percent: 75
 ---
 
 # Project State: Braeden Site (braehods.com)
 
 **Last updated:** 2026-05-12
-**Updated by:** execute-phase (Phase 2 / Plan 04 / Wave 2 complete — Footer extended + Nav LINKS rewired + SocialIconLink + components/icons/{Github,Instagram}Icon shared modules; 6 atomic commits direct to main; 1 Rule 1 deviation auto-fixed: Tailwind v4 transition-colors broke focus-ring; narrowed to transition-[color])
+**Updated by:** execute-phase (Phase 2 / Plan 05 / Wave 2 complete — `app/about/page.tsx` + `app/work/page.tsx` stub pages shipping `Coming soon.` placeholders inheriting layout chrome; 1 atomic commit `9f7d16d` direct to main; zero deviations; turned `tests/ctas-resolve-200.spec.ts` GREEN — HOME-05 /about and /work routes return HTTP 200)
 
 ## Project Reference
 
@@ -56,16 +56,16 @@ unblock final verification.**
 
 **Milestone:** v1 (initial launch at braehods.com)
 **Phase:** Phase 2 — Home Page (7 plans, 5 waves)
-**Plan:** 02-04-PLAN.md COMPLETE (W2 layout chrome extension — Footer social row + Nav LINKS rewire + SocialIconLink + components/icons/ shared modules)
+**Plan:** 02-05-PLAN.md COMPLETE (W2 stub routes — `/about` + `/work` Server Component placeholders inheriting Nav + Footer chrome; HOME-05 routes resolve HTTP 200)
 **Branch:** `main` (Phase 2 plans commit directly to main per project branching strategy)
-**Status:** Ready to execute Plan 02-05 (Wave 2 — /about + /work stub pages) and/or Plan 02-06 (Wave 2 — Hero composition)
-**Phase 2 plan progress:** 02-01 ✅ · 02-02 ✅ · 02-03 ✅ · 02-04 ✅ · 02-05 ⏳ · 02-06 ⏳ · 02-07 ⏳
+**Status:** Ready to execute Plan 02-06 (Wave 2 — Hero composition into `/`)
+**Phase 2 plan progress:** 02-01 ✅ · 02-02 ✅ · 02-03 ✅ · 02-04 ✅ · 02-05 ✅ · 02-06 ⏳ · 02-07 ⏳
 
-**Spec scoreboard (after 02-04):** **13 GREEN (Phase 1) + 1 GREEN (Plan 02-02 format.spec) + 3 GREEN (Plan 02-04 footer-socials-render — first plan-graduated Phase 2 specs) + 5 RED (Plan 02-{05,06}-gated stubs) = 22 spec files**. `tests/no-client-components.spec.ts` still GREEN (3 more Server Components added: SocialIconLink + GithubIcon + InstagramIcon). `tests/focus-ring.spec.ts` GREEN (after Rule 1 fix during this plan — see Plan 04 deviation log). Phase 1 chrome suite (visual, monogram, reduced-motion, tokens, contrast, no-bare-outline-none, folder-structure, build-output, favicon, motion-seam) GREEN, no regression. Remaining 5 RED are Plan 05-gated (ctas-resolve-200) and Plan 06-gated (hero-renders, channels-render, currently-renders, mobile-hero-stacks-cleanly, photo-lcp, view-transition-name-present).
+**Spec scoreboard (after 02-05):** **13 GREEN (Phase 1) + 1 GREEN (Plan 02-02 format.spec) + 3 GREEN (Plan 02-04 footer-socials-render) + 2 GREEN (Plan 02-05 ctas-resolve-200 — about/work both 200) + 3 RED (Plan 02-06-gated stubs) = 22 spec files**. `tests/no-client-components.spec.ts` still GREEN (both new pages are Server Components; Plan 05 introduced zero `'use client'`). Phase 1 chrome suite (visual, monogram, reduced-motion, tokens, contrast, no-bare-outline-none, folder-structure, build-output, favicon, motion-seam, focus-ring) GREEN, no regression. Remaining RED are Plan 06-gated (hero-renders, channels-render, currently-renders, mobile-hero-stacks-cleanly, photo-lcp, view-transition-name-present).
 
 **Scope-amendment compliance (2026-05-11):** YouTube fully omitted from v1 — `data/channels.ts` is 1-entry (Instagram only), `data/site.ts.socials` literal carries only `github` + `instagram` keys, `tests/channels-render.spec.ts` asserts 1 external `<a>` with "DM me" CTA, `tests/footer-socials-render.spec.ts` asserts only GH+IG aria-labels with explicit `.toHaveCount(0)` guard against the YouTube channel aria-label.
 
-**Progress:** [██████░░░░] 62%
+**Progress:** [███████░░░] 67%
 
 ## Performance Metrics
 
@@ -81,6 +81,7 @@ unblock final verification.**
 | Phase 02 P02 | 5 min | 3 tasks | 4 files |
 | Phase 02 P03 | 12 min | 3 tasks | 3 files |
 | Phase 02 P04 | 22 min | 3 tasks (+1 refactor +1 fix) | 6 files |
+| Phase 02 P05 | 6 min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -310,9 +311,20 @@ Plan 02-02 lands `components/home/HeroPhoto.tsx` + `components/home/CurrentlyLin
 - **Net spec movement:** +3 newly-GREEN footer-socials-render assertions (footer external links, View source link, ≥3 svgs in footer — first plan-graduated Phase 2 spec assertions). 0 regressions after Rule 1 fix. Full suite re-run: 47 passed, 19 RED (all Plan 05/06-gated as documented in Plan 03 SUMMARY's spec scoreboard, no Plan 04-introduced reds), 2 skipped.
 - **Duration:** ~22 minutes including the Rule 1 investigation. 6 atomic commits.
 
-### Next Session — Plan 02-05 (Wave 2 stub routes) and/or Plan 02-06 (Wave 2 Hero composition)
+### Last Session (2026-05-12 — Phase 2 Plan 05 / Wave 2 execution)
 
-Plan 02-05 ships `app/about/page.tsx` + `app/work/page.tsx` with Coming-soon placeholder bodies (D-18). After Plan 05, the Nav hrefs Plan 04 wired (`/about`, `/work`) will resolve 200 — turning `tests/ctas-resolve-200.spec.ts` GREEN. Plan 02-06 (Hero composition) mounts the home page hero into `/`, consuming Plan 02's HeroPhoto + CurrentlyLine + Plan 03's ChannelButtonRow + CTAArrowLink. After Plan 06, all currently-RED mount-gated specs (hero-renders, channels-render, currently-renders, mobile-hero-stacks-cleanly, photo-lcp, view-transition-name-present) should turn GREEN.
+- Spawned `gsd-executor` for Phase 2 / Plan 05 (Wave 2 — stub routes `/about` + `/work`)
+- 2 tasks (both `type="auto"`, paired into a single atomic commit per plan's commit protocol)
+- T1+T2 `9f7d16d` — `feat(phase-2/w2): app/about + app/work stub pages (D-18 — Coming soon. — Server Components inheriting layout chrome)`
+- **Net spec movement:** +2 GREEN (`tests/ctas-resolve-200.spec.ts` HOME-05 /about and /work both return 200). Plan 1's RED stub turned GREEN. `tests/no-client-components.spec.ts` still GREEN (both new pages Server Components, zero `'use client'`). `tests/folder-structure.spec.ts` + `tests/build-output.spec.ts` GREEN (no regression). Curl direct verification: `<title>About · Braeden Hodson</title>` and `<title>Work · Braeden Hodson</title>` — metadata template composition working.
+- **Zero deviations.** Plan 05 was the smallest Phase 2 plan (2 files, 5 body lines each, 18 lines total each including leading-comment block). The plan supplied the exact body string verbatim and the executor wrote it without any auto-fixes, no architectural surprises, no auth gates.
+- **Phase 1 chrome invariants preserved:** Both pages render Nav + Footer automatically from `app/layout.tsx` (App Router automatic layout wrapping). No chrome refactor needed. Neither page has `<h1>` (would compete with hero), neither has `view-transition-name` (Phase 3 wires `hero-photo` on the real /about photo).
+- **`npm run typecheck` + `npm run lint` + `npm run build`:** all exit 0. Build shows both `/about` and `/work` prerendered as `○ (Static)` in Next 16 Turbopack output.
+- **Duration:** ~6 minutes orchestrator-to-SUMMARY-write. 1 atomic commit.
+
+### Next Session — Plan 02-06 (Wave 2 Hero composition)
+
+Plan 02-06 mounts the home-page hero into `/` (`app/page.tsx`), consuming Plan 02's HeroPhoto + CurrentlyLine + Plan 03's ChannelButtonRow + CTAArrowLink. After Plan 06, all currently-RED mount-gated specs (hero-renders, channels-render, currently-renders, mobile-hero-stacks-cleanly, photo-lcp, view-transition-name-present) should turn GREEN — completing the Wave 2 spec scoreboard. CTAArrowLink instances pointing at `/about` and `/work` now have real destinations thanks to Plan 05.
 
 ---
 *State initialized: 2026-05-07 by roadmapper*
@@ -330,3 +342,4 @@ Plan 02-05 ships `app/about/page.tsx` + `app/work/page.tsx` with Coming-soon pla
 *State updated: 2026-05-12 by execute-phase (Phase 2 Plan 02 / Wave 1 complete — HeroPhoto + CurrentlyLine + formatDate; 3 task commits, build canary 2.7s)*
 *State updated: 2026-05-12 by execute-phase (Phase 2 Plan 03 / Wave 1 parallel complete — ChannelButton + ChannelButtonRow + CTAArrowLink; 3 task commits, build canary 2.2s; lucide-react@1.14.0 brand-icon blocker auto-resolved via inline-SVG per CLAUDE.md MonogramMark precedent)*
 *State updated: 2026-05-11 by execute-phase (Phase 2 Plan 04 / Wave 2 complete — Footer extended + Nav LINKS rewired + SocialIconLink + components/icons/{Github,Instagram}Icon; 6 atomic commits; 1 Rule 1 deviation auto-fixed — Tailwind v4 transition-colors includes outline-color, narrowed to transition-[color]; net +3 GREEN footer-socials-render assertions, 0 regressions, Phase 1 chrome 34/34 GREEN)*
+*State updated: 2026-05-12 by execute-phase (Phase 2 Plan 05 / Wave 2 complete — app/about + app/work stub pages shipping `Coming soon.` placeholders; 1 atomic commit `9f7d16d` direct to main; zero deviations; net +2 GREEN — `tests/ctas-resolve-200.spec.ts` HOME-05 routes both return HTTP 200; metadata template composition verified via curl)*
