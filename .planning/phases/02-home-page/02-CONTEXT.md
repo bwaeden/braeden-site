@@ -37,7 +37,7 @@ Out of scope:
 ### Positioning Copy (HOME-01)
 - **D-07:** Ships **verbatim from PROJECT.md draft**:
   > Business student and entrepreneur in LA, building things and running a small content brand.
-- **D-08:** Future-iteration tone bias (NOT applied in v1): if the line is rewritten post-launch, lean **aspirational/mission-ish** and **drop the "business student" framing**. Captured for v1.x copy pass, not Phase 2 execution.
+- **D-08 [informational]:** Future-iteration tone bias (NOT applied in v1): if the line is rewritten post-launch, lean **aspirational/mission-ish** and **drop the "business student" framing**. Captured for v1.x copy pass, not Phase 2 execution. Informational only — no Phase 2 plan implements this; the gate handler excludes `[informational]`-tagged decisions from the coverage count.
 - **D-09:** Typographic treatment = Geist Sans, weight TBD by planner (likely 400 or 500), sized below the Fraunces name so it reads as the subhead. Color = `var(--color-text)` (#e8e8e8) — body, not muted, so it lands. One line on desktop; allowed to wrap to two on mobile.
 
 ### "Currently" Block (HOME-02)
