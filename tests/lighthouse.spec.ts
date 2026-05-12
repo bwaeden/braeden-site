@@ -91,7 +91,12 @@ test('Lighthouse: zero CLS on / and three font families load via next/font', asy
     return el ? getComputedStyle(el as Element).fontFamily : null;
   });
   if (monoFont !== null) {
-    expect(monoFont, 'mono surface should use Geist Mono').toMatch(/Geist Mono/i);
+    // Accept both `Geist Mono` (display name with space) and `GeistMono`
+    // (CSS-identifier form emitted by the geist@1.x package's
+    // `--font-geist-mono` variable). Both forms identify the same family.
+    // Phase 2 Plan 06 mounted CurrentlyLine's <time className="font-mono">
+    // on /, surfacing this assertion that was wave-pacing-skipped in Phase 1.
+    expect(monoFont, 'mono surface should use Geist Mono').toMatch(/Geist\s*Mono/i);
   } else {
     test.info().annotations.push({
       type: 'wave-pacing',
