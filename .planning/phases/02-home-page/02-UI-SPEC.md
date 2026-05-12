@@ -393,7 +393,7 @@ More about me →
 | Arrow | Unicode `→` (U+2192) appended as a child text — `{children} →`. Simple and accessible. Alternative: lucide `<ArrowRight size={16} strokeWidth={1.75} aria-hidden />` inline-flex; planner picks. Default to Unicode unless icon weight reads better. |
 | Underline | None on rest; `hover:underline hover:decoration-1 hover:underline-offset-4` on hover |
 | Padding | None — these are inline-flow text links, not buttons. Click target is the text bounds. |
-| Display | `inline-flex items-center gap-1.5` if using the lucide icon; plain inline `<Link>` if using Unicode arrow. |
+| Display | `inline-flex items-center gap-2` if using the lucide icon; plain inline `<Link>` if using Unicode arrow. |
 | Stagger | `stagger(5)` for the first, `stagger(6)` for the second (CD-03 — 400ms / 480ms delays) |
 
 **Interaction states:**
@@ -401,12 +401,12 @@ More about me →
 | State | Visual |
 |-------|--------|
 | Rest | Accent text, no underline |
-| Hover | Accent text + 1px underline at 4px offset; arrow translates +2px right (subtle craft motion) |
+| Hover | Accent text + 1px underline at 4px offset; arrow translates +4px right (subtle craft motion) |
 | Focus-visible | Phase 1 global ring inherits (2px solid `--color-accent`, offset 2px) |
 | Reduced motion | No translate on arrow |
 
 **Arrow translate detail (CD-03 extension):**
-- `<span className="inline-block transition-transform group-hover:translate-x-0.5">→</span>` wrapped in a `<Link className="group ...">` parent, so the hover propagates.
+- `<span className="inline-block transition-transform group-hover:translate-x-1">→</span>` wrapped in a `<Link className="group ...">` parent, so the hover propagates.
 - This is the *only* hover micro-motion on the home page beyond the channel-button lift. It's small enough to feel intentional but not "showy."
 
 **Accessibility:**
@@ -465,7 +465,7 @@ interface SocialIconLinkProps {
 | Icon size | `18px` (`<Icon size={18} strokeWidth={1.75} aria-hidden />`) — matches channel-button icon, consistent stroke weight |
 | Color | Inherits `--color-muted` from parent `<footer>` — same currentColor pattern as Phase 1 monogram |
 | Hover | Transitions to `--color-text` (lighter on hover, signaling activeness): `hover:text-[var(--color-text)] transition-colors duration-200` |
-| Touch target | Wrap each icon in a 32×32 invisible padded area: `inline-flex items-center justify-center p-1.5` — gives ~30×30 tactile target. Combined with 4px row gap = comfortable on mobile. Falls just short of WCAG's 44×44 ideal; this is the editorial-restraint trade-off (Phase 1's nav-link sizing makes the same trade and passed 320px viewport check). Phase 6 audit can revisit if real-device testing flags it. |
+| Touch target | Wrap each icon in a 32×32 invisible padded area: `inline-flex items-center justify-center p-2` — gives ~34×34 tactile target. Combined with 4px row gap = comfortable on mobile. Falls just short of WCAG's 44×44 ideal; this is the editorial-restraint trade-off (Phase 1's nav-link sizing makes the same trade and passed 320px viewport check). Phase 6 audit can revisit if real-device testing flags it. |
 | Focus-visible | Phase 1 global ring inherits |
 
 **Required `aria-label` values (D-15):**
@@ -587,10 +587,10 @@ Phase 2 introduces the **first real interactions** on the site (Phase 1 had only
 | Tab navigation | Order on `/`: Nav (monogram → name → About link → Work link → Contact link) → Channel button 1 (YouTube) → Channel button 2 (Instagram) → CTA "More about me" → CTA "See the work" → Footer (social GH → IG → YT → source link). The hero `<h1>`, positioning, Currently statement, and photo are NOT focusable (no `tabindex`). |
 | Focus ring | `:focus-visible` only (Phase 1 inherited). 2px solid `--color-accent`, 2px offset, border-radius inherits from focused element. Applies to: nav links, channel buttons, CTA arrow-links, social icon links, source link, Currently link (if `data.link` set). |
 | Hover state — channel buttons | Border `--color-border` → `--color-accent`; verb color `--color-muted` → `--color-text`; transform `translateY(-1px)`. 200ms cubic-bezier(0.2, 0, 0, 1). |
-| Hover state — CTA arrow-links | Underline appears (1px, 4px offset); arrow translates +2px right. 200ms cubic-bezier(0.2, 0, 0, 1). |
+| Hover state — CTA arrow-links | Underline appears (1px, 4px offset); arrow translates +4px right. 200ms cubic-bezier(0.2, 0, 0, 1). |
 | Hover state — social icons | Color `--color-muted` → `--color-text`. 200ms ease. No translate (icons are small enough that translate reads jittery). |
 | Hover state — nav links | Underline appears (inherited from Phase 1's `linkClass`). Unchanged. |
-| Click target size | Channel buttons: 45px tall × content-width (12px py-3 + 14px copy × 1.5 line-height — clears WCAG 44px minimum by spec). Social icons: ~30×30 tactile (icon + 1.5 padding). CTA links: text-bounded (~24px tall × content-width). Nav links: 32px tall × content-width (inherited). All comfortably reachable on touch; verify at 320px viewport in W4. |
+| Click target size | Channel buttons: 45px tall × content-width (12px py-3 + 14px copy × 1.5 line-height — clears WCAG 44px minimum by spec). Social icons: ~34×34 tactile (icon + p-2 padding). CTA links: text-bounded (~24px tall × content-width). Nav links: 32px tall × content-width (inherited). All comfortably reachable on touch; verify at 320px viewport in W4. |
 | Keyboard activation | Native `<a>` and `<Link>` elements throughout — Enter activates. No custom click-handlers (FOUND-07 invariant). |
 | External link semantics | All `target="_blank" rel="noopener noreferrer"` (channel buttons, social icons, source link). Internal `<Link>` (CTAs to `/about` and `/work`) gets Next.js prefetch automatically. |
 | Reduced motion | All `fade-in-up` staggered animations, channel-button translate, CTA-arrow translate, and color transitions are defeated by Phase 1's global override. Verify by toggling DevTools "Emulate prefers-reduced-motion: reduce" — page renders identically except all animations are instant. |
@@ -803,6 +803,7 @@ Every value in this spec came from one of:
 | Memory `feedback_reel_cta_dm_format.md` | "DM me" verb for Instagram channel button |
 | Memory `project_capitollens_form4_strategy` | Confirms "Currently shipping CapitolLens" statement is accurate at Phase 2 plan time |
 | Checker revision 2026-05-11 | D4 Typography fix (drop weight 500 from ChannelButton; 2-weight inventory restated); D5 Spacing fix (ChannelButton `py-2.5` → `py-3` for on-grid 12px / 45px height) |
+| Checker revision 2026-05-11 (rev 2) | D5 Spacing hygiene fix: drop remaining `0.5`/`1.5` fractional Tailwind utilities outside the declared accent-dot exception. `CTAArrowLink` `gap-1.5` → `gap-2` (Display row); `CTAArrowLink` `translate-x-0.5` → `translate-x-1` (arrow hover; +2px → +4px prose updated in lines 404 & 590); `SocialIconLink` `p-1.5` → `p-2` (touch target ~30×30 → ~34×34, editorial trade-off retained); line 593 click-target prose updated to match. |
 | User input this session | **Zero** — CONTEXT.md was authoritative on every gray area; CD-01..CD-05 cover all Claude-discretion items; no further questions needed |
 
 ---
@@ -810,3 +811,4 @@ Every value in this spec came from one of:
 *Phase 2 — Home Page*
 *UI-SPEC drafted: 2026-05-11 by gsd-ui-researcher*
 *UI-SPEC revised: 2026-05-11 — checker revision fixing D4 weight contract + D5 grid (ChannelButton)*
+*UI-SPEC revised: 2026-05-11 (rev 2) — checker revision dropping remaining 0.5/1.5 fractional Tailwind utilities (CTAArrowLink + SocialIconLink) per Spacing Scale invariant at line 73*
