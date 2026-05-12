@@ -51,7 +51,7 @@ gates are reviewable from Phase 1 onward.
 **Plans**: 7 plans, 4 waves (W0 data + tests + asset, W1 hero atoms, W2 chrome + stubs + composition, W3 deploy + visual sign-off)
 - [x] 02-01-PLAN.md — W0 foundation: collect user URLs, populate data/channels.ts + data/site.ts.socials, copy public/portrait.jpg, patch next.config.ts images.qualities, stub 8 RED Playwright specs
 - [x] 02-02-PLAN.md — W1 display atoms: components/home/HeroPhoto.tsx (LCP-safe + view-transition seam), components/home/CurrentlyLine.tsx (accent dot + Mono date), lib/format.ts (UTC-anchored formatDate)
-- [ ] 02-03-PLAN.md — W1 interactive atoms: components/home/ChannelButton.tsx + ChannelButtonRow.tsx (lucide YT/IG icons, target=_blank, hover translate), components/home/CTAArrowLink.tsx (accent text-link with arrow translate)
+- [x] 02-03-PLAN.md — W1 interactive atoms: components/home/ChannelButton.tsx + ChannelButtonRow.tsx (lucide YT/IG icons, target=_blank, hover translate), components/home/CTAArrowLink.tsx (accent text-link with arrow translate)
 - [ ] 02-04-PLAN.md — W2 layout extension: components/layout/SocialIconLink.tsx, extend components/layout/Footer.tsx (social row + View source), rewire components/layout/Nav.tsx LINKS to /about + /work
 - [ ] 02-05-PLAN.md — W2 stub routes: app/about/page.tsx + app/work/page.tsx (D-18 — "Coming soon." Server Components inheriting layout chrome)
 - [ ] 02-06-PLAN.md — W2 hero composition: components/home/Hero.tsx (composes 4 atoms in CD-05 rhythm + D-01 responsive layout) + rewrite app/page.tsx to <Hero />

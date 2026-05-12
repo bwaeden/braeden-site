@@ -3,19 +3,19 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-12T04:52:30.337Z"
+last_updated: "2026-05-12T05:05:45.588Z"
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 8
-  completed_plans: 3
-  percent: 38
+  completed_plans: 4
+  percent: 50
 ---
 
 # Project State: Braeden Site (braehods.com)
 
 **Last updated:** 2026-05-12
-**Updated by:** execute-phase (Phase 2 / Plan 02 / Wave 1 complete — HeroPhoto + CurrentlyLine + lib/format; build canary GREEN, 3 task commits direct to main)
+**Updated by:** execute-phase (Phase 2 / Plan 03 / Wave 1 parallel complete — ChannelButton + ChannelButtonRow + CTAArrowLink; build canary GREEN in 2.2s, 3 task commits direct to main; 1 architectural deviation auto-resolved: lucide-react@1.14.0 dropped brand icons → inline-SVG fallback per CLAUDE.md monogram precedent)
 
 ## Project Reference
 
@@ -56,16 +56,16 @@ unblock final verification.**
 
 **Milestone:** v1 (initial launch at braehods.com)
 **Phase:** Phase 2 — Home Page (7 plans, 5 waves)
-**Plan:** 02-02-PLAN.md COMPLETE (W1 display atoms — HeroPhoto + CurrentlyLine + lib/format)
+**Plan:** 02-03-PLAN.md COMPLETE (W1 interactive atoms — ChannelButton + ChannelButtonRow + CTAArrowLink)
 **Branch:** `main` (Phase 2 plans commit directly to main per project branching strategy)
-**Status:** Ready to execute Plan 02-03 (Wave 1 parallel — interactive Hero atoms) or Plan 02-04 (Wave 1 parallel — Footer extension)
-**Phase 2 plan progress:** 02-01 ✅ · 02-02 ✅ · 02-03 ⏳ · 02-04 ⏳ · 02-05 ⏳ · 02-06 ⏳ · 02-07 ⏳
+**Status:** Ready to execute Plan 02-04 (Wave 2 — Footer + Nav rewire + SocialIconLink) and/or Plan 02-05 (Wave 2 — /about + /work stub pages)
+**Phase 2 plan progress:** 02-01 ✅ · 02-02 ✅ · 02-03 ✅ · 02-04 ⏳ · 02-05 ⏳ · 02-06 ⏳ · 02-07 ⏳
 
-**Spec scoreboard (after 02-02):** **13 GREEN (Phase 1) + 1 GREEN (Phase 2 format.spec) + 8 RED (Phase 2 mount-gated stubs) = 22 spec files**. `tests/format.spec.ts` (4 cases) GREEN. `tests/no-client-components.spec.ts` still GREEN (all 3 new files are Server Components). `view-transition-name-present`, `currently-renders`, `hero-renders`, and `photo-lcp` (PERF-04 half) remain RED only because Hero.tsx is not yet mounted on `/` — the components themselves satisfy the assertions. All four turn GREEN when Plan 02-06 wires `<Hero />` into `app/page.tsx`.
+**Spec scoreboard (after 02-03):** **13 GREEN (Phase 1) + 1 GREEN (Phase 2 format.spec) + 8 RED (Phase 2 mount-gated stubs) = 22 spec files**. `tests/no-client-components.spec.ts` still GREEN (all 3 new files are Server Components). `tests/channels-render.spec.ts` and channel-relevant assertions in `tests/hero-renders.spec.ts` remain RED — mount-gated by Plan 06 (Hero composition on `/`). All three new components are GREEN-ready in shape.
 
 **Scope-amendment compliance (2026-05-11):** YouTube fully omitted from v1 — `data/channels.ts` is 1-entry (Instagram only), `data/site.ts.socials` literal carries only `github` + `instagram` keys, `tests/channels-render.spec.ts` asserts 1 external `<a>` with "DM me" CTA, `tests/footer-socials-render.spec.ts` asserts only GH+IG aria-labels with explicit `.toHaveCount(0)` guard against the YouTube channel aria-label.
 
-**Progress:** [████░░░░░░] 38%
+**Progress:** [█████░░░░░] 50%
 
 ## Performance Metrics
 
@@ -79,6 +79,7 @@ unblock final verification.**
 | Cumulative Layout Shift | 0 on hero | Not measured |
 | Phase 02-home-page P01 | 4 min | 2 tasks | 12 files |
 | Phase 02 P02 | 5 min | 3 tasks | 4 files |
+| Phase 02 P03 | 12 min | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -95,6 +96,7 @@ unblock final verification.**
 | Skip /writing for v1 | Zero essay backlog. Architect for it (content/ folder ready) but don't ship empty |
 | Skip light-mode toggle | One mood executed precisely beats two executed loosely |
 | A11Y/PERF/SEO are cross-cutting, not separate phases | Bake into the phase that builds the UI; bulk audit + remaining work in Phase 6 |
+| Brand icons via inline SVG (NOT lucide-react) — established Plan 02-03 | `lucide-react@1.14.0` dropped Instagram/Github/Youtube exports (verified at runtime). CLAUDE.md Supporting Libraries row claiming "Lucide has all three" is factually wrong. Adopted inline-SVG-with-currentColor approach per CLAUDE.md's "Monogram approach" precedent (MonogramMark.tsx). Plan 04 Footer will continue the pattern for Github + Instagram. Future Plan 04 or Plan 07 should ship a `chore(docs)` commit amending CLAUDE.md's lucide-react row to reflect "utility icons only — brand icons via inline SVG". |
 
 ### Open Todos
 
@@ -274,6 +276,26 @@ Plan 02-02 lands `components/home/HeroPhoto.tsx` + `components/home/CurrentlyLin
 - `[data-test="hero-photo-tile"]` wrapper attribute (consumed by `view-transition-name-present.spec.ts`)
 - `view-transition-name: 'hero-photo'` inline style on the wrapper (D-21 motion seam)
 
+### Last Session (2026-05-12 — Phase 2 Plan 03 / Wave 1 parallel execution)
+
+- Spawned `gsd-executor` for Phase 2 / Plan 03 (Wave 1 parallel — interactive Hero atoms)
+- 3 tasks (all `type="auto"`, all atomic commits direct to `main`)
+- T1 `8dd8163` — `feat(phase-2/w1): ChannelButton (Instagram-only per scope amendment, DM me CTA, hairline pill)`
+- T2 `8f965e2` — `feat(phase-2/w1): ChannelButtonRow (single channels block, stagger wrappers)`
+- T3 `a0d76d8` — `feat(phase-2/w1): CTAArrowLink (D-19 accent text-link with arrow glyph)`
+- **MAJOR DEVIATION (Rule 3+4, auto-selected in auto-mode):** `lucide-react@1.14.0` does NOT export Instagram/Github/Youtube. Verified at runtime: `node -e "require('lucide-react').Instagram"` returns `undefined`; `ls node_modules/lucide-react/dist/esm/icons/ | grep -i instagram` returns no matches. Lucide upstream dropped brand icons in 2024 over trademark concerns. The plan body, 02-PATTERNS.md template, 02-SCOPE-AMENDMENT.md, and CLAUDE.md Supporting Libraries table ALL assume Instagram/Github/Youtube are importable from lucide. Auto-mode active (`workflow.auto_advance = true`) — auto-selected Option B (inline SVG with `currentColor`) per CLAUDE.md's existing "Monogram approach" precedent (MonogramMark.tsx). Shipped inline `InstagramIcon` sub-component inside `ChannelButton.tsx` (24x24 viewBox, stroke-based, matches historical Lucide geometry: rounded-square frame + inner circle + upper-right dot). Forward implications logged for Plan 04 (Footer will need Github + Instagram — same approach) and a Plan 04 or Plan 07 `chore(docs)` to amend the CLAUDE.md lucide-react row.
+- **Scope-amendment compliance held:** Zero `Youtube` import in source (only in deviation-comment text). `ICON_BY_PLATFORM` + `CTA_BY_PLATFORM` maps are IG-only literals but keyed on the `Channel.platform` union for forward-compat. `data/channels.ts` 1-entry assumption respected; no silent reordering.
+- **Hover mechanism Option B confirmed:** `group/group-hover` on parent `<a>` with verb-span rest-state color migrated from inline-style to Tailwind arbitrary `text-[var(--color-muted)]` so `group-hover:text-[var(--color-text)]` can win the cascade (Tailwind v4 utilities don't use `!important`, so a competing inline-style would always win on hover). Documented in source comment as one-off deviation from Phase 1's inline-style convention.
+- **Animation-collision verification:** ChannelButtonRow's `fadeInUp` + `stagger(3 + i)` lives on a wrapper `<div>` around each `<ChannelButton>` — NOT on the `<a>`. Button's `hover:-translate-y-px` runs without colliding with the keyframe's `transform: translateY(0)` end state. CTAArrowLink applies `fadeInUp` directly on `<Link>` because its hover motion is on a child `<span>` (the arrow), no collision.
+- **`npm run typecheck` + `npm run lint` + `npm run build` all exit 0** (Turbopack compiled in 2.2s, 5 static pages, no warnings).
+- **`tests/no-client-components.spec.ts`:** 2/2 GREEN (no regression — all 3 new files Server Components).
+- **`tests/channels-render.spec.ts`:** RED as documented in plan (mount-gated — asserts presence on `/` via `[data-test="hero-section"]` which Plan 06 will add).
+- **Duration:** ~12 minutes (including the lucide blocker investigation + decision documentation). 3 atomic commits.
+
+### Next Session — Plan 02-04 (Wave 2) and/or Plan 02-05 (Wave 2)
+
+Both Wave 2 plans can run in parallel — no file overlap. **Plan 02-04 (Footer + Nav rewire + SocialIconLink) inherits the lucide-brand-icon blocker** and should adopt the same inline-SVG approach for Github + Instagram icons (the precedent is now in `components/home/ChannelButton.tsx` lines 38-58). Plan 02-04's `SocialIconLink` is already designed with an `Icon: ComponentType` prop, so the call site simply passes inline-SVG components. Plan 02-05 (about + work stubs) is unaffected by the lucide issue.
+
 ---
 *State initialized: 2026-05-07 by roadmapper*
 *State updated: 2026-05-08 by discuss-phase (Phase 1 context)*
@@ -287,3 +309,5 @@ Plan 02-02 lands `components/home/HeroPhoto.tsx` + `components/home/CurrentlyLin
 *State updated: 2026-05-10 by execute-phase (W4-T3 mobile-nav fix shipped a975967; W4-T4 timing commits staged via 2f219aa on test/phase-1-found-05-final; review deferred per user)*
 *State updated: 2026-05-11 by discuss-phase (Phase 2 context gathered — 02-CONTEXT.md ready for /gsd-plan-phase 2)*
 *State updated: 2026-05-11 by execute-phase (Phase 2 Plan 01 / Wave 0 complete — data scaffolds + portrait + next.config.images.qualities + 8 RED specs; scope-amendment YT-omission compliance held)*
+*State updated: 2026-05-12 by execute-phase (Phase 2 Plan 02 / Wave 1 complete — HeroPhoto + CurrentlyLine + formatDate; 3 task commits, build canary 2.7s)*
+*State updated: 2026-05-12 by execute-phase (Phase 2 Plan 03 / Wave 1 parallel complete — ChannelButton + ChannelButtonRow + CTAArrowLink; 3 task commits, build canary 2.2s; lucide-react@1.14.0 brand-icon blocker auto-resolved via inline-SVG per CLAUDE.md MonogramMark precedent)*
