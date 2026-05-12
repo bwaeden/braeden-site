@@ -3,19 +3,19 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-12T04:02:40.397Z"
+last_updated: "2026-05-12T04:42:09.927Z"
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 8
-  completed_plans: 1
-  percent: 13
+  completed_plans: 2
+  percent: 25
 ---
 
 # Project State: Braeden Site (braehods.com)
 
-**Last updated:** 2026-05-09 (resumed)
-**Updated by:** resume-work (Phase 1 / W4 mid-flight — T1+T2 done, T3..T5 pending)
+**Last updated:** 2026-05-11
+**Updated by:** execute-phase (Phase 2 / Plan 01 / Wave 0 complete — data scaffolds + portrait + next.config patch + 8 RED specs)
 
 ## Project Reference
 
@@ -55,19 +55,17 @@ unblock final verification.**
 ## Current Position
 
 **Milestone:** v1 (initial launch at braehods.com)
-**Phase:** Phase 1 — W4 in progress (T1+T2 done; T3..T5 pending)
-**Plan:** 01-PLAN.md (5 waves, 22 tasks)
-**Branch:** `test/phase-1-preview` (not yet merged to `main`)
-**Status:** Ready to execute
-**Wave progress:** W0 ✅ · W1 ✅ · W2 ✅ · W3 ✅ · W4 🟡 (2/5)
+**Phase:** Phase 2 — Home Page (7 plans, 5 waves)
+**Plan:** 02-01-PLAN.md COMPLETE (W0 — validation infrastructure + data scaffolds)
+**Branch:** `main` (Phase 2 plans commit directly to main per project branching strategy)
+**Status:** Ready to execute Plan 02-02 (Wave 1)
+**Phase 2 plan progress:** 02-01 ✅ · 02-02 ⏳ · 02-03 ⏳ · 02-04 ⏳ · 02-05 ⏳ · 02-06 ⏳ · 02-07 ⏳
 
-**Spec scoreboard (after W4-T2):** **32/32 specs GREEN against deployed Vercel preview** (`https://braeden-site.vercel.app`). One spec accommodation landed (`315afd6`): `tests/lighthouse.spec.ts` tolerates `CLS=undefined` flake on chromium-desktop runs (Lighthouse intermittently fails to collect frame data). Mobile CLS=0 still binding per phase target.
+**Spec scoreboard (after 02-01):** **13 GREEN (Phase 1) + 8 RED (Phase 2 stubs) = 21 spec files, 60 tests enumerable via `npx playwright test --list`**. The 8 new RED stubs cover HOME-01..06 + PERF-04 + PERF-06; they turn GREEN as Plans 02-02 (HeroPhoto + CurrentlyLine), 02-03 (ChannelButton row), 02-04 (Footer extension), 02-05 (about/work stubs), and 02-06 (Hero composition + app/page.tsx rewrite) land.
 
-**Progress:** Phase 0/6 complete (Phase 1 plan ~86% complete by tasks; manual checkpoints + merge + SUMMARY remain)
+**Scope-amendment compliance (2026-05-11):** YouTube fully omitted from v1 — `data/channels.ts` is 1-entry (Instagram only), `data/site.ts.socials` literal carries only `github` + `instagram` keys, `tests/channels-render.spec.ts` asserts 1 external `<a>` with "DM me" CTA, `tests/footer-socials-render.spec.ts` asserts only GH+IG aria-labels with explicit `.toHaveCount(0)` guard against the YouTube channel aria-label.
 
-```
-[########.-] ~86% (≈19/22 plan tasks) — code shipped + deployed + verified; manual sign-off + merge remain
-```
+**Progress:** [███░░░░░░░] 25%
 
 ## Performance Metrics
 
@@ -79,6 +77,7 @@ unblock final verification.**
 | Hero LCP (mid-tier mobile) | <2.5s | Not measured |
 | WCAG AA contrast | Pass on both gradient endpoints | Not verified |
 | Cumulative Layout Shift | 0 on hero | Not measured |
+| Phase 02-home-page P01 | 4 min | 2 tasks | 12 files |
 
 ## Accumulated Context
 
@@ -245,7 +244,33 @@ state.
 
 - `app/%5Ftokens/` URL-encoded folder (Next App Router private-folder workaround). Phase 6 deletes `/_tokens` entirely so this is naturally cleaned up.
 - Real designed monogram (D-01) replaces the Fraunces-Black-traced placeholder.
-- Real photo replaces v1 placeholder (Phase 2).
+- Real photo replaces v1 placeholder (Phase 2). v1 placeholder SHA-256: `EAA79B5DC6B92B822C5566BFD37DD40DFF7E6353EA6E004934713C7CDCB98403` — Phase 6 verifies non-match after swap.
+
+### Last Session (2026-05-11 — Phase 2 Plan 01 / Wave 0 execution)
+
+- Spawned `gsd-executor` for Phase 2 / Plan 01 (Wave 0 — validation infrastructure)
+- W0 task structure: 3 tasks (Task 1 = `checkpoint:human-action` for URL collection, orchestrator-supplied; Task 2 = data + portrait + next.config; Task 3 = 8 RED spec stubs)
+- T2 `8812755` — `feat(phase-2/w0): populate data/channels + data/site.socials + portrait + next.config qualities`
+- T3 `ad697ae` — `test(phase-2/w0): stub 8 RED Playwright specs for HOME-01..06 + PERF-04 + PERF-06`
+- **Scope-amendment compliance held throughout:** `data/channels.ts` is a 1-entry IG-only array (NOT 2-entry per plan-body line 217); `data/site.ts.socials` literal has exactly `github` + `instagram` keys (NOT 3 keys per plan-body line 218); `tests/channels-render.spec.ts` asserts 1 external `<a>` w/ "DM me" (NOT 2 w/ Subscribe+DM me per plan-body line 254); `tests/footer-socials-render.spec.ts` asserts only GH+IG aria-labels and includes an explicit `.toHaveCount(0)` zero-count guard against the YouTube channel aria-label (NOT 3 aria-labels per plan-body line 275). Forward-compat preserved: `Channel.platform` union still `'youtube' | 'instagram'`; `SiteMeta.socials.youtube?` optional shape retained.
+- **URLs:** Instagram `https://instagram.com/braehods` (handle `braehods`); GitHub `https://github.com/bwaeden`. GitHub URL doubles as "View source →" target (D-17 — single source-of-truth, no separate `socials.repo` field added).
+- **Portrait:** 193,424 bytes (~189KB; well under 250KB cap, above 50KB floor). Copied from `C:/Users/Braeden/Projects/braehods/images/photo.jpg`. SHA-256 recorded in SUMMARY for Phase 6 swap verification.
+- **next.config.ts patch:** `images: { qualities: [75, 90] }` added inside `nextConfig` object; `withMDX(nextConfig)` wrapper preserved; no `remotePatterns` (Phase 2 ships local static assets only per T-02-03).
+- **Wave-0 verification gate:** all 5 sub-checks PASS (channels.ts populated, site.ts.socials https + no YT literal, portrait 50-250KB, next.config.ts qualities, 8 specs present).
+- **`npm run typecheck` + `npm run lint`:** both exit 0 (clean).
+- **`npx playwright test --list`:** 60 tests in 21 spec files (13 Phase 1 + 8 Phase 2). No parse errors.
+- **FOUND-07 invariant:** preserved — zero `'use client'` in `{app, components, lib, data, tests, next.config.ts}` confirmed via Grep after each task.
+- **No deviations under Rules 1-4.** Plan body's YT clauses were overridden by `02-SCOPE-AMENDMENT.md` (authoritative); compliance is documented in SUMMARY "Deviations from Plan" but is not a Rule-N deviation — it's an authoritative-amendment override.
+- **Duration:** ~4 minutes orchestrator-to-SUMMARY-write. 2 atomic commits.
+
+### Next Session — Plan 02-02 (Wave 1)
+
+Plan 02-02 lands `components/home/HeroPhoto.tsx` + `components/home/CurrentlyLine.tsx` + `lib/format.ts`. Turns 3 of the 8 Phase-2 RED specs GREEN: `tests/photo-lcp.spec.ts` (PERF-04 + the LCP audit half is gated on a running server), `tests/currently-renders.spec.ts`, and `tests/view-transition-name-present.spec.ts`. Plan 02-02 will reference:
+- `public/portrait.jpg` (static-imported into HeroPhoto for `next/image`)
+- `data/currently.ts` (already shipping Phase 1)
+- `next.config.ts.images.qualities` (permits HeroPhoto's `quality={90}` build-time)
+- `[data-test="hero-photo-tile"]` wrapper attribute (consumed by `view-transition-name-present.spec.ts`)
+- `view-transition-name: 'hero-photo'` inline style on the wrapper (D-21 motion seam)
 
 ---
 *State initialized: 2026-05-07 by roadmapper*
@@ -259,3 +284,4 @@ state.
 *Session resumed: 2026-05-10 by resume-work — user chose to execute W4-T3→T5 via /gsd-execute-phase 1 --wave 4*
 *State updated: 2026-05-10 by execute-phase (W4-T3 mobile-nav fix shipped a975967; W4-T4 timing commits staged via 2f219aa on test/phase-1-found-05-final; review deferred per user)*
 *State updated: 2026-05-11 by discuss-phase (Phase 2 context gathered — 02-CONTEXT.md ready for /gsd-plan-phase 2)*
+*State updated: 2026-05-11 by execute-phase (Phase 2 Plan 01 / Wave 0 complete — data scaffolds + portrait + next.config.images.qualities + 8 RED specs; scope-amendment YT-omission compliance held)*
