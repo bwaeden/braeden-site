@@ -15,8 +15,8 @@ gates are reviewable from Phase 1 onward.
 
 ## Phases
 
-- [ ] **Phase 1: Foundation + Design Tokens** — Deployable preview with charcoal gradient, fonts, monogram, design tokens, focus + reduced-motion rules
-- [ ] **Phase 2: Home Page** — Curated `/` with hero (photo + name + Currently), channel-link block, and craft motion
+- [x] **Phase 1: Foundation + Design Tokens** — Shipped 2026-05-10. Deployable preview with charcoal gradient, fonts, monogram, design tokens, focus + reduced-motion rules.
+- [x] **Phase 2: Home Page** — Shipped 2026-05-12. Curated `/` with hero (photo + name + Currently), Instagram channel button (YouTube dropped per 02-SCOPE-AMENDMENT.md), craft motion. 7 plans, 28 commits, 21/22 specs GREEN; PERF-06 LCP deferred to Phase 6 (2821ms post-AVIF on Slow-4G synthetic; Phase 6 owns the real-user Speed Insights gate).
 - [ ] **Phase 3: About Page** — `/about` route delivers a short bio that reads in under 60 seconds
 - [ ] **Phase 4: Work + Projects** — `/work` equal-weight grid renders all 7 projects from typed `data/projects.ts`
 - [ ] **Phase 5: Contact Modal** — Native `<dialog>` modal posts to existing Formspree endpoint with focus trap and mailto fallback
@@ -114,7 +114,7 @@ gates are reviewable from Phase 1 onward.
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation + Design Tokens | 0/1 | Not started | - |
-| 2. Home Page | 6/7 | In Progress|  |
+| 2. Home Page | 7/7 | Complete | 2026-05-12 |
 | 3. About Page | 0/0 | Not started | - |
 | 4. Work + Projects | 0/0 | Not started | - |
 | 5. Contact Modal | 0/0 | Not started | - |

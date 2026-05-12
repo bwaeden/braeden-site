@@ -10,10 +10,13 @@ authority: this file documents the automated verification gate; the 28-item visu
 # Phase 2 Plan 07 — Verification Log
 
 **Branch:** `test/phase-2-home`
-**HEAD SHA:** `47e4fc0` (`docs(phase-2/06): complete W3 hero-composition plan — SUMMARY + state + roadmap`)
-**Branch preview URL:** `https://braeden-site-llgl2we40-bwaedens-projects.vercel.app/`
+**HEAD SHA at first verification run:** `47e4fc0` (`docs(phase-2/06): complete W3 hero-composition plan — SUMMARY + state + roadmap`)
+**HEAD SHA at second verification run (AVIF remediation):** `8ddcb2f` (`perf(phase-2/w4): enable AVIF + WebP auto-negotiation for hero LCP`)
+**Branch preview URL (run 1):** `https://braeden-site-llgl2we40-bwaedens-projects.vercel.app/`
+**Branch preview URL (run 2 — AVIF):** `https://braeden-site-miskiwybt-bwaedens-projects.vercel.app/`
 **Run date (UTC):** 2026-05-12
 **Scope amendment applied:** [02-SCOPE-AMENDMENT.md](./02-SCOPE-AMENDMENT.md) — YouTube dropped from v1 (Instagram + GitHub only)
+**Final disposition (2026-05-12):** Phase 2 SIGNED OFF by user with PERF-06 LCP deferred to Phase 6. User chose to skip the 24-item manual visual checklist per "trust automation" stance (21/22 specs GREEN + axe clean + scope-amendment 4/4 compliant). LCP measured 2821ms post-AVIF on Slow-4G synthetic Lighthouse, 321ms over 2500ms target; deferred to Phase 6 PERF audit which uses real-user Speed Insights data.
 
 > Preview HTTP receipts (sanity, captured at run start):
 >
@@ -273,7 +276,7 @@ User checks the [branch preview URL](https://braeden-site-llgl2we40-bwaedens-pro
 - [ ] **All interactive elements show focus ring** on Tab — 2px solid accent, 2px offset. (DSGN-06, A11Y-02, inherited)
 - [ ] **Body + muted + accent contrast verified** on the hero region of the gradient using WebAIM checker. All clear AA.
 - [ ] **320px viewport renders cleanly** — no horizontal overflow. Photo + content fits. (LNCH-05 carry-forward)
-- [ ] **Lighthouse mobile LCP < 2.5s** on deployed branch-preview. (PERF-06) — **AUTOMATED: FAIL (2885ms measured, target <2500ms). See Step 3 for remediation options. Marks this checklist item ☐ pending user/orchestrator decision.**
+- [~] **Lighthouse mobile LCP < 2.5s** on deployed branch-preview. (PERF-06) — **DEFERRED TO PHASE 6**. Pre-AVIF: 2885ms. Post-AVIF (next.config.ts `images.formats: ['image/avif','image/webp']`, commit `8ddcb2f`, preview `braeden-site-miskiwybt-bwaedens-projects.vercel.app`): **2821ms**. 321ms over 2500ms target on Slow-4G synthetic Lighthouse. User decision 2026-05-12: defer to Phase 6 (Phase 6 owns PERF-01/02/05 with real-user Speed Insights data; the synthetic Slow-4G CPU-throttled measurement is dominated by RTT + 4x CPU slowdown more than image bytes). Performance score still 95/100. HOME-04 sub-clause (no-animation on LCP element) PASS automated.
 - [x] **Zero `'use client'`** in `app/page.tsx`, `app/about/page.tsx`, `app/work/page.tsx`, `components/home/*`, `components/layout/SocialIconLink.tsx`. (FOUND-07 invariant, D-25) — **VERIFIED AUTOMATED (`no-client-components.spec.ts` PASS)**
 - [x] **Phase 1 specs still pass** — running Phase 1's existing 13 spec files against the Phase 2 build continues to pass. — **VERIFIED AUTOMATED (rows 1-13 in Step 1 table, all GREEN chromium-mobile + chromium-desktop)**
 - [x] **Vercel branch-preview URL** (NOT the production alias `braeden-site.vercel.app`) used for all visual checks. — **VERIFIED AUTOMATED (this report uses `https://braeden-site-llgl2we40-bwaedens-projects.vercel.app/` throughout; Phase 1 W4-T2 lesson honored)**

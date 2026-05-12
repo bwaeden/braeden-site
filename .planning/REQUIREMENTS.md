@@ -96,7 +96,7 @@ Requirements for initial release at braehods.com. Each maps to roadmap phases.
 - [ ] **PERF-03**: First-page client JS bundle ≤ 50 KB gzipped (excluding contact modal client island)
 - [x] **PERF-04**: All images served via `next/image` with explicit width/height; LCP image preloaded if needed
 - [ ] **PERF-05**: Vercel Speed Insights + Vercel Analytics installed; cookieless, no banner needed
-- [x] **PERF-06**: Hero LCP under 2.5 s on a simulated mid-tier mobile (Vercel Speed Insights as benchmark)
+- [~] **PERF-06**: Hero LCP under 2.5 s on a simulated mid-tier mobile (Vercel Speed Insights as benchmark) — **PARTIAL / Phase 6 carry-forward**: HOME-04 sub-clause (no-animation on LCP element) verified GREEN in Phase 2; PERF-06 numeric threshold measured 2821ms on Slow-4G Lighthouse post-AVIF (target <2500ms). Phase 2 binding gate deferred; Phase 6 owns final perf audit with real-user Speed Insights data per PERF-01/02/05.
 
 ### Launch & Migration (LNCH)
 
