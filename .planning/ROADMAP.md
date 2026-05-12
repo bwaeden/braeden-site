@@ -52,7 +52,7 @@ gates are reviewable from Phase 1 onward.
 - [x] 02-01-PLAN.md — W0 foundation: collect user URLs, populate data/channels.ts + data/site.ts.socials, copy public/portrait.jpg, patch next.config.ts images.qualities, stub 8 RED Playwright specs
 - [x] 02-02-PLAN.md — W1 display atoms: components/home/HeroPhoto.tsx (LCP-safe + view-transition seam), components/home/CurrentlyLine.tsx (accent dot + Mono date), lib/format.ts (UTC-anchored formatDate)
 - [x] 02-03-PLAN.md — W1 interactive atoms: components/home/ChannelButton.tsx + ChannelButtonRow.tsx (lucide YT/IG icons, target=_blank, hover translate), components/home/CTAArrowLink.tsx (accent text-link with arrow translate)
-- [ ] 02-04-PLAN.md — W2 layout extension: components/layout/SocialIconLink.tsx, extend components/layout/Footer.tsx (social row + View source), rewire components/layout/Nav.tsx LINKS to /about + /work
+- [x] 02-04-PLAN.md — W2 layout extension: components/layout/SocialIconLink.tsx, extend components/layout/Footer.tsx (social row + View source), rewire components/layout/Nav.tsx LINKS to /about + /work
 - [ ] 02-05-PLAN.md — W2 stub routes: app/about/page.tsx + app/work/page.tsx (D-18 — "Coming soon." Server Components inheriting layout chrome)
 - [ ] 02-06-PLAN.md — W2 hero composition: components/home/Hero.tsx (composes 4 atoms in CD-05 rhythm + D-01 responsive layout) + rewrite app/page.tsx to <Hero />
 - [ ] 02-07-PLAN.md — W3 deploy + verify: full 22-spec Playwright suite + axe smoke + Lighthouse mobile LCP against Vercel branch preview; 28-item visual checklist (user); squash-merge to main
@@ -114,7 +114,7 @@ gates are reviewable from Phase 1 onward.
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation + Design Tokens | 0/1 | Not started | - |
-| 2. Home Page | 2/7 | In Progress|  |
+| 2. Home Page | 4/7 | In Progress|  |
 | 3. About Page | 0/0 | Not started | - |
 | 4. Work + Projects | 0/0 | Not started | - |
 | 5. Contact Modal | 0/0 | Not started | - |
@@ -144,3 +144,4 @@ A11Y, PERF, and SEO are NOT separate phases. They are baked into the phase that 
 *Roadmap created: 2026-05-07*
 *Source requirements: 67 v1 items across FOUND, DSGN, HOME, ABOUT, WORK, CTCT, SEO, A11Y, PERF, LNCH*
 *Last updated: 2026-05-11 by plan-phase — Phase 2 finalized (7 plans, 4 waves; 02-NN-PLAN.md files created)*
+*Last updated: 2026-05-11 by execute-phase — Plan 02-04 complete (4/7 Phase-2 plans done; W2 layout chrome extension shipped — Footer + Nav rewire + SocialIconLink + components/icons/)*

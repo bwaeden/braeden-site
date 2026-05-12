@@ -3,19 +3,19 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-12T05:05:45.588Z"
+last_updated: "2026-05-12T05:30:00.000Z"
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 8
-  completed_plans: 4
-  percent: 50
+  completed_plans: 5
+  percent: 62
 ---
 
 # Project State: Braeden Site (braehods.com)
 
 **Last updated:** 2026-05-12
-**Updated by:** execute-phase (Phase 2 / Plan 03 / Wave 1 parallel complete — ChannelButton + ChannelButtonRow + CTAArrowLink; build canary GREEN in 2.2s, 3 task commits direct to main; 1 architectural deviation auto-resolved: lucide-react@1.14.0 dropped brand icons → inline-SVG fallback per CLAUDE.md monogram precedent)
+**Updated by:** execute-phase (Phase 2 / Plan 04 / Wave 2 complete — Footer extended + Nav LINKS rewired + SocialIconLink + components/icons/{Github,Instagram}Icon shared modules; 6 atomic commits direct to main; 1 Rule 1 deviation auto-fixed: Tailwind v4 transition-colors broke focus-ring; narrowed to transition-[color])
 
 ## Project Reference
 
@@ -56,16 +56,16 @@ unblock final verification.**
 
 **Milestone:** v1 (initial launch at braehods.com)
 **Phase:** Phase 2 — Home Page (7 plans, 5 waves)
-**Plan:** 02-03-PLAN.md COMPLETE (W1 interactive atoms — ChannelButton + ChannelButtonRow + CTAArrowLink)
+**Plan:** 02-04-PLAN.md COMPLETE (W2 layout chrome extension — Footer social row + Nav LINKS rewire + SocialIconLink + components/icons/ shared modules)
 **Branch:** `main` (Phase 2 plans commit directly to main per project branching strategy)
-**Status:** Ready to execute Plan 02-04 (Wave 2 — Footer + Nav rewire + SocialIconLink) and/or Plan 02-05 (Wave 2 — /about + /work stub pages)
-**Phase 2 plan progress:** 02-01 ✅ · 02-02 ✅ · 02-03 ✅ · 02-04 ⏳ · 02-05 ⏳ · 02-06 ⏳ · 02-07 ⏳
+**Status:** Ready to execute Plan 02-05 (Wave 2 — /about + /work stub pages) and/or Plan 02-06 (Wave 2 — Hero composition)
+**Phase 2 plan progress:** 02-01 ✅ · 02-02 ✅ · 02-03 ✅ · 02-04 ✅ · 02-05 ⏳ · 02-06 ⏳ · 02-07 ⏳
 
-**Spec scoreboard (after 02-03):** **13 GREEN (Phase 1) + 1 GREEN (Phase 2 format.spec) + 8 RED (Phase 2 mount-gated stubs) = 22 spec files**. `tests/no-client-components.spec.ts` still GREEN (all 3 new files are Server Components). `tests/channels-render.spec.ts` and channel-relevant assertions in `tests/hero-renders.spec.ts` remain RED — mount-gated by Plan 06 (Hero composition on `/`). All three new components are GREEN-ready in shape.
+**Spec scoreboard (after 02-04):** **13 GREEN (Phase 1) + 1 GREEN (Plan 02-02 format.spec) + 3 GREEN (Plan 02-04 footer-socials-render — first plan-graduated Phase 2 specs) + 5 RED (Plan 02-{05,06}-gated stubs) = 22 spec files**. `tests/no-client-components.spec.ts` still GREEN (3 more Server Components added: SocialIconLink + GithubIcon + InstagramIcon). `tests/focus-ring.spec.ts` GREEN (after Rule 1 fix during this plan — see Plan 04 deviation log). Phase 1 chrome suite (visual, monogram, reduced-motion, tokens, contrast, no-bare-outline-none, folder-structure, build-output, favicon, motion-seam) GREEN, no regression. Remaining 5 RED are Plan 05-gated (ctas-resolve-200) and Plan 06-gated (hero-renders, channels-render, currently-renders, mobile-hero-stacks-cleanly, photo-lcp, view-transition-name-present).
 
 **Scope-amendment compliance (2026-05-11):** YouTube fully omitted from v1 — `data/channels.ts` is 1-entry (Instagram only), `data/site.ts.socials` literal carries only `github` + `instagram` keys, `tests/channels-render.spec.ts` asserts 1 external `<a>` with "DM me" CTA, `tests/footer-socials-render.spec.ts` asserts only GH+IG aria-labels with explicit `.toHaveCount(0)` guard against the YouTube channel aria-label.
 
-**Progress:** [█████░░░░░] 50%
+**Progress:** [██████░░░░] 62%
 
 ## Performance Metrics
 
@@ -80,6 +80,7 @@ unblock final verification.**
 | Phase 02-home-page P01 | 4 min | 2 tasks | 12 files |
 | Phase 02 P02 | 5 min | 3 tasks | 4 files |
 | Phase 02 P03 | 12 min | 3 tasks | 3 files |
+| Phase 02 P04 | 22 min | 3 tasks (+1 refactor +1 fix) | 6 files |
 
 ## Accumulated Context
 
@@ -96,7 +97,8 @@ unblock final verification.**
 | Skip /writing for v1 | Zero essay backlog. Architect for it (content/ folder ready) but don't ship empty |
 | Skip light-mode toggle | One mood executed precisely beats two executed loosely |
 | A11Y/PERF/SEO are cross-cutting, not separate phases | Bake into the phase that builds the UI; bulk audit + remaining work in Phase 6 |
-| Brand icons via inline SVG (NOT lucide-react) — established Plan 02-03 | `lucide-react@1.14.0` dropped Instagram/Github/Youtube exports (verified at runtime). CLAUDE.md Supporting Libraries row claiming "Lucide has all three" is factually wrong. Adopted inline-SVG-with-currentColor approach per CLAUDE.md's "Monogram approach" precedent (MonogramMark.tsx). Plan 04 Footer will continue the pattern for Github + Instagram. Future Plan 04 or Plan 07 should ship a `chore(docs)` commit amending CLAUDE.md's lucide-react row to reflect "utility icons only — brand icons via inline SVG". |
+| Brand icons via inline SVG (NOT lucide-react) — established Plan 02-03, extended Plan 02-04 | `lucide-react@1.14.0` dropped Instagram/Github/Youtube exports (verified at runtime). CLAUDE.md Supporting Libraries row claiming "Lucide has all three" is factually wrong. Adopted inline-SVG-with-currentColor approach per CLAUDE.md's "Monogram approach" precedent (MonogramMark.tsx). Plan 04 graduated the pattern to a shared `components/icons/` directory with Github + Instagram modules; Plan 03's inline IG sub-component was hoisted out for reuse with the Footer SocialIconLink. Plan 07 should ship a `chore(docs)` commit amending CLAUDE.md's lucide-react row to reflect "utility icons only — brand icons via inline SVG at components/icons/*". |
+| Tailwind v4 transition-colors includes outline-color — established Plan 02-04 | Plan 04 Rule 1 deviation: Tailwind v4's `transition-colors` shorthand transitions `outline-color` in addition to `color`/`border-color`/etc. Combined with the parent footer's inherited muted color cascading to `outline-color` via `currentcolor` default, this caused tests/focus-ring.spec.ts (DSGN-06 / A11Y-02) to regress because the 200ms transition made the *:focus-visible accent ring interpolate from muted to accent. Fix: use `transition-[color]` (arbitrary single-property) when only the text-color needs to animate AND the element will receive `:focus-visible`. Pattern to remember for any future link/button hover-color transitions. |
 
 ### Open Todos
 
@@ -292,9 +294,25 @@ Plan 02-02 lands `components/home/HeroPhoto.tsx` + `components/home/CurrentlyLin
 - **`tests/channels-render.spec.ts`:** RED as documented in plan (mount-gated — asserts presence on `/` via `[data-test="hero-section"]` which Plan 06 will add).
 - **Duration:** ~12 minutes (including the lucide blocker investigation + decision documentation). 3 atomic commits.
 
-### Next Session — Plan 02-04 (Wave 2) and/or Plan 02-05 (Wave 2)
+### Last Session (2026-05-11 — Phase 2 Plan 04 / Wave 2 execution)
 
-Both Wave 2 plans can run in parallel — no file overlap. **Plan 02-04 (Footer + Nav rewire + SocialIconLink) inherits the lucide-brand-icon blocker** and should adopt the same inline-SVG approach for Github + Instagram icons (the precedent is now in `components/home/ChannelButton.tsx` lines 38-58). Plan 02-04's `SocialIconLink` is already designed with an `Icon: ComponentType` prop, so the call site simply passes inline-SVG components. Plan 02-05 (about + work stubs) is unaffected by the lucide issue.
+- Spawned `gsd-executor` for Phase 2 / Plan 04 (Wave 2 — layout chrome extension: Footer social row + Nav LINKS rewire + SocialIconLink primitive)
+- 3 atomic plan-tasks + 1 atomic refactor (pre-Task 1) + 1 atomic Rule 1 fix (post-Task 3) = 6 commits direct to main
+- Refactor `3a093a3` — `refactor(phase-2/w2): hoist InstagramIcon out of ChannelButton into components/icons/ for reuse in Footer` (proactive, since Plan 03 SUMMARY flagged Plan 04 would need its own IG icon copy — hoisted to a shared module instead of duplicating)
+- Pre-Task1 `2d0da0a` — `feat(phase-2/w2): components/icons/GithubIcon (inline currentColor SVG — lucide brand-icons workaround)` (canonical Octocat path, mirrors InstagramIcon shape)
+- T1 `431372f` — `feat(phase-2/w2): SocialIconLink (icon-only external link, currentColor inheritance)` (Server Component primitive with Icon: ComponentType<SVGProps & { size?, strokeWidth? }> prop)
+- T2 `61eb62d` — `feat(phase-2/w2): Footer extended with social row + View source link (GitHub + Instagram per scope amendment)` (Phase 1 chrome preserved verbatim; 2 SocialIconLinks + View source CTA + gap-3 → gap-4; YouTube conditional OMITTED entirely per 02-SCOPE-AMENDMENT.md, not even as a guarded no-op)
+- T3 `ddd7c86` — `feat(phase-2/w2): Nav LINKS hrefs rewired to /about + /work (mobile hamburger preserved)` (5/5 diff stats — exactly 3 hrefs + 2 leading-comment lines; mobile <details>/<summary> hamburger from a975967 preserved verbatim)
+- Rule 1 fix `e3ed657` — `fix(phase-2/w2): narrow Footer/SocialIconLink hover-transition to 'color' so focus ring stays accent` (caught at verification time — Tailwind v4 `transition-colors` includes `outline-color` in its property list, which combined with the parent footer's muted color cascade made `*:focus-visible`'s 2px accent ring 200ms-interpolate from muted to accent; getComputedStyle.outline captured the in-flight muted value on first frame after Tab; regressed tests/focus-ring.spec.ts. Fix: narrow both new <a> elements to `transition-[color]` arbitrary single-property, leaving outline-color unanimated. Documented inline in both files.)
+- **Scope-amendment compliance held:** Zero `Youtube` symbol in Footer.tsx source. Zero `from 'lucide-react'` import in Footer.tsx source (workaround used instead). aria-labels: only "GitHub profile" + "Instagram profile" — no "YouTube channel". Defensive `{site.socials.github && (...)}` + `{site.socials.instagram && (...)}` conditionals retained; YouTube conditional block fully absent per amendment.
+- **Phase 1 chrome invariants verified preserved:** Footer MonogramMark + © 2026 Braeden Hodson + braehods.com all present. Nav <details>/<summary> hamburger + nav-mobile-toggle + nav-icon-menu + nav-icon-close classes + MonogramMark size={24} + Toggle menu aria-label all unchanged. `tests/monogram.spec.ts` GREEN (footer + nav monograms both render on /).
+- **`npm run typecheck` + `npm run lint` + `npm run build`:** all exit 0 (Turbopack compiled in ~2s, 5 static pages, no warnings).
+- **Net spec movement:** +3 newly-GREEN footer-socials-render assertions (footer external links, View source link, ≥3 svgs in footer — first plan-graduated Phase 2 spec assertions). 0 regressions after Rule 1 fix. Full suite re-run: 47 passed, 19 RED (all Plan 05/06-gated as documented in Plan 03 SUMMARY's spec scoreboard, no Plan 04-introduced reds), 2 skipped.
+- **Duration:** ~22 minutes including the Rule 1 investigation. 6 atomic commits.
+
+### Next Session — Plan 02-05 (Wave 2 stub routes) and/or Plan 02-06 (Wave 2 Hero composition)
+
+Plan 02-05 ships `app/about/page.tsx` + `app/work/page.tsx` with Coming-soon placeholder bodies (D-18). After Plan 05, the Nav hrefs Plan 04 wired (`/about`, `/work`) will resolve 200 — turning `tests/ctas-resolve-200.spec.ts` GREEN. Plan 02-06 (Hero composition) mounts the home page hero into `/`, consuming Plan 02's HeroPhoto + CurrentlyLine + Plan 03's ChannelButtonRow + CTAArrowLink. After Plan 06, all currently-RED mount-gated specs (hero-renders, channels-render, currently-renders, mobile-hero-stacks-cleanly, photo-lcp, view-transition-name-present) should turn GREEN.
 
 ---
 *State initialized: 2026-05-07 by roadmapper*
@@ -311,3 +329,4 @@ Both Wave 2 plans can run in parallel — no file overlap. **Plan 02-04 (Footer 
 *State updated: 2026-05-11 by execute-phase (Phase 2 Plan 01 / Wave 0 complete — data scaffolds + portrait + next.config.images.qualities + 8 RED specs; scope-amendment YT-omission compliance held)*
 *State updated: 2026-05-12 by execute-phase (Phase 2 Plan 02 / Wave 1 complete — HeroPhoto + CurrentlyLine + formatDate; 3 task commits, build canary 2.7s)*
 *State updated: 2026-05-12 by execute-phase (Phase 2 Plan 03 / Wave 1 parallel complete — ChannelButton + ChannelButtonRow + CTAArrowLink; 3 task commits, build canary 2.2s; lucide-react@1.14.0 brand-icon blocker auto-resolved via inline-SVG per CLAUDE.md MonogramMark precedent)*
+*State updated: 2026-05-11 by execute-phase (Phase 2 Plan 04 / Wave 2 complete — Footer extended + Nav LINKS rewired + SocialIconLink + components/icons/{Github,Instagram}Icon; 6 atomic commits; 1 Rule 1 deviation auto-fixed — Tailwind v4 transition-colors includes outline-color, narrowed to transition-[color]; net +3 GREEN footer-socials-render assertions, 0 regressions, Phase 1 chrome 34/34 GREEN)*
