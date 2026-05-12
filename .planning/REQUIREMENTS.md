@@ -36,7 +36,7 @@ Requirements for initial release at braehods.com. Each maps to roadmap phases.
 
 - [ ] **HOME-01**: Hero treats Braeden as the focal point — name, monogram, photo (or placeholder), one-line positioning ("Business student and entrepreneur in LA, building things and running a small content brand" or refined variant)
 - [ ] **HOME-02**: "Currently" status block sourced from `data/currently.ts` showing one-line current activity (e.g., "Currently shipping CapitolLens") and last-updated date
-- [ ] **HOME-03**: Channel-link block — distinct buttons for YouTube and Instagram channels, opens in new tab, no embeds, includes "DM me" / "Subscribe" affordance
+- [ ] **HOME-03**: Channel-link block — Instagram channel button opens in new tab, no embeds, "DM me" affordance (YouTube dropped from v1 per .planning/phases/02-home-page/02-SCOPE-AMENDMENT.md; component logic preserves a platform-keyed shape so YT can be re-enabled post-v1 via `data/channels.ts` only)
 - [ ] **HOME-04**: Hero LCP element loads without animation delay (avoid hero animations that block LCP)
 - [ ] **HOME-05**: Curated overview links to `/about` and `/work` with view-transition shared element where photo is reused
 - [ ] **HOME-06**: Footer with monogram, social links, copyright year, repo/source link
