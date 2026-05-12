@@ -1,0 +1,124 @@
+{
+  "version": "1.0",
+  "timestamp": "2026-05-12T06:42:59.591Z",
+  "phase": "3",
+  "phase_name": "About Page",
+  "phase_dir": ".planning/phases/03-about-page",
+  "plan": null,
+  "task": null,
+  "total_tasks": null,
+  "status": "context_gathered_awaiting_ui_phase",
+  "completed_tasks": [
+    {
+      "id": "phase-2-w0",
+      "name": "Phase 2 W0 — Plan 02-01 foundation (data + tests + asset + scope amendment)",
+      "status": "done",
+      "commit": "afd203b"
+    },
+    {
+      "id": "phase-2-w1",
+      "name": "Phase 2 W1 — Plans 02-02 + 02-03 atoms (HeroPhoto, CurrentlyLine, format, ChannelButton, ChannelButtonRow, CTAArrowLink)",
+      "status": "done",
+      "commit": "e721a1f"
+    },
+    {
+      "id": "phase-2-w2",
+      "name": "Phase 2 W2 — Plans 02-04 + 02-05 chrome + stubs (SocialIconLink, Footer extension, Nav rewire, /about + /work stubs)",
+      "status": "done",
+      "commit": "7da5c64"
+    },
+    {
+      "id": "phase-2-w3",
+      "name": "Phase 2 W3 — Plan 02-06 Hero composition + app/page.tsx rewrite",
+      "status": "done",
+      "commit": "47e4fc0"
+    },
+    {
+      "id": "phase-2-w4",
+      "name": "Phase 2 W4 — Plan 02-07 deploy + verify (22-spec sweep + axe + Lighthouse + AVIF + LCP deferral + merge + production push)",
+      "status": "done",
+      "commit": "adb3ddc"
+    },
+    {
+      "id": "phase-3-discuss",
+      "name": "Phase 3 discuss-phase — 19 implementation decisions locked across 4 gray areas",
+      "status": "done",
+      "commit": "c991bcb"
+    }
+  ],
+  "remaining_tasks": [
+    {
+      "id": "phase-3-ui-phase",
+      "name": "Phase 3 /gsd-ui-phase 3 — generate 03-UI-SPEC.md design contract from CONTEXT.md decisions",
+      "status": "not_started"
+    },
+    {
+      "id": "phase-3-plan-phase",
+      "name": "Phase 3 /gsd-plan-phase 3 — generate plan file(s) for /about implementation",
+      "status": "not_started"
+    },
+    {
+      "id": "phase-3-execute-phase",
+      "name": "Phase 3 /gsd-execute-phase 3 — implement bio + photo + CTA + view-transition seam",
+      "status": "not_started"
+    },
+    {
+      "id": "phase-4-work",
+      "name": "Phase 4 — Work + Projects grid",
+      "status": "not_started"
+    },
+    {
+      "id": "phase-5-contact-modal",
+      "name": "Phase 5 — Contact modal (wires Nav + /about CTA target globally)",
+      "status": "not_started"
+    },
+    {
+      "id": "phase-6-polish-launch",
+      "name": "Phase 6 — Polish + SEO + Launch (DNS swap to braehods.com, OG images, JSON-LD, real-user PERF audit including PERF-06 LCP gate)",
+      "status": "not_started"
+    }
+  ],
+  "blockers": [],
+  "human_actions_pending": [
+    {
+      "action": "User edits Claude's first-pass bio draft during Phase 3 execute-phase",
+      "context": "CONTEXT.md D-01 commits to Claude drafting at execution time; user reviews and edits the prose in-place before the commit lands. Not a hard blocker but a user-in-the-loop step inside the executor's flow.",
+      "blocking": false
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Phase 2 YouTube dropped from v1 (scope amendment)",
+      "rationale": "User has no YouTube channel yet; Instagram + GitHub only. Component shape platform-keyed for forward-compat re-enable.",
+      "phase": "2"
+    },
+    {
+      "decision": "Phase 2 PERF-06 LCP deferred to Phase 6",
+      "rationale": "2821ms post-AVIF on Slow-4G synthetic Lighthouse vs 2500ms target. Performance score still 95/100. Phase 6 owns the final perf audit with real-user Speed Insights data (PERF-01/02/05) which is the more meaningful gate.",
+      "phase": "2"
+    },
+    {
+      "decision": "Phase 3 bio = warm + personal first-person, ~150-250 words, 3 buckets (current projects + school + open-to)",
+      "rationale": "User chose warm voice for editorial-dark aesthetic fit; explicitly excluded 'Origin / why I build' bucket (resume-anchored over personality-narrative). Length matches ABOUT-04 60-second-read target.",
+      "phase": "3"
+    },
+    {
+      "decision": "Phase 3 layout = two-column mirroring home hero with view-transition shared element",
+      "rationale": "Maximizes the / → /about smooth photo transition. Mirrors home hero pattern so the photo 'stays put' visually while text content swaps. flex-col-reverse mobile reflow.",
+      "phase": "3"
+    },
+    {
+      "decision": "Phase 3 CTA = reuse <CTAArrowLink> 'Get in touch →' pointing to / placeholder",
+      "rationale": "Matches Nav 'Contact' placeholder (Phase 5 wires modal globally and swaps href atomically). Quiet text-link beats pill-button for editorial-dark voice.",
+      "phase": "3"
+    },
+    {
+      "decision": "Phase 3 current focus + location woven into bio prose",
+      "rationale": "No separate <CurrentlyLine> reuse (duplicates home signal), no labeled metadata strip (too resume-ish for warm voice). Home is rolling 'today' surface; /about is durable identity.",
+      "phase": "3"
+    }
+  ],
+  "uncommitted_files": [],
+  "next_action": "Run /gsd-resume-work (reads this handoff + .continue-here.md) or jump directly to /gsd-ui-phase 3 to generate the 03-UI-SPEC.md design contract from the CONTEXT.md decisions.",
+  "context_notes": "Phase 2 shipped to production (origin/main pushed; braeden-site.vercel.app serves Phase 2). Phase 3 context just locked; 19 decisions in 03-CONTEXT.md. Working tree clean, local main 2 commits ahead of origin (planning docs only — no source changes pending push). Natural next step is /gsd-ui-phase 3. Two reusable Phase 2 components <HeroPhoto /> and <CTAArrowLink /> are designed to plug directly into /about with the view-transition-name seam already wired on the home side."
+}
