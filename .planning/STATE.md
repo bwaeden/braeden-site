@@ -3,19 +3,19 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-12T04:42:09.927Z"
+last_updated: "2026-05-12T04:52:30.337Z"
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 8
-  completed_plans: 2
-  percent: 25
+  completed_plans: 3
+  percent: 38
 ---
 
 # Project State: Braeden Site (braehods.com)
 
-**Last updated:** 2026-05-11
-**Updated by:** execute-phase (Phase 2 / Plan 01 / Wave 0 complete — data scaffolds + portrait + next.config patch + 8 RED specs)
+**Last updated:** 2026-05-12
+**Updated by:** execute-phase (Phase 2 / Plan 02 / Wave 1 complete — HeroPhoto + CurrentlyLine + lib/format; build canary GREEN, 3 task commits direct to main)
 
 ## Project Reference
 
@@ -56,16 +56,16 @@ unblock final verification.**
 
 **Milestone:** v1 (initial launch at braehods.com)
 **Phase:** Phase 2 — Home Page (7 plans, 5 waves)
-**Plan:** 02-01-PLAN.md COMPLETE (W0 — validation infrastructure + data scaffolds)
+**Plan:** 02-02-PLAN.md COMPLETE (W1 display atoms — HeroPhoto + CurrentlyLine + lib/format)
 **Branch:** `main` (Phase 2 plans commit directly to main per project branching strategy)
-**Status:** Ready to execute Plan 02-02 (Wave 1)
-**Phase 2 plan progress:** 02-01 ✅ · 02-02 ⏳ · 02-03 ⏳ · 02-04 ⏳ · 02-05 ⏳ · 02-06 ⏳ · 02-07 ⏳
+**Status:** Ready to execute Plan 02-03 (Wave 1 parallel — interactive Hero atoms) or Plan 02-04 (Wave 1 parallel — Footer extension)
+**Phase 2 plan progress:** 02-01 ✅ · 02-02 ✅ · 02-03 ⏳ · 02-04 ⏳ · 02-05 ⏳ · 02-06 ⏳ · 02-07 ⏳
 
-**Spec scoreboard (after 02-01):** **13 GREEN (Phase 1) + 8 RED (Phase 2 stubs) = 21 spec files, 60 tests enumerable via `npx playwright test --list`**. The 8 new RED stubs cover HOME-01..06 + PERF-04 + PERF-06; they turn GREEN as Plans 02-02 (HeroPhoto + CurrentlyLine), 02-03 (ChannelButton row), 02-04 (Footer extension), 02-05 (about/work stubs), and 02-06 (Hero composition + app/page.tsx rewrite) land.
+**Spec scoreboard (after 02-02):** **13 GREEN (Phase 1) + 1 GREEN (Phase 2 format.spec) + 8 RED (Phase 2 mount-gated stubs) = 22 spec files**. `tests/format.spec.ts` (4 cases) GREEN. `tests/no-client-components.spec.ts` still GREEN (all 3 new files are Server Components). `view-transition-name-present`, `currently-renders`, `hero-renders`, and `photo-lcp` (PERF-04 half) remain RED only because Hero.tsx is not yet mounted on `/` — the components themselves satisfy the assertions. All four turn GREEN when Plan 02-06 wires `<Hero />` into `app/page.tsx`.
 
 **Scope-amendment compliance (2026-05-11):** YouTube fully omitted from v1 — `data/channels.ts` is 1-entry (Instagram only), `data/site.ts.socials` literal carries only `github` + `instagram` keys, `tests/channels-render.spec.ts` asserts 1 external `<a>` with "DM me" CTA, `tests/footer-socials-render.spec.ts` asserts only GH+IG aria-labels with explicit `.toHaveCount(0)` guard against the YouTube channel aria-label.
 
-**Progress:** [███░░░░░░░] 25%
+**Progress:** [████░░░░░░] 38%
 
 ## Performance Metrics
 
@@ -78,6 +78,7 @@ unblock final verification.**
 | WCAG AA contrast | Pass on both gradient endpoints | Not verified |
 | Cumulative Layout Shift | 0 on hero | Not measured |
 | Phase 02-home-page P01 | 4 min | 2 tasks | 12 files |
+| Phase 02 P02 | 5 min | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -266,6 +267,7 @@ state.
 ### Next Session — Plan 02-02 (Wave 1)
 
 Plan 02-02 lands `components/home/HeroPhoto.tsx` + `components/home/CurrentlyLine.tsx` + `lib/format.ts`. Turns 3 of the 8 Phase-2 RED specs GREEN: `tests/photo-lcp.spec.ts` (PERF-04 + the LCP audit half is gated on a running server), `tests/currently-renders.spec.ts`, and `tests/view-transition-name-present.spec.ts`. Plan 02-02 will reference:
+
 - `public/portrait.jpg` (static-imported into HeroPhoto for `next/image`)
 - `data/currently.ts` (already shipping Phase 1)
 - `next.config.ts.images.qualities` (permits HeroPhoto's `quality={90}` build-time)
