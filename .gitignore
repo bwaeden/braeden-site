@@ -32,6 +32,13 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# verification-run scratch (Plan 02-07 axe + lighthouse runners; outputs captured into 02-VERIFICATION.md)
+.axe-scan.mjs
+.axe-report.json
+.lighthouse-runner.mjs
+.lighthouse-report.json
+.lcp-element-runner.mjs
+
 # editor / OS
 .DS_Store
 .vscode/

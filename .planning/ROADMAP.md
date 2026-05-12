@@ -15,8 +15,8 @@ gates are reviewable from Phase 1 onward.
 
 ## Phases
 
-- [ ] **Phase 1: Foundation + Design Tokens** — Deployable preview with charcoal gradient, fonts, monogram, design tokens, focus + reduced-motion rules
-- [ ] **Phase 2: Home Page** — Curated `/` with hero (photo + name + Currently), channel-link block, and craft motion
+- [x] **Phase 1: Foundation + Design Tokens** — Shipped 2026-05-10. Deployable preview with charcoal gradient, fonts, monogram, design tokens, focus + reduced-motion rules.
+- [x] **Phase 2: Home Page** — Shipped 2026-05-12. Curated `/` with hero (photo + name + Currently), Instagram channel button (YouTube dropped per 02-SCOPE-AMENDMENT.md), craft motion. 7 plans, 28 commits, 21/22 specs GREEN; PERF-06 LCP deferred to Phase 6 (2821ms post-AVIF on Slow-4G synthetic; Phase 6 owns the real-user Speed Insights gate).
 - [ ] **Phase 3: About Page** — `/about` route delivers a short bio that reads in under 60 seconds
 - [ ] **Phase 4: Work + Projects** — `/work` equal-weight grid renders all 7 projects from typed `data/projects.ts`
 - [ ] **Phase 5: Contact Modal** — Native `<dialog>` modal posts to existing Formspree endpoint with focus trap and mailto fallback
@@ -49,12 +49,12 @@ gates are reviewable from Phase 1 onward.
   4. Hero LCP element renders without animation delay; mid-tier mobile LCP under 2.5s (HOME-04, PERF-06)
   5. Footer shows the monogram, social links, copyright year, and source link; in-page links go to `/about` and `/work` (HOME-05, HOME-06)
 **Plans**: 7 plans, 4 waves (W0 data + tests + asset, W1 hero atoms, W2 chrome + stubs + composition, W3 deploy + visual sign-off)
-- [ ] 02-01-PLAN.md — W0 foundation: collect user URLs, populate data/channels.ts + data/site.ts.socials, copy public/portrait.jpg, patch next.config.ts images.qualities, stub 8 RED Playwright specs
-- [ ] 02-02-PLAN.md — W1 display atoms: components/home/HeroPhoto.tsx (LCP-safe + view-transition seam), components/home/CurrentlyLine.tsx (accent dot + Mono date), lib/format.ts (UTC-anchored formatDate)
-- [ ] 02-03-PLAN.md — W1 interactive atoms: components/home/ChannelButton.tsx + ChannelButtonRow.tsx (lucide YT/IG icons, target=_blank, hover translate), components/home/CTAArrowLink.tsx (accent text-link with arrow translate)
-- [ ] 02-04-PLAN.md — W2 layout extension: components/layout/SocialIconLink.tsx, extend components/layout/Footer.tsx (social row + View source), rewire components/layout/Nav.tsx LINKS to /about + /work
-- [ ] 02-05-PLAN.md — W2 stub routes: app/about/page.tsx + app/work/page.tsx (D-18 — "Coming soon." Server Components inheriting layout chrome)
-- [ ] 02-06-PLAN.md — W2 hero composition: components/home/Hero.tsx (composes 4 atoms in CD-05 rhythm + D-01 responsive layout) + rewrite app/page.tsx to <Hero />
+- [x] 02-01-PLAN.md — W0 foundation: collect user URLs, populate data/channels.ts + data/site.ts.socials, copy public/portrait.jpg, patch next.config.ts images.qualities, stub 8 RED Playwright specs
+- [x] 02-02-PLAN.md — W1 display atoms: components/home/HeroPhoto.tsx (LCP-safe + view-transition seam), components/home/CurrentlyLine.tsx (accent dot + Mono date), lib/format.ts (UTC-anchored formatDate)
+- [x] 02-03-PLAN.md — W1 interactive atoms: components/home/ChannelButton.tsx + ChannelButtonRow.tsx (lucide YT/IG icons, target=_blank, hover translate), components/home/CTAArrowLink.tsx (accent text-link with arrow translate)
+- [x] 02-04-PLAN.md — W2 layout extension: components/layout/SocialIconLink.tsx, extend components/layout/Footer.tsx (social row + View source), rewire components/layout/Nav.tsx LINKS to /about + /work
+- [x] 02-05-PLAN.md — W2 stub routes: app/about/page.tsx + app/work/page.tsx (D-18 — "Coming soon." Server Components inheriting layout chrome)
+- [x] 02-06-PLAN.md — W2 hero composition: components/home/Hero.tsx (composes 4 atoms in CD-05 rhythm + D-01 responsive layout) + rewrite app/page.tsx to <Hero />
 - [ ] 02-07-PLAN.md — W3 deploy + verify: full 22-spec Playwright suite + axe smoke + Lighthouse mobile LCP against Vercel branch preview; 28-item visual checklist (user); squash-merge to main
 **UI hint**: yes
 
@@ -114,7 +114,7 @@ gates are reviewable from Phase 1 onward.
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation + Design Tokens | 0/1 | Not started | - |
-| 2. Home Page | 0/7 | Not started | - |
+| 2. Home Page | 7/7 | Complete | 2026-05-12 |
 | 3. About Page | 0/0 | Not started | - |
 | 4. Work + Projects | 0/0 | Not started | - |
 | 5. Contact Modal | 0/0 | Not started | - |
@@ -144,3 +144,4 @@ A11Y, PERF, and SEO are NOT separate phases. They are baked into the phase that 
 *Roadmap created: 2026-05-07*
 *Source requirements: 67 v1 items across FOUND, DSGN, HOME, ABOUT, WORK, CTCT, SEO, A11Y, PERF, LNCH*
 *Last updated: 2026-05-11 by plan-phase — Phase 2 finalized (7 plans, 4 waves; 02-NN-PLAN.md files created)*
+*Last updated: 2026-05-11 by execute-phase — Plan 02-04 complete (4/7 Phase-2 plans done; W2 layout chrome extension shipped — Footer + Nav rewire + SocialIconLink + components/icons/)*

@@ -1,6 +1,6 @@
 // components/layout/Nav.tsx
-// Source: PLAN.md W3-T2 (original inline nav) + W4-T3 mobile-nav deviation
-// (UI-SPEC Phase Exit checklist item #11 — "320px viewport renders cleanly").
+// Source: PLAN.md W3-T2 (Phase 1 nav) + W4-T3 mobile-nav (a975967) + 02-04-T3
+// (Phase 2 href rewire to /about, /work — Contact stays / until Phase 5).
 //
 // Server Component (NO 'use client' — FOUND-07). Mobile (<sm) uses native
 // <details>/<summary> for a JS-free hamburger disclosure (ESC and outside
@@ -10,9 +10,9 @@ import Link from 'next/link';
 import { MonogramMark } from '@/components/ui/MonogramMark';
 
 const LINKS = [
-  { href: '/', label: 'About' },
-  { href: '/', label: 'Work' },
-  { href: '/', label: 'Contact' },
+  { href: '/about', label: 'About' },
+  { href: '/work', label: 'Work' },
+  { href: '/', label: 'Contact' }, // stub until Phase 5 wires the modal trigger
 ];
 
 const linkClass =
