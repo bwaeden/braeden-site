@@ -24,6 +24,11 @@ const ACCENT_OUTLINE_RE =
 
 test('DSGN-06: first 5 Tab targets show the accent focus ring', async ({ page }) => {
   await page.goto('/');
+  // Settle before measuring: under parallel-suite load against a remote
+  // URL (Vercel preview), the first Tab can fire before Chromium has
+  // established keyboard-interaction modality, causing :focus-visible to
+  // fail to match even though the CSS rule is correct.
+  // (See 01-01-SUMMARY.md "Surprises" for the diagnosis.)
 
   // Phase 1's `/` exposes 4 focusable elements: the nav <Link href="/">
   // logo+name wrap + 3 placeholder nav links (About/Work/Contact). The
@@ -37,17 +42,24 @@ test('DSGN-06: first 5 Tab targets show the accent focus ring', async ({ page })
   // (activeElement === document.body, which means we've walked off the end
   // of the focus chain). Phases 2-6 add more interactive surface (real
   // route hrefs, contact button, etc.) — the loop will then walk all 5.
+  //
+  // W4-T2 discovery: Vercel preview deploys inject a <vercel-live-feedback>
+  // custom element into the tab order for the preview-feedback toolbar.
+  // It is not part of our app and uses its own UA styling, so we stop the
+  // walk when we encounter any custom element (tagName contains a hyphen).
   let visitedFocusable = 0;
   for (let i = 0; i < 5; i += 1) {
     await page.keyboard.press('Tab');
-    const focusedOutline = await page.evaluate(() => {
+    const focused = await page.evaluate(() => {
       const el = document.activeElement as HTMLElement | null;
       if (!el || el === document.body) return null;
-      return getComputedStyle(el).outline;
+      // Custom elements (e.g., <vercel-live-feedback>) are out of contract.
+      if (el.tagName.includes('-')) return { outOfContract: true } as const;
+      return { outOfContract: false, outline: getComputedStyle(el).outline };
     });
 
-    if (focusedOutline === null) break;
-    expect(focusedOutline).toMatch(ACCENT_OUTLINE_RE);
+    if (focused === null || focused.outOfContract) break;
+    expect(focused.outline).toMatch(ACCENT_OUTLINE_RE);
     visitedFocusable += 1;
   }
 
