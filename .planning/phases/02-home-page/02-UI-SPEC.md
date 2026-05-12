@@ -49,6 +49,8 @@ created: 2026-05-11
 | `2xl` | 48px | `gap-12` / `p-12` | Hero section vertical padding (top + bottom of the hero block); container horizontal padding (desktop) |
 | `3xl` | 64px | `gap-16` / `p-16` | Hero text-column ↔ photo-column horizontal gap on desktop (CD-04) |
 
+Channel-button vertical padding uses **12px** (`py-3`) — on-grid (multiple of 4) and not in the named token set above; ships as a literal Tailwind utility since it's a single use site. See ChannelButton contract for the full sizing breakdown.
+
 **CD-05 vertical rhythm** (exact pixel values for the hero stack — planner ships these and tests assert them):
 
 | From → To | Gap (px) | Token | Rationale |
@@ -68,11 +70,13 @@ created: 2026-05-11
 - Currently accent dot: 6px diameter (between `xs` 4 and `sm` 8) — visual signal, sub-grid by design (CD-02).
 - Photo `next/image` explicit width/height: **320×320** on desktop, **240×240** on mobile (D-03 + CD-04). These are content dimensions, not spacers.
 
+All spacers in this phase are multiples of 4. No `0.5`/`2.5` fractional Tailwind utilities are used in any component contract.
+
 ---
 
 ## Typography
 
-Type ramp **adds one new role** to Phase 1's `Body / UI-Mono / Display`: the **Subhead** for the positioning line. All other text reuses Phase 1 roles. Still well within the "3-4 sizes, 2 weights" editorial restraint contract.
+Type ramp **adds one new role** to Phase 1's `Body / UI-Mono / Display`: the **Subhead** for the positioning line. All other text reuses Phase 1 roles. Holds the "3-4 sizes, 2 weights" editorial restraint contract: **2 weights total** — Geist Sans 400 (regular) for all body / UI / channel-button / CTA copy, and Fraunces 700 (bold) reserved for the hero `<h1>` only.
 
 | Role | Size (px / rem) | Font | Weight | Line height | Tailwind class | Phase 2 use |
 |------|-----------------|------|--------|-------------|----------------|-------------|
@@ -80,9 +84,11 @@ Type ramp **adds one new role** to Phase 1's `Body / UI-Mono / Display`: the **S
 | **Subhead (positioning)** | 18px / 1.125rem | Geist Sans | 400 | 1.5 | `font-sans text-lg leading-relaxed` | Single line on desktop, may wrap to 2 on mobile (D-09). Color `var(--color-text)` — body weight, NOT muted, so it lands. |
 | **Body / Currently statement** | 16px / 1rem | Geist Sans | 400 | 1.5 | `text-base font-sans` | Currently statement (CD-02); CTA arrow-link label (D-19). |
 | **UI / Mono (Currently date)** | 14px / 0.875rem | Geist Mono | 400 | 1.5 | `text-sm font-mono` | **Currently `updatedAt` suffix only** (CD-02 — `· May 9` styled). Inherited role from Phase 1. |
-| **Channel-button copy** | 14px / 0.875rem | Geist Sans | 500 | 1.5 | `text-sm font-sans font-medium` | `@braehods · Subscribe` / `@braehods · DM me` (CD-01). Slightly heavier (500) to register against the hairline border without shouting. |
+| **Channel-button copy** | 14px / 0.875rem | Geist Sans | 400 | 1.5 | `text-sm font-sans` | `@braehods · Subscribe` / `@braehods · DM me` (CD-01). Body weight (400); the hairline border + platform icon + handle copy already differentiate the affordance. |
 | **Footer social label** | (icon-only, no label) | — | — | — | — | Lucide icons at 18px stroke 1.75 (FooterSocials section below). `aria-label` carries the semantic name. |
 | **Footer source link** | 14px / 0.875rem | Geist Sans | 400 | 1.5 | `text-sm font-sans` | "View source →" or equivalent (D-17). Muted color. |
+
+**Weight inventory:** Exactly two weights ship on this page — **Geist Sans 400** (subhead, body, Currently, channel buttons, CTAs, footer copy) and **Fraunces 700** (hero `<h1>` only). No weight 500, no weight 600. Inherited verbatim from Phase 1's 2-weight contract.
 
 **Hard rules** (inherited from Phase 1 / Pitfall 3 — restated for executor):
 - Fraunces appears **once** on the home page — the single `<h1>` name. Never below 40px. Never italic.
@@ -293,10 +299,10 @@ interface ChannelButtonProps {
 │  [▶] @braehods · Subscribe              │   ← YouTube
 └─────────────────────────────────────────┘
    ↑    ↑           ↑
-   │    │           CTA verb (Geist Sans 14 / weight 500
+   │    │           CTA verb (Geist Sans 14 / weight 400
    │    │           in --color-muted on rest, --color-text on hover)
    │    │
-   │    Handle (Geist Sans 14 / weight 500 in --color-text)
+   │    Handle (Geist Sans 14 / weight 400 in --color-text)
    │
    Platform icon (lucide Youtube / Instagram, 18px, stroke 1.75,
    inherits currentColor from --color-text)
@@ -314,9 +320,9 @@ interface ChannelButtonProps {
 | Shape | Rounded rectangle, `rounded-md` (6px corner radius) — **NOT** pill (`rounded-full`). Distinct from the photo tile's 4px and from any future badge shape. |
 | Background | Transparent (gradient shows through) |
 | Border | `border border-[var(--color-border)]` (1px hairline at #2a2a2f) |
-| Padding | `px-4 py-2.5` (16px horizontal × 10px vertical — gives ~40px button height, comfortably above the 44px touch-target minimum once the focus-ring offset is added; verify on touch in W4) |
+| Padding | `px-4 py-3` (16px horizontal × 12px vertical). On-grid: both values are multiples of 4. Computed height = Geist Sans 14px × line-height 1.5 (21px) + 12px top + 12px bottom = **45px** — clears WCAG's 44px touch-target minimum by spec, no field verification needed. |
 | Layout | `inline-flex items-center gap-2` — icon + handle + middle-dot + verb in a single row |
-| Font | `text-sm font-sans font-medium` (14px / weight 500) |
+| Font | `text-sm font-sans` (14px / weight 400 — body weight; the hairline border + icon + handle already differentiate the affordance, no additional weight needed) |
 | Icon | `lucide-react` `<Youtube />` or `<Instagram />` per `channel.platform`. Props: `size={18}` `strokeWidth={1.75}` `aria-hidden`. |
 | Handle text | `<span className="text-[var(--color-text)]">@{channel.handle}</span>` |
 | Middle dot | `<span aria-hidden className="text-[var(--color-muted)]">·</span>` |
@@ -584,7 +590,7 @@ Phase 2 introduces the **first real interactions** on the site (Phase 1 had only
 | Hover state — CTA arrow-links | Underline appears (1px, 4px offset); arrow translates +2px right. 200ms cubic-bezier(0.2, 0, 0, 1). |
 | Hover state — social icons | Color `--color-muted` → `--color-text`. 200ms ease. No translate (icons are small enough that translate reads jittery). |
 | Hover state — nav links | Underline appears (inherited from Phase 1's `linkClass`). Unchanged. |
-| Click target size | Channel buttons: ~40px tall × content-width. Social icons: ~30×30 tactile (icon + 1.5 padding). CTA links: text-bounded (~24px tall × content-width). Nav links: 32px tall × content-width (inherited). All comfortably reachable on touch; verify at 320px viewport in W4. |
+| Click target size | Channel buttons: 45px tall × content-width (12px py-3 + 14px copy × 1.5 line-height — clears WCAG 44px minimum by spec). Social icons: ~30×30 tactile (icon + 1.5 padding). CTA links: text-bounded (~24px tall × content-width). Nav links: 32px tall × content-width (inherited). All comfortably reachable on touch; verify at 320px viewport in W4. |
 | Keyboard activation | Native `<a>` and `<Link>` elements throughout — Enter activates. No custom click-handlers (FOUND-07 invariant). |
 | External link semantics | All `target="_blank" rel="noopener noreferrer"` (channel buttons, social icons, source link). Internal `<Link>` (CTAs to `/about` and `/work`) gets Next.js prefetch automatically. |
 | Reduced motion | All `fade-in-up` staggered animations, channel-button translate, CTA-arrow translate, and color transitions are defeated by Phase 1's global override. Verify by toggling DevTools "Emulate prefers-reduced-motion: reduce" — page renders identically except all animations are instant. |
@@ -743,6 +749,8 @@ Before Phase 2 is marked complete, the deployed Vercel branch-preview URL must s
 - [ ] **Currently line shows accent dot + statement + `· May 9`** — accent dot is 6px, statement is `--color-text`, date is Geist Mono `--color-muted`.
 - [ ] **Both channel buttons render** with platform icon + `@handle · CTA` — YouTube reads "Subscribe", Instagram reads "DM me". (D-12)
 - [ ] **Channel buttons open in new tab** with `target="_blank" rel="noopener noreferrer"`. Verify by clicking.
+- [ ] **Channel button uses `px-4 py-3`** — DevTools computes 12px top + 12px bottom padding; total button height 45px (clears WCAG 44px touch-target by spec).
+- [ ] **Channel button copy renders at Geist Sans weight 400** — no `font-medium` class, no weight 500 anywhere on the page outside the hero `<h1>` (which is Fraunces 700).
 - [ ] **Channel button hover** transitions border to accent, verb color to text, and lifts -1px.
 - [ ] **Both CTA arrow-links render** in accent color (#7c87ff) — "More about me →" / "See the work →".
 - [ ] **CTA arrow-links route to `/about` and `/work`** — both stub pages render "Coming soon." in muted text. No 404s.
@@ -784,7 +792,7 @@ Every value in this spec came from one of:
 | `02-CONTEXT.md` `<decisions>` | D-01..D-25 (all 25 implementation decisions) |
 | `02-CONTEXT.md` `<decisions>` Claude's Discretion | CD-01..CD-05 (all 5) |
 | `02-CONTEXT.md` `<canonical_refs>`, `<specifics>`, `<deferred>` | Visual reference anchors, DM-me memory link, photo source path, deferred copy-rewrite |
-| `01-UI-SPEC.md` (Phase 1) | All inherited tokens: 6 colors, spacing scale, type ramp, focus ring, reduced-motion override, `fade-in-up` keyframe, Nav/Footer chrome rules |
+| `01-UI-SPEC.md` (Phase 1) | All inherited tokens: 6 colors, spacing scale, type ramp (2 weights — Geist Sans 400 + Fraunces 700), focus ring, reduced-motion override, `fade-in-up` keyframe, Nav/Footer chrome rules |
 | `01-CONTEXT.md` (Phase 1) | D-08 (six color tokens), CD-03 (`lib/motion.ts` seam) |
 | `REQUIREMENTS.md` | HOME-01..06, PERF-04, PERF-06, A11Y-04 carry-forward |
 | `ROADMAP.md` Phase 2 | Phase goal + 5 success criteria + in-scope/out-of-scope split |
@@ -794,9 +802,11 @@ Every value in this spec came from one of:
 | `CLAUDE.md` | Stack table version pins, "What NOT to Use" (no Radix, no motion library), `lucide-react` icon import pattern |
 | Memory `feedback_reel_cta_dm_format.md` | "DM me" verb for Instagram channel button |
 | Memory `project_capitollens_form4_strategy` | Confirms "Currently shipping CapitolLens" statement is accurate at Phase 2 plan time |
+| Checker revision 2026-05-11 | D4 Typography fix (drop weight 500 from ChannelButton; 2-weight inventory restated); D5 Spacing fix (ChannelButton `py-2.5` → `py-3` for on-grid 12px / 45px height) |
 | User input this session | **Zero** — CONTEXT.md was authoritative on every gray area; CD-01..CD-05 cover all Claude-discretion items; no further questions needed |
 
 ---
 
 *Phase 2 — Home Page*
 *UI-SPEC drafted: 2026-05-11 by gsd-ui-researcher*
+*UI-SPEC revised: 2026-05-11 — checker revision fixing D4 weight contract + D5 grid (ChannelButton)*
