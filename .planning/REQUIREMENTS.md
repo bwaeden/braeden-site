@@ -43,10 +43,10 @@ Requirements for initial release at braehods.com. Each maps to roadmap phases.
 
 ### About Page (ABOUT)
 
-- [ ] **ABOUT-01**: `/about` page renders short bio in Braeden's voice (no AI-template phrases, no "passionate developer" copy)
-- [ ] **ABOUT-02**: Photo treated tastefully on charcoal background (subtle border / treatment); current `images/photo.jpg` acceptable as v1 placeholder
-- [ ] **ABOUT-03**: Includes location, current focus, and a friendly CTA to the contact modal
-- [ ] **ABOUT-04**: Reads in under 60 seconds — short paragraphs, scannable
+- [x] **ABOUT-01**: `/about` page renders short bio in Braeden's voice (no AI-template phrases, no "passionate developer" copy)
+- [x] **ABOUT-02**: Photo treated tastefully on charcoal background (subtle border / treatment); current `images/photo.jpg` acceptable as v1 placeholder
+- [x] **ABOUT-03**: Includes location, current focus, and a friendly CTA to the contact modal
+- [x] **ABOUT-04**: Reads in under 60 seconds — short paragraphs, scannable
 
 ### Work / Projects (WORK)
 
@@ -194,10 +194,10 @@ Which phases cover which requirements. Updated 2026-05-07 by roadmapper.
 | HOME-04 | Phase 2 | Complete |
 | HOME-05 | Phase 2 | Complete |
 | HOME-06 | Phase 2 | Complete |
-| ABOUT-01 | Phase 3 | Pending |
-| ABOUT-02 | Phase 3 | Pending |
-| ABOUT-03 | Phase 3 | Pending |
-| ABOUT-04 | Phase 3 | Pending |
+| ABOUT-01 | Phase 3 | Complete |
+| ABOUT-02 | Phase 3 | Complete |
+| ABOUT-03 | Phase 3 | Complete |
+| ABOUT-04 | Phase 3 | Complete |
 | WORK-01 | Phase 4 | Pending |
 | WORK-02 | Phase 4 | Pending |
 | WORK-03 | Phase 4 | Pending |

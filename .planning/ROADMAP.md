@@ -68,7 +68,7 @@ gates are reviewable from Phase 1 onward.
   3. Page surfaces location, current focus, and a friendly CTA wired to the future contact modal trigger (ABOUT-03)
   4. A first-time reader can finish the page in under 60 seconds — paragraphs are short and scannable (ABOUT-04)
 **Plans**: 1 plan, 1 wave (composes the page + drafts bio prose + user reviews in-place per D-01)
-- [ ] 03-01-PLAN.md — Rewrite app/about/page.tsx: two-column composition (text + HeroPhoto reuse with view-transition seam match), draft 150-250 word first-person bio in 2-3 paragraphs (3 buckets: who+where+studying / current focus / open-to invitation), wire single `Get in touch →` CTA (CTAArrowLink reuse, href='/' placeholder pending Phase 5); 2 new Playwright specs (cliché-scrub regex + view-transition seam regression guard); 3 tasks including human-verify checkpoint for bio review
+- [x] 03-01-PLAN.md — Rewrite app/about/page.tsx: two-column composition (text + HeroPhoto reuse with view-transition seam match), draft 150-250 word first-person bio in 2-3 paragraphs (3 buckets: who+where+studying / current focus / open-to invitation), wire single `Get in touch →` CTA (CTAArrowLink reuse, href='/' placeholder pending Phase 5); 2 new Playwright specs (cliché-scrub regex + view-transition seam regression guard); 3 tasks including human-verify checkpoint for bio review
 **UI hint**: yes
 
 ### Phase 4: Work + Projects
