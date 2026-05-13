@@ -25,7 +25,7 @@
 import { test, expect } from '@playwright/test';
 
 const CLICHE_BAN_REGEX =
-  /passionate|I love to learn|driven by|innovative|cutting.edge|lifelong learner|wear many hats|results.oriented|outcome.driven/i;
+  /passionate|I love to learn|driven by|innovative|cutting[-\s]edge|lifelong learner|wear many hats|results[-\s]oriented|outcome[-\s]driven/i;
 
 const CTA_TEXT_REGEX = /Get in touch|Drop me a line|Say hi/i;
 
@@ -46,8 +46,10 @@ test('ABOUT-01..04: /about section + photo + CTA + bio contract', async ({ page 
     '/',
   );
 
-  // Extract the section's full text and run the bio-contract assertions.
-  const text = await aboutSection.innerText();
+  // Extract bio prose scoped to the <p> elements only — excludes the CTA link
+  // text and the `→` glyph from word-count + cliché-ban gates (WR-01 fix).
+  const paragraphTexts = await page.locator('[data-test="about-section"] p').allInnerTexts();
+  const text = paragraphTexts.join(' ');
 
   expect(text, 'bio prose must NOT contain any AI-template cliché (ABOUT-01 / D-05)').not.toMatch(
     CLICHE_BAN_REGEX,

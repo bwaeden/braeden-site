@@ -26,12 +26,19 @@ export const metadata = { title: 'About' };
 
 export default function AboutPage() {
   return (
-    <section data-test="about-section" className="py-8 md:py-12">
+    <section
+      data-test="about-section"
+      aria-labelledby="about-heading"
+      className="py-8 md:py-12"
+    >
       <div
         data-test="about-flex"
         className="flex flex-col-reverse gap-8 md:flex-row md:items-center md:gap-16"
       >
         <div className="flex flex-col items-start">
+          <h1 id="about-heading" className="sr-only">
+            About
+          </h1>
           <p
             className={`max-w-[44ch] font-sans text-base leading-relaxed ${fadeInUp}`}
             style={{ color: 'var(--color-text)', ...stagger(1) }}
