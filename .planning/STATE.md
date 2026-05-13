@@ -2,15 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: phase-3-context-gathered
-last_updated: "2026-05-12T06:50:00.000Z"
+status: ready_to_plan
+last_updated: "2026-05-13T21:01:23.945Z"
 progress:
   total_phases: 6
-  completed_phases: 2
-  total_plans: 8
+  completed_phases: 3
+  total_plans: 9
   completed_plans: 8
-  percent: 33  # by phase count (2/6); plans-so-far 100% (8/8 across Phases 1+2)
-phase_2_disposition: "Shipped 2026-05-12 with YouTube scope amendment (Instagram + GitHub only); PERF-06 LCP deferred to Phase 6 (2821ms post-AVIF Slow-4G synthetic; real-user Speed Insights is Phase 6 binding gate)"
+  percent: 50
 ---
 
 # Project State: Braeden Site (braehods.com)
@@ -27,7 +26,7 @@ contact-conversion #2.
 **Stack:** Next.js 16.2.6 (App Router) + React 19.2 + TypeScript 5.9 +
 Tailwind v4 + `@next/mdx` + Fraunces / Geist Sans / Geist Mono + Vercel.
 
-**Current focus:** Phase 1 / Plan 01 — W4 nearly complete; awaiting user
+**Current focus:** Phase 03 — about-page
 visual + Vercel-dashboard review before merge. Currently on branch
 `test/phase-1-found-05-final` (one ahead of `test/phase-1-preview`).
 
@@ -55,11 +54,13 @@ unblock final verification.**
 
 ## Current Position
 
+Phase: 03 (about-page) — EXECUTING
+Plan: 1 of 1
 **Milestone:** v1 (initial launch at braehods.com)
-**Phase:** Phase 2 — Home Page (7 plans, 5 waves)
-**Plan:** 02-06-PLAN.md COMPLETE (W3 Hero composition — `components/home/Hero.tsx` composes the 4 Wave 1/2 atoms; `app/page.tsx` rewritten to one-line `<Hero />` invocation; Phase 1 placeholder hero markup migrated into Hero.tsx)
+**Phase:** 4
+**Plan:** Not started
 **Branch:** `main` (Phase 2 plans commit directly to main per project branching strategy)
-**Status:** Ready to execute Plan 02-07 (Wave 4 — Deploy + visual sign-off + 22-spec verification against Vercel branch preview)
+**Status:** Ready to plan
 **Phase 2 plan progress:** 02-01 ✅ · 02-02 ✅ · 02-03 ✅ · 02-04 ✅ · 02-05 ✅ · 02-06 ✅ · 02-07 ⏳
 
 **Spec scoreboard (after 02-06):** **21 of 22 spec files fully GREEN locally** (Phase 1: 13 GREEN incl. lighthouse mono assertion now meaningful + GREEN; Plan 02-02 format: GREEN; Plan 02-04 footer-socials-render: GREEN; Plan 02-05 ctas-resolve-200: GREEN; Plan 02-06: hero-renders + currently-renders + channels-render + view-transition-name-present + mobile-hero-stacks-cleanly all newly GREEN). The 22nd spec file (`tests/photo-lcp.spec.ts`) is half-GREEN: PERF-04 (hero `<img>` width=320 height=320) GREEN × 2 projects; PERF-06 (LCP < 2500ms via Lighthouse on /) RED on local `npm start` (measured 3365ms — local dev does not represent CDN-served production performance per plan body line 506-507; Plan 07 verifies on Vercel preview). Phase 1 chrome suite (visual, monogram, reduced-motion, tokens, contrast, no-bare-outline-none, folder-structure, build-output, favicon, motion-seam, focus-ring, lighthouse) GREEN × 34 assertions, no regression. **Net Plan 06 movement: +5 newly-GREEN specs, +1 half-spec, +1 surfaced-and-fixed (lighthouse mono regex)**.
@@ -364,3 +365,4 @@ Plan 02-07 deploys Phase 2 to Vercel branch preview, re-runs the 22-spec Playwri
 *State updated: 2026-05-11 by execute-phase (Phase 2 Plan 04 / Wave 2 complete — Footer extended + Nav LINKS rewired + SocialIconLink + components/icons/{Github,Instagram}Icon; 6 atomic commits; 1 Rule 1 deviation auto-fixed — Tailwind v4 transition-colors includes outline-color, narrowed to transition-[color]; net +3 GREEN footer-socials-render assertions, 0 regressions, Phase 1 chrome 34/34 GREEN)*
 *State updated: 2026-05-12 by execute-phase (Phase 2 Plan 05 / Wave 2 complete — app/about + app/work stub pages shipping `Coming soon.` placeholders; 1 atomic commit `9f7d16d` direct to main; zero deviations; net +2 GREEN — `tests/ctas-resolve-200.spec.ts` HOME-05 routes both return HTTP 200; metadata template composition verified via curl)*
 *State updated: 2026-05-12 by execute-phase (Phase 2 Plan 06 / Wave 3 complete — components/home/Hero.tsx composes 4 atoms + motion seam in CD-05 rhythm + D-01 responsive flex layout; app/page.tsx rewritten to one-line `<Hero />`; 3 atomic commits direct to main: `16fe2f2` (Hero.tsx), `149be22` (app/page.tsx rewrite), `072f45b` (Rule 1 fix: broadened lighthouse mono regex to accept GeistMono + Geist Mono after Plan 06 mount surfaced Phase 1 spec over-specification); 5 Plan-01 RED specs flipped GREEN locally; `tests/photo-lcp.spec.ts` PERF-04 GREEN, PERF-06 LCP RED on local dev/start deferred to Plan 07 Vercel preview; 64/66 full suite GREEN with 0 Phase 1 regressions)*
+*Session resumed: 2026-05-13 by resume-work — HANDOFF.json loaded (status=context_gathered_awaiting_ui_phase), user chose to proceed with /gsd-ui-phase 3*
