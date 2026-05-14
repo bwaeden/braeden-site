@@ -318,14 +318,9 @@ BASE_URL=https://<preview-hash>.vercel.app npm run test:full
 - Single atomic commit: `fix(phase-4/w3): bump archived dot to #7a7a7a per WebAIM contrast verification`
 - Push to trigger re-deploy.
 
-### 3. 3 placeholder GitHub repo URLs need real-link verification
+### 3. ~~3 placeholder GitHub repo URLs need real-link verification~~ — **RESOLVED 2026-05-14 post-Phase-close**
 
-The 3 hrefs that originally shipped with `// TODO(user)` markers (cleared via `c69d255` per user opt-in):
-- `https://github.com/bwaeden/prediction-market-bot`
-- `https://github.com/bwaeden/no-more-short-form`
-- `https://github.com/bwaeden/mc-packet-client`
-
-User opt-in approved at Wave 3a; if any repo is private/non-existent, the card links to a GitHub 404. Phase 6 should walk these manually post-deploy (e.g., during the 28-item visual checklist click-through pass) and either (a) make the repos public, (b) supply alternate canonical hrefs (live demo, Streamlit Cloud, YT playlist, etc.), or (c) drop the entries entirely if the projects are not externally surfaceable.
+See `## Post-Close Hardening (2026-05-14)` below. All 7 card hrefs verified 200 against the real internet via `curl -L -o /dev/null -w "%{http_code}"`. One href updated (`no-more-short-form` → `no-more-slop`), 4 stub repos created, CapitolLens flipped public.
 
 ### 4. `STATUS_DOT_COLOR` literal promotion to `@theme`
 
@@ -348,6 +343,31 @@ The 7 pre-existing failures in `npm run test:full` (CONFIRMED unchanged by Phase
 - `tests/lighthouse.spec.ts` (×1 — chromium-desktop CLS + font-loading)
 
 These are pre-existing per prior STATE.md "PERF-06 LCP RED on local dev/start deferred to Plan 07 Vercel preview" and inherit Phase 1 + 2 + 6 ownership. Phase 4 confirmed via stash-and-rerun that none of them were caused by Phase 4 changes; the count remained at 7 both pre-Task-4 and post-Task-4.
+
+## Post-Close Hardening (2026-05-14)
+
+After the consolidated SUMMARY landed in `be1f569`, the orchestrator did a fast href-validity check on the live internet for all 7 cards (since the user had opted in to placeholder GitHub URLs at Wave 3a without verifying the underlying repos existed). Results:
+
+| Card | Pre-fix href | Status |
+|---|---|---|
+| capitollens | `github.com/bwaeden/capitollens` | 404 → **flipped to public** (existed but was PRIVATE) |
+| shorts-factory | `github.com/bwaeden/shorts-factory` | 404 → **stub repo created** with README |
+| meme-dashboard | `github.com/bwaeden/meme-dashboard` | 404 → **stub repo created** with README |
+| prediction-market-bot | `github.com/bwaeden/prediction-market-bot` | 404 → **stub repo created** with README |
+| no-more-short-form | `github.com/bwaeden/no-more-short-form` | 404 → **href updated** to `github.com/bwaeden/no-more-slop` (real public repo, same project, different repo name; card display name preserved as `no-more-short-form`) |
+| mc-packet-client | `github.com/bwaeden/mc-packet-client` | 404 → **stub repo created** with README |
+| braehods-archive | `https://braehods.com` | 200 (already correct) |
+
+**Final state: all 7 hrefs return 200.** Verified via the same curl loop after the fix.
+
+**Actions taken (orchestrator-side, with explicit user authorization):**
+1. `gh repo create bwaeden/{shorts-factory,meme-dashboard,prediction-market-bot,mc-packet-client} --public --description "<from data/projects.ts>" --add-readme` — 4 commands, 4 new public repos
+2. `gh repo edit bwaeden/capitollens --visibility public --accept-visibility-change-consequences` — flipped CapitolLens from PRIVATE to PUBLIC. Pre-flip secret-scan confirmed `.env` is gitignored, only `.env.example` template is tracked, no panic-rotate commits in recent history. Trading-strategy IP exposure is now public — that's the inherent cost of using it as a portfolio piece, and was the user's deliberate choice.
+3. `data/projects.ts` href updated for `no-more-short-form` slug: `github.com/bwaeden/no-more-short-form` → `github.com/bwaeden/no-more-slop`. Slug + title + description preserved (the user's preferred framing of the project; only the GitHub repo URL differs).
+
+**Result:** when the user runs `git push origin main` to trigger the Phase 6 Vercel preview build (per `## Phase 6 Carry-Forwards` item 1), all 7 cards link to working GitHub destinations or the live archived site. The Wave-3a "approve placeholders" risk is fully retired — no longer a Phase 6 carry-forward.
+
+**Deviation from plan:** Plan 04-02's `<output>` block scoped Phase 4's source surface to `app/work/page.tsx` + the 4 W0 specs + the SUMMARY/ROADMAP/STATE/REQUIREMENTS docs — not `data/projects.ts` after Wave 3a. The href update in `data/projects.ts` here is a Rule 1 / Rule 4 deviation (data refinement happening post-Phase-close). It's logged as a separate atomic commit (`5a3cca2`) so the audit trail is clean.
 
 ## User Setup Required
 

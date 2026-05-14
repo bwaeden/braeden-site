@@ -86,7 +86,7 @@ export const projects: Project[] = [
       'Self-imposed short-form-feed blocker — in-development tooling for focus and attention.',
     tags: ['content', 'tools'],
     status: 'in-dev',
-    href: 'https://github.com/bwaeden/no-more-short-form',
+    href: 'https://github.com/bwaeden/no-more-slop',
   },
   {
     slug: 'mc-packet-client',
