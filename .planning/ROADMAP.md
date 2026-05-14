@@ -96,7 +96,10 @@ gates are reviewable from Phase 1 onward.
   3. Idle / submitting / success / error states are all visible AND announced via `aria-live` for screen readers (CTCT-03)
   4. Honeypot field (custom name) plus minimum-time-to-submit check silently rejects bots; client-side validation surfaces accessible inline errors for missing required fields (CTCT-04, CTCT-05)
   5. A `mailto:` fallback link sits below the form so a Formspree outage never fully blocks conversion (CTCT-06)
-**Plans**: TBD
+**Plans**: 3 plans, 3 waves (W0/Plan 01 = test infra + @formspree/react@3.0.0 + globals.css dialog rules; W1/Plan 02 = ContactModal client island [the SOLE 'use client' per FOUND-07 carve-out] + atomic spec update; W2/Plan 03 = atomic D-05 commit [mount + Nav swap + about swap + spec assertion swap, all in 1 commit] + Phase Exit verify + close)
+- [ ] 05-01-PLAN.md — W0: install @formspree/react@3.0.0, append modal-fade-in keyframe + dialog rules to globals.css (D-16/D-18), stub 9 RED Playwright specs (verbatim copy + atomic swap + single-client-island)
+- [ ] 05-02-PLAN.md — W1: ship components/contact/ContactModal.tsx (the SOLE 'use client' island per FOUND-07 carve-out — D-01..D-19); wire data/site.ts.email per D-15a; atomically update tests/no-client-components.spec.ts to allow ContactModal
+- [ ] 05-03-PLAN.md — W2: atomic D-05 commit (mount in app/layout.tsx + Nav LINKS href swap + /about CTA href swap + tests/about-renders.spec.ts assertion update — all in one commit); Phase Exit Visual Verification checkpoint; consolidated SUMMARY closing Phase 5
 **UI hint**: yes
 
 ### Phase 6: Polish + SEO + Launch

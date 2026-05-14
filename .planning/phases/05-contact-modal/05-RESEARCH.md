@@ -853,19 +853,22 @@ The existing `tests/no-client-components.spec.ts` (line 65) currently asserts ZE
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **Should `data/site.ts.contactEmail` be added in v1, or hard-coded for v1 + Phase 6 swap?** (D-15a informational discretion)
+1. **RESOLVED:** Add `data/site.ts.email` field per D-15a — Plan 02 Task 1 wires it.
+   Original question: **Should `data/site.ts.contactEmail` be added in v1, or hard-coded for v1 + Phase 6 swap?** (D-15a informational discretion)
    - What we know: D-15 locks the literal `mailto:fakegoat1@gmail.com?subject=Hi%20Braeden`. D-15a says future swap to `hi@braehods.com` is a single-line edit in `data/site.ts.contactEmail` IF the value is factored into the data layer.
    - What's unclear: Whether v1 should pre-build the indirection (low cost, ~6 lines including type addition) or defer to Phase 6 polish (zero cost now, slightly larger commit later when domain mail is wired).
    - Recommendation: Pre-build the indirection in v1. Cost is trivial (one field added to `SiteMeta` + one literal), benefit is one-line edit when `hi@braehods.com` is ready. Add to `data/site.ts` as part of the Phase 5 plan.
 
-2. **Should `<dialog closedby="any">` replace the JS click handler pattern?** (Modern HTML attribute, declarative backdrop-close)
+2. **RESOLVED:** Keep JS click handler (`e.target === e.currentTarget`) for backdrop close. `<dialog closedby="any">` deferred to Phase 6 once Safari 18.2+ baseline is confirmed.
+   Original question: **Should `<dialog closedby="any">` replace the JS click handler pattern?** (Modern HTML attribute, declarative backdrop-close)
    - What we know: `closedby="any"` was added to the HTML spec in 2024-2025; Chrome 132+, Safari 18.2+ support. Firefox support landed mid-2025.
    - What's unclear: Whether 2026 baseline (per CLAUDE.md "Browsers: Safari 16.4+, Chrome 111+, Firefox 128+") covers `closedby="any"` reliably. Safari 16.4 does NOT support it (needs 18.2+).
    - Recommendation: Stay with the JS click-handler pattern (Option B from MDN) for v1. Phase 6 polish revisits if browser-share data confirms baseline coverage. The JS pattern is well-understood and ~3 lines.
 
-3. **Should the spec for `tests/contact-modal-states.spec.ts` mock the Formspree network call, or hit the real endpoint?**
+3. **RESOLVED:** Mock Formspree via `page.route('**/formspree.io/**', ...)` in automated specs. Real-endpoint hit deferred to manual Phase Exit Visual Verification checklist.
+   Original question: **Should the spec for `tests/contact-modal-states.spec.ts` mock the Formspree network call, or hit the real endpoint?**
    - What we know: Phase 4 lesson (Plan 04-02) used `:text-is()` exact-match selectors to defeat substring collision. Same discipline applies here.
    - What's unclear: Mocking Formspree (clean, deterministic, no network dependency, no email noise) vs hitting real endpoint (verifies the env var + endpoint integrity but emits a real email per spec run).
    - Recommendation: Mock for the state-render specs (`contact-modal-states.spec.ts`, `contact-modal-honeypot.spec.ts`, `contact-modal-min-time.spec.ts`). Real endpoint hit deferred to the manual Phase Exit Visual Verification checklist (UI-SPEC line 614). Use `page.route('**/formspree.io/**', route => route.fulfill({ status: 200, body: '{"ok":true}' }))` to mock.
