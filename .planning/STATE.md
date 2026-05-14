@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: ready_to_plan
-last_updated: "2026-05-13T21:01:23.945Z"
+status: executing
+last_updated: "2026-05-14T02:18:01.271Z"
 progress:
   total_phases: 6
   completed_phases: 3
-  total_plans: 9
-  completed_plans: 8
-  percent: 50
+  total_plans: 11
+  completed_plans: 9
+  percent: 82
 ---
 
 # Project State: Braeden Site (braehods.com)
@@ -60,7 +60,7 @@ Plan: 1 of 1
 **Phase:** 4
 **Plan:** Not started
 **Branch:** `main` (Phase 2 plans commit directly to main per project branching strategy)
-**Status:** Ready to plan
+**Status:** Ready to execute
 **Phase 2 plan progress:** 02-01 ✅ · 02-02 ✅ · 02-03 ✅ · 02-04 ✅ · 02-05 ✅ · 02-06 ✅ · 02-07 ⏳
 
 **Spec scoreboard (after 02-06):** **21 of 22 spec files fully GREEN locally** (Phase 1: 13 GREEN incl. lighthouse mono assertion now meaningful + GREEN; Plan 02-02 format: GREEN; Plan 02-04 footer-socials-render: GREEN; Plan 02-05 ctas-resolve-200: GREEN; Plan 02-06: hero-renders + currently-renders + channels-render + view-transition-name-present + mobile-hero-stacks-cleanly all newly GREEN). The 22nd spec file (`tests/photo-lcp.spec.ts`) is half-GREEN: PERF-04 (hero `<img>` width=320 height=320) GREEN × 2 projects; PERF-06 (LCP < 2500ms via Lighthouse on /) RED on local `npm start` (measured 3365ms — local dev does not represent CDN-served production performance per plan body line 506-507; Plan 07 verifies on Vercel preview). Phase 1 chrome suite (visual, monogram, reduced-motion, tokens, contrast, no-bare-outline-none, folder-structure, build-output, favicon, motion-seam, focus-ring, lighthouse) GREEN × 34 assertions, no regression. **Net Plan 06 movement: +5 newly-GREEN specs, +1 half-spec, +1 surfaced-and-fixed (lighthouse mono regex)**.

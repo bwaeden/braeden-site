@@ -81,8 +81,9 @@ gates are reviewable from Phase 1 onward.
   3. Status badges (shipped / paper-trading / in-dev / archived) are readable as colored dot + label, never color-only (WORK-03, A11Y-05)
   4. Tags render visibly on each card and group projects by family (trading / content / tools / archived) even without interactive filtering (WORK-04)
   5. Each card links out to its repo, site, or video with correct external-link semantics; no in-site case-study pages exist in v1 (WORK-05)
-**Plans**: 1 plan, 4 waves (W0 data + 4 RED spec stubs + user-input checkpoint resolving OQ#1, W1 ProjectCard component, W2 page rewrite + spec flip RED to GREEN, W3 deploy + WebAIM contrast verify)
-- [ ] 04-01-PLAN.md — replace /work stub with hairline-tile grid of N projects (Server Component, status badge dot+label per A11Y-05, populate data/projects.ts, ship 4 Playwright specs)
+**Plans**: 2 plans, 4 waves (W0 data + 4 RED spec stubs + user-input checkpoint resolving OQ#1, W1 ProjectCard component, W2 page rewrite + spec flip RED to GREEN, W3 deploy + WebAIM contrast verify)
+- [ ] 04-01-PLAN.md — W0+W1: populate data/projects.ts (N user-confirmed entries, D-15 honesty contract), stub 4 RED Playwright specs (counts derived from projects.length import), ship components/work/ProjectCard.tsx (Server Component, hairline-tile, status dot+label per A11Y-05)
+- [ ] 04-02-PLAN.md — W2+W3: rewrite app/work/page.tsx (flips RED specs GREEN), deploy to Vercel preview + full Playwright suite verify (TODO(user) gate enforces 0 markers before deploy), WebAIM contrast verify on archived dot (#7a7a7a fallback documented), consolidated SUMMARY + ROADMAP/STATE/REQUIREMENTS traceability flip
 **UI hint**: yes
 
 ### Phase 5: Contact Modal
@@ -118,7 +119,7 @@ gates are reviewable from Phase 1 onward.
 | 1. Foundation + Design Tokens | 0/1 | Not started | - |
 | 2. Home Page | 7/7 | Complete | 2026-05-12 |
 | 3. About Page | 0/0 | Not started | - |
-| 4. Work + Projects | 0/1 | Planning complete | - |
+| 4. Work + Projects | 0/2 | Planning complete | - |
 | 5. Contact Modal | 0/0 | Not started | - |
 | 6. Polish + SEO + Launch | 0/0 | Not started | - |
 
@@ -148,3 +149,4 @@ A11Y, PERF, and SEO are NOT separate phases. They are baked into the phase that 
 *Last updated: 2026-05-11 by plan-phase — Phase 2 finalized (7 plans, 4 waves; 02-NN-PLAN.md files created)*
 *Last updated: 2026-05-11 by execute-phase — Plan 02-04 complete (4/7 Phase-2 plans done; W2 layout chrome extension shipped — Footer + Nav rewire + SocialIconLink + components/icons/)*
 *Last updated: 2026-05-13 by plan-phase — Phase 4 finalized (1 plan, 4 waves; 04-01-PLAN.md created)*
+*Last updated: 2026-05-13 by plan-phase (revision mode) — Phase 4 split into 2 plans per checker scope_sanity feedback (8 tasks across 4 waves exceeded the 5+ task BLOCKER threshold for a single plan); 04-01 covers Waves 0+1 (data + spec stubs + ProjectCard component, 4 tasks), 04-02 covers Waves 2+3 (page rewrite + deploy + verify + summary, 4 tasks); checker warning fixes baked in: D-15 negative-honesty test on in-dev entries, TODO(user) deploy gate, projects.length import for spec count derivation*
