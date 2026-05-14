@@ -70,7 +70,6 @@ export const projects: Project[] = [
     status: 'in-dev',
     href: 'https://github.com/bwaeden/meme-dashboard',
   },
-  // TODO(user): confirm canonical href — placeholder is github.com/bwaeden/<slug>
   {
     slug: 'prediction-market-bot',
     title: 'prediction-market-bot',
@@ -80,7 +79,6 @@ export const projects: Project[] = [
     status: 'in-dev',
     href: 'https://github.com/bwaeden/prediction-market-bot',
   },
-  // TODO(user): confirm canonical href — placeholder is github.com/bwaeden/<slug>
   {
     slug: 'no-more-short-form',
     title: 'no-more-short-form',
@@ -90,7 +88,6 @@ export const projects: Project[] = [
     status: 'in-dev',
     href: 'https://github.com/bwaeden/no-more-short-form',
   },
-  // TODO(user): confirm canonical href — placeholder is github.com/bwaeden/<slug>
   {
     slug: 'mc-packet-client',
     title: 'mc-packet-client',
