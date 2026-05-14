@@ -782,37 +782,43 @@ test('WORK-01, D-08: cards in the same row have matching width', async ({ page }
 
 **No claims tagged `[ASSUMED]` are blocking — all are low-medium risk with documented fallbacks.** A8 is the highest-risk assumption; mitigation is the documented `#7a7a7a` fallback in CONTEXT.md `<specifics>` and UI-SPEC line 167.
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Should `reel-research-agent` and/or `school-planner` be added to the projects array?**
    - What we know: Both are memory-flagged active personal projects. WORK-06 lists exactly 7 projects (the canonical list). Adding `reel-research-agent` makes it 8 cards (re-evens grid to 4 full rows). Adding `school-planner` too makes it 9 cards (back to orphan, but a different orphan).
    - What's unclear: User intent. The deferred-ideas section flags this for execute-phase review.
    - Recommendation: **Wave 0 includes a `checkpoint:human-action` task** that surfaces this question to the user BEFORE populating `data/projects.ts`. The answer is binary: (a) ship 7 per WORK-06 verbatim, or (b) ship 8 with `reel-research-agent`, or (c) ship 9 with both. All three are spec-compatible — `tests/work-grid-renders.spec.ts` `.toHaveCount(N)` adapts. Plan-phase MUST surface this as the first deterministic question.
+   - **RESOLVED:** Deferred to Wave-0a Task 0 `checkpoint:human-action` gate in `04-01-PLAN.md` per planner adoption of the recommendation. Default path = 7 projects per WORK-06 verbatim if user takes no action.
 
 2. **Final card title for archived braehods: `braehods (v0)` or `braehods.com (v0)`?**
    - What we know: CONTEXT.md `<specifics>` flags both options; planner picks. The `(v0)` suffix communicates the archive bucket alongside the badge.
    - What's unclear: User preference.
    - Recommendation: Default to **`braehods.com (v0)`** (full domain reads more like an artifact link; aligns with the `href` being the live old site URL until Phase 6 DNS swap). Document inline; user can override at the Wave-1 description-review checkpoint.
+   - **RESOLVED:** Planner adopted `braehods.com (v0)` as the default in `data/projects.ts` (Wave-0b Task 1); user can override at Wave-0a Task 0 checkpoint.
 
 3. **Canonical href for archived braehods until Phase 6 DNS swap?**
    - What we know: CONTEXT.md D-16 + UI-SPEC § Project Order both document this carry-forward. Pre-Phase-6: the OLD `braehods.com` GitHub Pages site IS the live URL. Post-Phase-6: a snapshot archive URL or repo URL.
    - What's unclear: Which post-Phase-6 URL to swap to (a Wayback Machine link? `https://github.com/bwaeden/braehods` repo? a `/archive` sub-route on the new site?).
    - Recommendation: Wave-0 user-input task captures the v1 href (current live `braehods.com`). Document the Phase-6 swap target in the plan summary as a Phase-6 carry-forward; Phase 6 will decide.
+   - **RESOLVED:** Wave-0a Task 0 captures the v1 href; the post-Phase-6 swap target is documented as a Phase-6 carry-forward in the plan SUMMARY (Wave-3c Task 7).
 
 4. **Should the Phase 4 plan ship the optional `tests/work-descriptions-cliche-scrub.spec.ts`?**
    - What we know: D-15 + UI-SPEC § Copywriting Contract list this as planner discretion. Phase 3 has identical regex on `tests/about-renders.spec.ts`. Cheap insurance.
    - What's unclear: Whether the marginal utility justifies the file.
    - Recommendation: **Ship it.** Cost: ~30 lines + 1 commit. Benefit: regression-guards 7 descriptions against ABOUT-01-style template phrasing for the rest of the site's life. The cliché regex is already authored and proven on /about — copy-paste reuse is trivial.
+   - **RESOLVED:** Planner adopted — ship `tests/work-descriptions-cliche-scrub.spec.ts` per Wave-0c Task 2 (regex copied from `tests/about-renders.spec.ts` line 28 single-source).
 
 5. **Ship `<ProjectGrid>` wrapper or inline grid in `app/work/page.tsx`?**
    - What we know: CONTEXT.md Claude's Discretion + UI-SPEC line 498 default to **inlined**.
    - What's unclear: Whether future Phase 5/6 work (e.g., a v2 case-study page that reuses the grid layout) would benefit.
    - Recommendation: **Inline.** /work is the only consumer for v1; an extracted wrapper adds indirection without reuse value. If v2 adds `/work/[slug]`, that phase can extract `<ProjectGrid>` then.
+   - **RESOLVED:** Planner adopted — inline grid in `app/work/page.tsx` (Wave-2 Task 4); no `<ProjectGrid>` wrapper component created.
 
 6. **Does the planner need a Wave-0 build-time Zod validation step on `data/projects.ts`?**
    - What we know: Schema is type-only (TS `z.infer`); literal array isn't runtime-validated unless wrapped in `Project.parse(entry)`. Phase 1 + 2 + 3 all rely on TS strict for similar arrays.
    - What's unclear: Whether to add a unit test (e.g., `tests/data-projects-schema.spec.ts`) that imports `projects` and runs `Project.parse()` on each entry.
    - Recommendation: **Optional, defer to planner.** TS strict + CI typecheck catches enum mismatches; URL validation (`z.string().url()`) only fires on `parse()`. Add the spec if the planner wants belt-and-suspenders; skip otherwise. **Note:** if added, it's a unit test (not a Playwright spec) — would be the first test of its kind in this repo. Likely just a `playwright.test()` block that imports the data and asserts.
+   - **RESOLVED:** Planner adopted lightweight one-liner — `Project.parse(entry)` runs in Wave-0b Task 1 verify gate (`npx tsx -e "..."`); no separate spec file added (avoids precedent of unit-test-style Playwright blocks in this repo).
 
 ## Environment Availability
 
