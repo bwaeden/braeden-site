@@ -271,9 +271,11 @@ The Vercel preview rendering of this layout is the manual verification carried f
 
 The following items are explicitly deferred to a manual user-driven Phase 6 cycle. Phase 4 is closed at the implementation level; deploy-verify-WebAIM is a separate phase concern.
 
-### 1. Deploy verification deferred — manual user task
+### 1. ~~Deploy verification deferred~~ — **RESOLVED 2026-05-14 post-Phase-close**
 
-User will perform when ready (no autonomous executor handoff):
+See `## Post-Close Deploy Verify (2026-05-14)` below. 7 commits pushed to `origin/main`; Vercel preview at `braeden-site-llj4c9lah-bwaedens-projects.vercel.app` built clean; full Playwright suite ran against the CDN URL via `PLAYWRIGHT_BASE_URL`; targeted Phase 4 specs 18/18 GREEN; full suite 85/5/2 (5 pre-existing `/`-route failures, 2 fewer than local — `no-bare-outline-none` flipped GREEN against the prod bundle); 28-item visual checklist walked by user with no exceptions.
+
+The original deferral recipe is preserved below for future-phase reference (in case the same defer-then-verify pattern is reused).
 
 ```bash
 # Step 1: push the 5 Phase 4 commits to trigger Vercel preview build
@@ -297,7 +299,13 @@ BASE_URL=https://<preview-hash>.vercel.app npm run test:full
 
 **`playwright.config.ts` BASE_URL handling:** if the config does not currently honor `process.env.BASE_URL`, amend it inline to `process.env.BASE_URL ?? 'http://localhost:3000'` on the `use.baseURL` field as a documented one-line dev-loop change before the test run.
 
-### 2. WebAIM contrast verification deferred — manual user task
+### 2. ~~WebAIM contrast verification deferred~~ — **RESOLVED 2026-05-14 post-Phase-close**
+
+User performed the WebAIM measurement on the deployed `braehods.com (v0)` archived card and reported PASS (`#707070` dot on grain-composited `#1a1a1f` background ≥ 3.0:1 WCAG AA UI-element minimum). No source change — `STATUS_DOT_COLOR['archived']` stays `#707070`; `tests/work-status-badges.spec.ts` `ARCHIVED_RGB` regex stays `/rgba?\(\s*112\s*,\s*112\s*,\s*112/`. The documented `#7a7a7a` fallback is preserved below as a contingency if grain compositing changes in a future phase.
+
+Original deferral recipe preserved below.
+
+### 2-OLD. WebAIM contrast verification deferral recipe (preserved for future reference)
 
 ```
 1. Open `/work` on Vercel preview URL in a real browser (Chrome / Safari / Firefox)
@@ -368,6 +376,25 @@ After the consolidated SUMMARY landed in `be1f569`, the orchestrator did a fast 
 **Result:** when the user runs `git push origin main` to trigger the Phase 6 Vercel preview build (per `## Phase 6 Carry-Forwards` item 1), all 7 cards link to working GitHub destinations or the live archived site. The Wave-3a "approve placeholders" risk is fully retired — no longer a Phase 6 carry-forward.
 
 **Deviation from plan:** Plan 04-02's `<output>` block scoped Phase 4's source surface to `app/work/page.tsx` + the 4 W0 specs + the SUMMARY/ROADMAP/STATE/REQUIREMENTS docs — not `data/projects.ts` after Wave 3a. The href update in `data/projects.ts` here is a Rule 1 / Rule 4 deviation (data refinement happening post-Phase-close). It's logged as a separate atomic commit (`5a3cca2`) so the audit trail is clean.
+
+## Post-Close Deploy Verify (2026-05-14)
+
+After href hardening landed (`7628dcc`), `git push origin main` shipped 7 commits to GitHub; Vercel auto-deployed; user supplied per-branch preview URL `https://braeden-site-llj4c9lah-bwaedens-projects.vercel.app`.
+
+**Targeted Phase 4 spec set against the CDN:**
+- `PLAYWRIGHT_BASE_URL=<preview> npx playwright test tests/work-grid-renders.spec.ts tests/work-status-badges.spec.ts tests/work-no-flagship.spec.ts tests/work-descriptions-cliche-scrub.spec.ts`
+- **18 passed / 0 failed / 0 skipped** (across both browser projects; same as local)
+
+**Full suite against the CDN:**
+- `PLAYWRIGHT_BASE_URL=<preview> npm run test:full`
+- **85 passed / 5 failed / 2 skipped** — 5 failures are pre-existing `/`-route specs (4× `tests/photo-lcp.spec.ts`, 1× `tests/lighthouse.spec.ts`) deferred to Phase 6 LCP audit
+- **Improvement vs local:** 2 fewer failures than local — both `tests/no-bare-outline-none.spec.ts` failures (chromium-mobile + chromium-desktop) flipped GREEN against the production bundle (local-dev quirk only)
+
+**28-item visual checklist:** user walked, no exceptions reported.
+
+**WebAIM contrast on archived dot:** PASS (≥ 3.0:1). No source change — `STATUS_DOT_COLOR['archived']` stays `#707070`.
+
+**Phase 4 is now fully closed end-to-end.** All success criteria proven against the CDN-served production bundle, not just local. WORK-01..06 + A11Y-05 traceability qualifier `(local; deploy verify deferred to Phase 6)` is dropped — they are unconditionally Complete.
 
 ## User Setup Required
 

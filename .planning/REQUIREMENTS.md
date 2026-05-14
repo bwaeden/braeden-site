@@ -198,12 +198,12 @@ Which phases cover which requirements. Updated 2026-05-07 by roadmapper.
 | ABOUT-02 | Phase 3 | Complete |
 | ABOUT-03 | Phase 3 | Complete |
 | ABOUT-04 | Phase 3 | Complete |
-| WORK-01 | Phase 4 | Complete (local; deploy verify deferred to Phase 6) |
-| WORK-02 | Phase 4 | Complete (local; deploy verify deferred to Phase 6) |
-| WORK-03 | Phase 4 | Complete (local; deploy verify deferred to Phase 6) |
-| WORK-04 | Phase 4 | Complete (local; deploy verify deferred to Phase 6) |
-| WORK-05 | Phase 4 | Complete (local; deploy verify deferred to Phase 6) |
-| WORK-06 | Phase 4 | Complete (local; deploy verify deferred to Phase 6) |
+| WORK-01 | Phase 4 | Complete |
+| WORK-02 | Phase 4 | Complete |
+| WORK-03 | Phase 4 | Complete |
+| WORK-04 | Phase 4 | Complete |
+| WORK-05 | Phase 4 | Complete |
+| WORK-06 | Phase 4 | Complete |
 | CTCT-01 | Phase 5 | Pending |
 | CTCT-02 | Phase 5 | Pending |
 | CTCT-03 | Phase 5 | Pending |
@@ -224,7 +224,7 @@ Which phases cover which requirements. Updated 2026-05-07 by roadmapper.
 | A11Y-02 | Phase 1 | Pending |
 | A11Y-03 | Phase 5 | Pending |
 | A11Y-04 | Phase 6 | Pending |
-| A11Y-05 | Phase 4 | Complete (local; deploy verify deferred to Phase 6) |
+| A11Y-05 | Phase 4 | Complete |
 | A11Y-06 | Phase 1 | Pending |
 | A11Y-07 | Phase 6 | Pending |
 | PERF-01 | Phase 6 | Pending |
