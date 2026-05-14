@@ -1,124 +1,46 @@
 {
   "version": "1.0",
-  "timestamp": "2026-05-12T06:42:59.591Z",
-  "phase": "3",
-  "phase_name": "About Page",
-  "phase_dir": ".planning/phases/03-about-page",
+  "timestamp": "2026-05-14T07:59:47.451Z",
+  "phase": "05",
+  "phase_name": "contact-modal",
+  "phase_dir": ".planning/phases/05-contact-modal",
   "plan": null,
-  "task": null,
-  "total_tasks": null,
-  "status": "context_gathered_awaiting_ui_phase",
+  "task": 0,
+  "total_tasks": 7,
+  "status": "planned-not-executed",
   "completed_tasks": [
-    {
-      "id": "phase-2-w0",
-      "name": "Phase 2 W0 — Plan 02-01 foundation (data + tests + asset + scope amendment)",
-      "status": "done",
-      "commit": "afd203b"
-    },
-    {
-      "id": "phase-2-w1",
-      "name": "Phase 2 W1 — Plans 02-02 + 02-03 atoms (HeroPhoto, CurrentlyLine, format, ChannelButton, ChannelButtonRow, CTAArrowLink)",
-      "status": "done",
-      "commit": "e721a1f"
-    },
-    {
-      "id": "phase-2-w2",
-      "name": "Phase 2 W2 — Plans 02-04 + 02-05 chrome + stubs (SocialIconLink, Footer extension, Nav rewire, /about + /work stubs)",
-      "status": "done",
-      "commit": "7da5c64"
-    },
-    {
-      "id": "phase-2-w3",
-      "name": "Phase 2 W3 — Plan 02-06 Hero composition + app/page.tsx rewrite",
-      "status": "done",
-      "commit": "47e4fc0"
-    },
-    {
-      "id": "phase-2-w4",
-      "name": "Phase 2 W4 — Plan 02-07 deploy + verify (22-spec sweep + axe + Lighthouse + AVIF + LCP deferral + merge + production push)",
-      "status": "done",
-      "commit": "adb3ddc"
-    },
-    {
-      "id": "phase-3-discuss",
-      "name": "Phase 3 discuss-phase — 19 implementation decisions locked across 4 gray areas",
-      "status": "done",
-      "commit": "c991bcb"
-    }
+    {"id": "discuss", "name": "Phase 5 discuss-phase (CONTEXT.md + DISCUSSION-LOG.md)", "status": "done", "commit": "402056b"},
+    {"id": "ui-spec", "name": "Phase 5 ui-phase (UI-SPEC.md generated + approved)", "status": "done", "commit": "ec6af0c+04256f8"},
+    {"id": "research", "name": "Phase 5 RESEARCH.md (1120 lines, 7 pitfalls, Open Questions RESOLVED)", "status": "done", "commit": "8a316e8"},
+    {"id": "validation", "name": "Phase 5 VALIDATION.md (9-test verification map, sampling rates)", "status": "done", "commit": "123d57b"},
+    {"id": "pattern-map", "name": "Phase 5 PATTERNS.md (14 analog files mapped)", "status": "done", "commit": "uncommitted-at-pause"},
+    {"id": "plan-01", "name": "Phase 5 plan 05-01-PLAN.md (Wave 0 infra: dep + globals.css + 9 RED specs)", "status": "done", "commit": "b0e831e"},
+    {"id": "plan-02", "name": "Phase 5 plan 05-02-PLAN.md (ContactModal client island)", "status": "done", "commit": "b0e831e"},
+    {"id": "plan-03", "name": "Phase 5 plan 05-03-PLAN.md (atomic D-05 swap + checkpoint + traceability)", "status": "done", "commit": "b0e831e"},
+    {"id": "plan-checker", "name": "Plan-checker verification (revision iter 2/3, all 5 issues resolved)", "status": "done", "commit": "b0e831e"},
+    {"id": "coverage-gates", "name": "Requirements coverage 8/8 + Decision coverage 19/19 (D-XX citations added to plan truths)", "status": "done", "commit": "b0e831e"}
   ],
   "remaining_tasks": [
-    {
-      "id": "phase-3-ui-phase",
-      "name": "Phase 3 /gsd-ui-phase 3 — generate 03-UI-SPEC.md design contract from CONTEXT.md decisions",
-      "status": "not_started"
-    },
-    {
-      "id": "phase-3-plan-phase",
-      "name": "Phase 3 /gsd-plan-phase 3 — generate plan file(s) for /about implementation",
-      "status": "not_started"
-    },
-    {
-      "id": "phase-3-execute-phase",
-      "name": "Phase 3 /gsd-execute-phase 3 — implement bio + photo + CTA + view-transition seam",
-      "status": "not_started"
-    },
-    {
-      "id": "phase-4-work",
-      "name": "Phase 4 — Work + Projects grid",
-      "status": "not_started"
-    },
-    {
-      "id": "phase-5-contact-modal",
-      "name": "Phase 5 — Contact modal (wires Nav + /about CTA target globally)",
-      "status": "not_started"
-    },
-    {
-      "id": "phase-6-polish-launch",
-      "name": "Phase 6 — Polish + SEO + Launch (DNS swap to braehods.com, OG images, JSON-LD, real-user PERF audit including PERF-06 LCP gate)",
-      "status": "not_started"
-    }
+    {"id": "execute-wave-1", "name": "Plan 05-01 Wave 1 — install @formspree/react@3.0.0, append modal-fade-in keyframe + dialog::backdrop to globals.css, stub 9 RED Playwright specs", "status": "not_started", "tasks_in_plan": 3},
+    {"id": "execute-wave-2", "name": "Plan 05-02 Wave 2 — build components/contact/ContactModal.tsx (sole 'use client' island), wire data/site.ts.email, atomically update tests/no-client-components.spec.ts", "status": "not_started", "tasks_in_plan": 1},
+    {"id": "execute-wave-3", "name": "Plan 05-03 Wave 3 — atomic D-05 swap (Nav + about + about-renders.spec + layout.tsx mount in ONE commit), Phase Exit Visual Verification checkpoint, traceability docs", "status": "not_started", "tasks_in_plan": 3}
   ],
   "blockers": [],
   "human_actions_pending": [
-    {
-      "action": "User edits Claude's first-pass bio draft during Phase 3 execute-phase",
-      "context": "CONTEXT.md D-01 commits to Claude drafting at execution time; user reviews and edits the prose in-place before the commit lands. Not a hard blocker but a user-in-the-loop step inside the executor's flow.",
-      "blocking": false
-    }
+    {"action": "Phase Exit Visual Verification walkthrough at Plan 03 Task 2 checkpoint", "context": "12-item checklist in UI-SPEC.md lines 600-628 — modal opens from both triggers, ESC closes + focus returns, success/error states render verbatim copy, mailto fallback fires on click, reduced-motion clamps the fade. Real Formspree submission to fakegoat1@gmail.com is one of the 12 items.", "blocking": false}
   ],
   "decisions": [
-    {
-      "decision": "Phase 2 YouTube dropped from v1 (scope amendment)",
-      "rationale": "User has no YouTube channel yet; Instagram + GitHub only. Component shape platform-keyed for forward-compat re-enable.",
-      "phase": "2"
-    },
-    {
-      "decision": "Phase 2 PERF-06 LCP deferred to Phase 6",
-      "rationale": "2821ms post-AVIF on Slow-4G synthetic Lighthouse vs 2500ms target. Performance score still 95/100. Phase 6 owns the final perf audit with real-user Speed Insights data (PERF-01/02/05) which is the more meaningful gate.",
-      "phase": "2"
-    },
-    {
-      "decision": "Phase 3 bio = warm + personal first-person, ~150-250 words, 3 buckets (current projects + school + open-to)",
-      "rationale": "User chose warm voice for editorial-dark aesthetic fit; explicitly excluded 'Origin / why I build' bucket (resume-anchored over personality-narrative). Length matches ABOUT-04 60-second-read target.",
-      "phase": "3"
-    },
-    {
-      "decision": "Phase 3 layout = two-column mirroring home hero with view-transition shared element",
-      "rationale": "Maximizes the / → /about smooth photo transition. Mirrors home hero pattern so the photo 'stays put' visually while text content swaps. flex-col-reverse mobile reflow.",
-      "phase": "3"
-    },
-    {
-      "decision": "Phase 3 CTA = reuse <CTAArrowLink> 'Get in touch →' pointing to / placeholder",
-      "rationale": "Matches Nav 'Contact' placeholder (Phase 5 wires modal globally and swaps href atomically). Quiet text-link beats pill-button for editorial-dark voice.",
-      "phase": "3"
-    },
-    {
-      "decision": "Phase 3 current focus + location woven into bio prose",
-      "rationale": "No separate <CurrentlyLine> reuse (duplicates home signal), no labeled metadata strip (too resume-ish for warm voice). Home is rolling 'today' surface; /about is durable identity.",
-      "phase": "3"
-    }
+    {"decision": "3 plans / 3 waves (refined from researcher's 4-wave skeleton)", "rationale": "Context-budget efficient. Wave 0 RED-stub → Wave 1 client island flips most GREEN → Wave 2 atomic swap flips the last 4 GREEN. Preserves the RED-then-GREEN cadence from Phases 1-4.", "phase": "05"},
+    {"decision": "ContactModal is the SOLE 'use client' island (FOUND-07 carve-out)", "rationale": "Hash-based trigger architecture (D-06) keeps Nav.tsx + CTAArrowLink as Server Components. Only their href value swaps from '/' to '#contact'. tests/no-client-components.spec.ts is renamed/inverted to single-client-island.spec.ts.", "phase": "05"},
+    {"decision": "Atomic D-05 trigger swap binding enforced by git verification", "rationale": "Plan 03 Task 1 includes `git log -n 1 --name-only` check that fails if Nav.tsx + about/page.tsx + tests/about-renders.spec.ts + app/layout.tsx aren't all in the same commit. Plan-checker would refuse a split-Wave variant.", "phase": "05"},
+    {"decision": "Honeypot+min-time silent-rejection uses separate `bypassedSuccess` state (Pitfall 5 fix)", "rationale": "useForm.handleSubmit is never called on the silent-reject path, so state.succeeded never flips. Need a parallel state to render the success UI without bots learning their submission was rejected.", "phase": "05"},
+    {"decision": "Modal entrance keyframe is NEW opacity-only `modal-fade-in` (NOT reuse of `fade-in-up`)", "rationale": "Existing fade-in-up has 8px translateY which would conflict with browser-centered <dialog> top-layer positioning (Pitfall 6).", "phase": "05"},
+    {"decision": "Hash-clear on close uses `history.replaceState(null, '', location.pathname + location.search)`", "rationale": "Pitfall 1 — `location.hash = ''` would leave the same '#contact' value cached, so a same-hash click after close wouldn't fire hashchange. replaceState properly clears it.", "phase": "05"}
   ],
-  "uncommitted_files": [],
-  "next_action": "Run /gsd-resume-work (reads this handoff + .continue-here.md) or jump directly to /gsd-ui-phase 3 to generate the 03-UI-SPEC.md design contract from the CONTEXT.md decisions.",
-  "context_notes": "Phase 2 shipped to production (origin/main pushed; braeden-site.vercel.app serves Phase 2). Phase 3 context just locked; 19 decisions in 03-CONTEXT.md. Working tree clean, local main 2 commits ahead of origin (planning docs only — no source changes pending push). Natural next step is /gsd-ui-phase 3. Two reusable Phase 2 components <HeroPhoto /> and <CTAArrowLink /> are designed to plug directly into /about with the view-transition-name seam already wired on the home side."
+  "uncommitted_files": [
+    ".planning/config.json (auto-chain flag housekeeping from session start)",
+    ".planning/phases/05-contact-modal/05-PATTERNS.md (pattern-mapper subagent did not auto-commit)"
+  ],
+  "next_action": "/gsd-execute-phase 5  — runs all 3 plans sequentially. OR /gsd-execute-phase 5 --wave 1 for the per-wave pacing convention used in Phases 1+2.",
+  "context_notes": "Planning is complete and verified. No source code has been modified yet — only planning artifacts. The plan-checker ran 2 iterations (1 BLOCKER fixed mechanically, 4 WARNINGS resolved by surgical edits). Decision-coverage gate required adding D-01/D-02/D-03/D-04/D-07/D-17 citations to plan truths blocks (the gate only matches inside designated YAML sections, not <action>/<verify> bodies — easy gotcha for future plans). Plans are wave-dependent and must execute 1→2→3 (Plan 02 has depends_on:[01], Plan 03 has depends_on:[01,02]). Plan 03 Task 2 is a `checkpoint:human-verify` task that pauses for the Phase Exit Visual Verification walkthrough — execute-phase will surface this as a checkpoint."
 }
