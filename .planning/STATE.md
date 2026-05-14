@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-14T02:18:01.271Z"
+last_updated: "2026-05-14T03:29:47Z"
 progress:
   total_phases: 6
-  completed_phases: 3
-  total_plans: 11
-  completed_plans: 9
-  percent: 82
+  completed_phases: 4
+  total_plans: 13
+  completed_plans: 11
+  percent: 85
 ---
 
 # Project State: Braeden Site (braehods.com)
@@ -26,7 +26,7 @@ contact-conversion #2.
 **Stack:** Next.js 16.2.6 (App Router) + React 19.2 + TypeScript 5.9 +
 Tailwind v4 + `@next/mdx` + Fraunces / Geist Sans / Geist Mono + Vercel.
 
-**Current focus:** Phase 03 — about-page
+**Current focus:** Phase 04 — Work + Projects
 visual + Vercel-dashboard review before merge. Currently on branch
 `test/phase-1-found-05-final` (one ahead of `test/phase-1-preview`).
 
@@ -54,20 +54,22 @@ unblock final verification.**
 
 ## Current Position
 
-Phase: 03 (about-page) — EXECUTING
-Plan: 1 of 1
+Phase: 04 (Work + Projects) — EXECUTING
+Plan: 1 of 2
 **Milestone:** v1 (initial launch at braehods.com)
 **Phase:** 4
 **Plan:** Not started
 **Branch:** `main` (Phase 2 plans commit directly to main per project branching strategy)
-**Status:** Ready to execute
+**Status:** Executing Phase 04
 **Phase 2 plan progress:** 02-01 ✅ · 02-02 ✅ · 02-03 ✅ · 02-04 ✅ · 02-05 ✅ · 02-06 ✅ · 02-07 ⏳
+
+**Spec scoreboard (after Phase 4 close):** **+4 newly-GREEN Phase 4 specs** layered on top of the prior Phase 1+2+3 baseline (`tests/work-grid-renders.spec.ts`, `tests/work-status-badges.spec.ts`, `tests/work-no-flagship.spec.ts`, `tests/work-descriptions-cliche-scrub.spec.ts` — all flipped RED → GREEN at Task 4 commit `95d1d7d`). Targeted Phase 4 + regression-canary set: **24 pass / 0 fail / 0 skip**. Full suite (`npm run test:full`): **83 pass / 7 fail / 2 skip** — the 7 failures are PRE-EXISTING `/`-route specs (`tests/no-bare-outline-none.spec.ts` ×2, `tests/photo-lcp.spec.ts` ×4 incl. PERF-06 LCP, `tests/lighthouse.spec.ts` ×1) deferred to Phase 6 deploy per prior STATE.md "PERF-06 LCP RED on local dev/start deferred to Plan 07 Vercel preview"; CONFIRMED unchanged by Phase 4 via stash-and-rerun against the commit before Task 4. **Net Phase 4 movement: +4 newly-GREEN, 0 regressions caused by Phase 4.**
 
 **Spec scoreboard (after 02-06):** **21 of 22 spec files fully GREEN locally** (Phase 1: 13 GREEN incl. lighthouse mono assertion now meaningful + GREEN; Plan 02-02 format: GREEN; Plan 02-04 footer-socials-render: GREEN; Plan 02-05 ctas-resolve-200: GREEN; Plan 02-06: hero-renders + currently-renders + channels-render + view-transition-name-present + mobile-hero-stacks-cleanly all newly GREEN). The 22nd spec file (`tests/photo-lcp.spec.ts`) is half-GREEN: PERF-04 (hero `<img>` width=320 height=320) GREEN × 2 projects; PERF-06 (LCP < 2500ms via Lighthouse on /) RED on local `npm start` (measured 3365ms — local dev does not represent CDN-served production performance per plan body line 506-507; Plan 07 verifies on Vercel preview). Phase 1 chrome suite (visual, monogram, reduced-motion, tokens, contrast, no-bare-outline-none, folder-structure, build-output, favicon, motion-seam, focus-ring, lighthouse) GREEN × 34 assertions, no regression. **Net Plan 06 movement: +5 newly-GREEN specs, +1 half-spec, +1 surfaced-and-fixed (lighthouse mono regex)**.
 
 **Scope-amendment compliance (2026-05-11):** YouTube fully omitted from v1 — `data/channels.ts` is 1-entry (Instagram only), `data/site.ts.socials` literal carries only `github` + `instagram` keys, `tests/channels-render.spec.ts` asserts 1 external `<a>` with "DM me" CTA, `tests/footer-socials-render.spec.ts` asserts only GH+IG aria-labels with explicit `.toHaveCount(0)` guard against the YouTube channel aria-label.
 
-**Progress:** [█████████░] 88%
+**Progress:** [█████████░] 85% (4/6 phases complete; Phase 4 closed at implementation level 2026-05-14, deploy + WebAIM contrast verification deferred to user-driven Phase 6 cycle)
 
 ## Performance Metrics
 
@@ -347,6 +349,35 @@ Plan 02-02 lands `components/home/HeroPhoto.tsx` + `components/home/CurrentlyLin
 
 Plan 02-07 deploys Phase 2 to Vercel branch preview, re-runs the 22-spec Playwright suite + axe smoke + Lighthouse mobile LCP against the CDN-served URL. After Plan 07, every Phase 2 RED spec from Plan 01 is GREEN end-to-end. The 28-item visual checklist requires user eyes on the branch-preview URL. The CLAUDE.md `chore(docs)` amendment for the lucide-react row (flagged in Plan 03 + Plan 04 SUMMARYs) and the Plan 06 lighthouse + photo-lcp port-contention workaround belong here. Plan 07 also owns the Wave-4 squash-merge to main.
 
+### Last Session (2026-05-14 — Phase 4 Plans 01 + 02 / Wave 0a + 0b + 0c + 1 + 2 + 3a + 3c — closed at implementation level)
+
+- Phase 4 (Work + Projects) shipped across 2 plans (split from 1 plan during planning per checker scope_sanity feedback; 8 tasks → 2 plans of 4 tasks each).
+- **Plan 04-01 (Waves 0a + 0b + 0c + W1):**
+  - Task 0 (Wave 0a — `checkpoint:human-action`) PRE-RESOLVED by orchestrator before executor dispatch. User typed "use all defaults" verbatim — (a) ship 7 (WORK-06), (b) all 7 hrefs default to `github.com/bwaeden/<slug>` for the 6 active projects + `https://braehods.com` for the archived entry, (c) archived braehods title `braehods.com (v0)`. Saved one round-trip vs spawning the executor and surfacing AskUserQuestion.
+  - Task 1 (Wave 0b) `9306790` — `feat(phase-4/w0): populate data/projects.ts with 7 entries (D-14 order, D-16 href waterfall, D-15 honesty)`. 3 entries (prediction-market-bot, no-more-short-form, mc-packet-client) shipped with `// TODO(user)` markers above their entries.
+  - Task 2 (Wave 0c) `f1fb996` — `test(phase-4/w0): stub 4 RED Playwright specs for WORK-01..06 + A11Y-05 + D-15 cliché-scrub (counts derived from projects.length)`. 4 specs RED at end of Wave 0; counts derived from `projects.length` import (single-source-of-truth per checker warning #4 fix).
+  - Task 3 (Wave 1) `9ff0909` — `feat(phase-4/w1): components/work/ProjectCard.tsx (hairline-tile card; Server Component; D-01..D-04, D-09..D-12)`. Locked STATUS_DOT_COLOR (4 status→color literals). Card root `<a>` with `transition-[border-color,color,transform]` arbitrary-list discipline. Zero `'use client'`.
+- **Plan 04-02 (Wave 2 + 3a + 3c):**
+  - Task 4 (Wave 2) `95d1d7d` — `feat(phase-4/w2): rewrite app/work/page.tsx to render projects grid (D-05, D-06, D-07, D-13; flips W0 RED specs GREEN)`. Replaced Plan 02-05 `Coming soon.` stub with grid composition. INCLUDES Rule 1 deviation: `tests/work-grid-renders.spec.ts:62` selector tightened from substring `text=` matcher to scoped exact-match `span:text-is("${project.status}")` to defeat substring (`in-dev` inside `in-development` description text on cards 3/4/5) AND cross-tag exact-match (`archived` exact-matched both badge `<span>` and tags `<p>` on card 6) collisions. 4 W0 RED specs flipped GREEN at this commit. Targeted Phase 4 + regression-canary set: 24/24 GREEN.
+  - Task 5 partial (Wave 3a) `c69d255` — `chore(phase-4/w3a): clear 3 TODO(user) href markers per user 'approve placeholders' override`. Pre-deploy gate satisfied (TODO marker count = 0). Risk acknowledged: GitHub 404 if any of the 3 default repos are not public.
+  - Tasks 5 deploy half + Task 6 (WebAIM contrast) DEFERRED by deliberate user choice. User will run the manual deploy + Playwright-against-preview + 28-item visual checklist + WebAIM measurement cycle later. Phase 4 closed at implementation level; deploy-verify is a Phase 6 concern by user choice.
+  - Task 7 (Wave 3c) — this commit (`docs(phase-4): close Phase 4 …`). Wrote consolidated `04-01-SUMMARY.md` (covers BOTH 04-01 + 04-02; no separate 04-02-SUMMARY.md exists per plan body). Updated REQUIREMENTS.md (WORK-01..06 + A11Y-05 → `Complete (local; deploy verify deferred to Phase 6)`). Updated ROADMAP.md (Phase 4 row checked, Plans count "1 plan" → "2 plans", both 04-01 + 04-02 plan lines flipped, Progress Table 0/2 → 2/2 Complete, completion date 2026-05-14). Updated STATE.md (this entry).
+- **Verify gate results (Task 4 final):** `npm run typecheck` PASS, `npm run lint` PASS (0 errors; 2 pre-existing warnings unrelated to Phase 4), `npm run build` PASS (7 static pages, /work prerendered as static `○`); targeted Phase 4 spec set 24/24 GREEN; full suite 83 pass / 7 fail / 2 skip — the 7 failures are PRE-EXISTING `/`-route specs CONFIRMED unchanged by Phase 4 via stash-and-rerun.
+- **Net Phase 4 spec scoreboard delta:** +4 newly-GREEN, 0 regressions caused by Phase 4.
+- **Net package.json diff:** 0 new dependencies installed across Plans 04-01 + 04-02.
+- **FOUND-07 invariant preserved:** zero `'use client'` in `app/work/`, `components/work/`, or any Phase 4 file. `tests/no-client-components.spec.ts` GREEN.
+- **Token discipline preserved (D-09):** 2 inline color literals (`#c8a86a`, `#707070`) live as inline-style on the dot only in `ProjectCard.tsx` — NOT promoted to `globals.css` `@theme`. Locked 6-token palette pure for v1.
+- **4 deviations documented in SUMMARY:** (1) Wave-0a checkpoint pre-resolution by orchestrator (saved round-trip); (2) Rule 1 spec selector tightening (scoped exact-match `span:text-is(...)`); (3) User-deliberate deferral of T5 deploy + T6 WebAIM to Phase 6; (4) Worktree-not-applied at runtime (no functional impact, all commits landed cleanly on `main`).
+- **Phase 6 carry-forwards (6 items, documented in SUMMARY):** (1) Manual deploy + Playwright-against-preview + 28-item visual checklist; (2) Manual WebAIM contrast verification on archived dot with documented `#7a7a7a` fallback recipe; (3) 3 placeholder GitHub repo URL real-link verification post-deploy; (4) `STATUS_DOT_COLOR` `@theme` promotion revisit if status badges propagate; (5) archived braehods href post-DNS-swap target decision; (6) Phase 6 Lighthouse audit owns the 7 pre-existing `/`-route spec failures.
+- **Duration:** ~120 min total across 4 executor dispatches (Plan 04-01 + Plan 04-02 + Wave-3a TODO clearance + Wave-3c SUMMARY/traceability flip).
+- **Commits:** 5 atomic task-level + 1 final docs commit (this) = 6 total. All on `main`.
+
+### Next Session — Phase 5 (Contact Modal)
+
+Phase 5 introduces the first client-island carve-out per FOUND-07 — the native `<dialog>` modal posting to Formspree `xqeypnkw`. Phase 4 introduces zero new patterns Phase 5 must inherit beyond what's already documented in Phase 2 + 3. Cross-route consumer pattern (Server-Component-only Pages reusing component primitives) is established; Phase 5's contact modal is a different concern from Phase 4's pure-static grid. Phase 5 plans must atomically swap the Phase 3 `/about` CTA `href="/"` → `#contact` (or modal-button `onClick`) across `components/layout/Nav.tsx` "Contact" link AND `app/about/page.tsx` CTA in one commit per D-15.
+
+Phase 6 inherits the Phase 4 deploy-verify-WebAIM cycle (per the 6 carry-forwards documented in `04-01-SUMMARY.md` § Phase 6 Carry-Forwards) PLUS the 7 pre-existing `/`-route spec failures (lighthouse, photo-lcp, no-bare-outline-none) PLUS Lighthouse 95+ audit + OG images + JSON-LD + DNS swap.
+
 ---
 *State initialized: 2026-05-07 by roadmapper*
 *State updated: 2026-05-08 by discuss-phase (Phase 1 context)*
@@ -366,3 +397,4 @@ Plan 02-07 deploys Phase 2 to Vercel branch preview, re-runs the 22-spec Playwri
 *State updated: 2026-05-12 by execute-phase (Phase 2 Plan 05 / Wave 2 complete — app/about + app/work stub pages shipping `Coming soon.` placeholders; 1 atomic commit `9f7d16d` direct to main; zero deviations; net +2 GREEN — `tests/ctas-resolve-200.spec.ts` HOME-05 routes both return HTTP 200; metadata template composition verified via curl)*
 *State updated: 2026-05-12 by execute-phase (Phase 2 Plan 06 / Wave 3 complete — components/home/Hero.tsx composes 4 atoms + motion seam in CD-05 rhythm + D-01 responsive flex layout; app/page.tsx rewritten to one-line `<Hero />`; 3 atomic commits direct to main: `16fe2f2` (Hero.tsx), `149be22` (app/page.tsx rewrite), `072f45b` (Rule 1 fix: broadened lighthouse mono regex to accept GeistMono + Geist Mono after Plan 06 mount surfaced Phase 1 spec over-specification); 5 Plan-01 RED specs flipped GREEN locally; `tests/photo-lcp.spec.ts` PERF-04 GREEN, PERF-06 LCP RED on local dev/start deferred to Plan 07 Vercel preview; 64/66 full suite GREEN with 0 Phase 1 regressions)*
 *Session resumed: 2026-05-13 by resume-work — HANDOFF.json loaded (status=context_gathered_awaiting_ui_phase), user chose to proceed with /gsd-ui-phase 3*
+*State updated: 2026-05-14 by execute-phase (Phase 4 Plans 01 + 02 closed at implementation level — 5 atomic task commits + 1 final docs commit; 4 newly-GREEN Phase 4 specs; 0 regressions caused by Phase 4; T5 deploy + T6 WebAIM contrast measurement DEFERRED by deliberate user choice to user-driven Phase 6 cycle; consolidated SUMMARY at .planning/phases/04-work-projects/04-01-SUMMARY.md covers BOTH plans; WORK-01..06 + A11Y-05 marked `Complete (local; deploy verify deferred to Phase 6)` in REQUIREMENTS.md traceability)*

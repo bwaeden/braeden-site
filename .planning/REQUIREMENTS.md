@@ -50,12 +50,12 @@ Requirements for initial release at braehods.com. Each maps to roadmap phases.
 
 ### Work / Projects (WORK)
 
-- [ ] **WORK-01**: `/work` page renders all projects in an equal-weight responsive grid (no flagship hierarchy)
-- [ ] **WORK-02**: Project entries sourced from `data/projects.ts` (typed), with at minimum: title, one-line description, tags, status, primary URL
-- [ ] **WORK-03**: Project status badges (shipped / paper-trading / in-dev / archived) render visually as colored dot + label
-- [ ] **WORK-04**: Tag taxonomy supports filtering or visual grouping (trading, content, tools, archived) — even if not interactive in v1, tags are visible
-- [ ] **WORK-05**: Each project card links out to its repo, site, or video (no in-site case study pages in v1; route `/work/[slug]` reserved but not built)
-- [ ] **WORK-06**: Initial project list seeded: CapitolLens, shorts-factory, meme-dashboard, prediction-market-bot, no-more-short-form, mc-packet-client, plus archived braehods reference
+- [x] **WORK-01**: `/work` page renders all projects in an equal-weight responsive grid (no flagship hierarchy)
+- [x] **WORK-02**: Project entries sourced from `data/projects.ts` (typed), with at minimum: title, one-line description, tags, status, primary URL
+- [x] **WORK-03**: Project status badges (shipped / paper-trading / in-dev / archived) render visually as colored dot + label
+- [x] **WORK-04**: Tag taxonomy supports filtering or visual grouping (trading, content, tools, archived) — even if not interactive in v1, tags are visible
+- [x] **WORK-05**: Each project card links out to its repo, site, or video (no in-site case study pages in v1; route `/work/[slug]` reserved but not built)
+- [x] **WORK-06**: Initial project list seeded: CapitolLens, shorts-factory, meme-dashboard, prediction-market-bot, no-more-short-form, mc-packet-client, plus archived braehods reference
 
 ### Contact (CTCT)
 
@@ -85,7 +85,7 @@ Requirements for initial release at braehods.com. Each maps to roadmap phases.
 - [ ] **A11Y-02**: Visible focus rings on all interactive elements (no `outline: none` without replacement)
 - [ ] **A11Y-03**: Modal contact form passes WCAG dialog requirements (focus trap, ESC, return focus to trigger)
 - [ ] **A11Y-04**: All images have meaningful `alt` attributes (or `alt=""` for decorative)
-- [ ] **A11Y-05**: Color is never the only state indicator (badges have label text, not just colored dots)
+- [x] **A11Y-05**: Color is never the only state indicator (badges have label text, not just colored dots)
 - [ ] **A11Y-06**: `prefers-reduced-motion` respected across all motion (DSGN-08 in practice)
 - [ ] **A11Y-07**: Site usable at 200% browser zoom without horizontal scroll on mobile
 
@@ -198,12 +198,12 @@ Which phases cover which requirements. Updated 2026-05-07 by roadmapper.
 | ABOUT-02 | Phase 3 | Complete |
 | ABOUT-03 | Phase 3 | Complete |
 | ABOUT-04 | Phase 3 | Complete |
-| WORK-01 | Phase 4 | Pending |
-| WORK-02 | Phase 4 | Pending |
-| WORK-03 | Phase 4 | Pending |
-| WORK-04 | Phase 4 | Pending |
-| WORK-05 | Phase 4 | Pending |
-| WORK-06 | Phase 4 | Pending |
+| WORK-01 | Phase 4 | Complete (local; deploy verify deferred to Phase 6) |
+| WORK-02 | Phase 4 | Complete (local; deploy verify deferred to Phase 6) |
+| WORK-03 | Phase 4 | Complete (local; deploy verify deferred to Phase 6) |
+| WORK-04 | Phase 4 | Complete (local; deploy verify deferred to Phase 6) |
+| WORK-05 | Phase 4 | Complete (local; deploy verify deferred to Phase 6) |
+| WORK-06 | Phase 4 | Complete (local; deploy verify deferred to Phase 6) |
 | CTCT-01 | Phase 5 | Pending |
 | CTCT-02 | Phase 5 | Pending |
 | CTCT-03 | Phase 5 | Pending |
@@ -224,7 +224,7 @@ Which phases cover which requirements. Updated 2026-05-07 by roadmapper.
 | A11Y-02 | Phase 1 | Pending |
 | A11Y-03 | Phase 5 | Pending |
 | A11Y-04 | Phase 6 | Pending |
-| A11Y-05 | Phase 4 | Pending |
+| A11Y-05 | Phase 4 | Complete (local; deploy verify deferred to Phase 6) |
 | A11Y-06 | Phase 1 | Pending |
 | A11Y-07 | Phase 6 | Pending |
 | PERF-01 | Phase 6 | Pending |

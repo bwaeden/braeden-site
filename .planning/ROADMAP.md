@@ -18,7 +18,7 @@ gates are reviewable from Phase 1 onward.
 - [x] **Phase 1: Foundation + Design Tokens** — Shipped 2026-05-10. Deployable preview with charcoal gradient, fonts, monogram, design tokens, focus + reduced-motion rules.
 - [x] **Phase 2: Home Page** — Shipped 2026-05-12. Curated `/` with hero (photo + name + Currently), Instagram channel button (YouTube dropped per 02-SCOPE-AMENDMENT.md), craft motion. 7 plans, 28 commits, 21/22 specs GREEN; PERF-06 LCP deferred to Phase 6 (2821ms post-AVIF on Slow-4G synthetic; Phase 6 owns the real-user Speed Insights gate).
 - [ ] **Phase 3: About Page** — `/about` route delivers a short bio that reads in under 60 seconds
-- [ ] **Phase 4: Work + Projects** — `/work` equal-weight grid renders all 7 projects from typed `data/projects.ts`
+- [x] **Phase 4: Work + Projects** — Shipped 2026-05-14 (implementation complete; deploy + WebAIM contrast verification deferred to user-driven Phase 6 cycle). `/work` equal-weight 7-card grid renders all projects from typed `data/projects.ts`; CapitolLens leads, archived `braehods.com (v0)` orphan; ProjectCard Server Component (hairline-tile + status-dot+lowercase-label per A11Y-05); 4 Playwright specs flipped GREEN; 5 atomic commits + final docs commit; 0 new dependencies; Phase 1+2+3 chrome regression canaries unaffected (7 pre-existing `/`-route failures isolated to Phase 6 deploy concern).
 - [ ] **Phase 5: Contact Modal** — Native `<dialog>` modal posts to existing Formspree endpoint with focus trap and mailto fallback
 - [ ] **Phase 6: Polish + SEO + Launch** — A11Y/PERF/SEO audit complete, OG images live, JSON-LD + sitemap shipped, DNS migrated to braehods.com
 
@@ -82,8 +82,8 @@ gates are reviewable from Phase 1 onward.
   4. Tags render visibly on each card and group projects by family (trading / content / tools / archived) even without interactive filtering (WORK-04)
   5. Each card links out to its repo, site, or video with correct external-link semantics; no in-site case-study pages exist in v1 (WORK-05)
 **Plans**: 2 plans, 4 waves (W0 data + 4 RED spec stubs + user-input checkpoint resolving OQ#1, W1 ProjectCard component, W2 page rewrite + spec flip RED to GREEN, W3 deploy + WebAIM contrast verify)
-- [ ] 04-01-PLAN.md — W0+W1: populate data/projects.ts (N user-confirmed entries, D-15 honesty contract), stub 4 RED Playwright specs (counts derived from projects.length import), ship components/work/ProjectCard.tsx (Server Component, hairline-tile, status dot+label per A11Y-05)
-- [ ] 04-02-PLAN.md — W2+W3: rewrite app/work/page.tsx (flips RED specs GREEN), deploy to Vercel preview + full Playwright suite verify (TODO(user) gate enforces 0 markers before deploy), WebAIM contrast verify on archived dot (#7a7a7a fallback documented), consolidated SUMMARY + ROADMAP/STATE/REQUIREMENTS traceability flip
+- [x] 04-01-PLAN.md — W0+W1: populate data/projects.ts (7 user-confirmed entries via Wave-0a "use all defaults", D-15 honesty contract), stub 4 RED Playwright specs (counts derived from projects.length import), ship components/work/ProjectCard.tsx (Server Component, hairline-tile, status dot+label per A11Y-05)
+- [x] 04-02-PLAN.md — W2+W3: rewrite app/work/page.tsx (flips RED specs GREEN), TODO(user) marker clearance via user "approve placeholders" override (commit c69d255), consolidated SUMMARY + ROADMAP/STATE/REQUIREMENTS traceability flip; deploy + Playwright-against-preview + 28-item visual checklist + WebAIM contrast measurement DEFERRED to user-driven Phase 6 cycle by deliberate user choice
 **UI hint**: yes
 
 ### Phase 5: Contact Modal
@@ -119,7 +119,7 @@ gates are reviewable from Phase 1 onward.
 | 1. Foundation + Design Tokens | 0/1 | Not started | - |
 | 2. Home Page | 7/7 | Complete | 2026-05-12 |
 | 3. About Page | 0/0 | Not started | - |
-| 4. Work + Projects | 0/2 | Planning complete | - |
+| 4. Work + Projects | 2/2 | Complete | 2026-05-14 |
 | 5. Contact Modal | 0/0 | Not started | - |
 | 6. Polish + SEO + Launch | 0/0 | Not started | - |
 
@@ -150,3 +150,4 @@ A11Y, PERF, and SEO are NOT separate phases. They are baked into the phase that 
 *Last updated: 2026-05-11 by execute-phase — Plan 02-04 complete (4/7 Phase-2 plans done; W2 layout chrome extension shipped — Footer + Nav rewire + SocialIconLink + components/icons/)*
 *Last updated: 2026-05-13 by plan-phase — Phase 4 finalized (1 plan, 4 waves; 04-01-PLAN.md created)*
 *Last updated: 2026-05-13 by plan-phase (revision mode) — Phase 4 split into 2 plans per checker scope_sanity feedback (8 tasks across 4 waves exceeded the 5+ task BLOCKER threshold for a single plan); 04-01 covers Waves 0+1 (data + spec stubs + ProjectCard component, 4 tasks), 04-02 covers Waves 2+3 (page rewrite + deploy + verify + summary, 4 tasks); checker warning fixes baked in: D-15 negative-honesty test on in-dev entries, TODO(user) deploy gate, projects.length import for spec count derivation*
+*Last updated: 2026-05-14 by execute-phase — Phase 4 closed at implementation level. Plans 04-01 + 04-02 Tasks 0-4 + Task 5 partial (TODO clearance only) + Task 7 (this commit) shipped. Tasks 5 (deploy + Playwright-against-preview + 28-item visual checklist) and 6 (WebAIM contrast measurement) DEFERRED by deliberate user choice to a manual user-driven Phase 6 cycle. Single consolidated SUMMARY at .planning/phases/04-work-projects/04-01-SUMMARY.md covers BOTH plans (no separate 04-02-SUMMARY.md). 5 atomic task commits + 1 final docs commit; 4 newly-GREEN Phase 4 specs; 0 new dependencies; 0 regressions caused by Phase 4 (7 pre-existing /-route spec failures isolated to Phase 6 deploy concern, confirmed via stash-and-rerun).*
