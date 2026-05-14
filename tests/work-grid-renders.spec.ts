@@ -57,9 +57,13 @@ test('WORK-02, WORK-05: each card has external <a> + status label matching schem
       /noreferrer/
     );
 
-    // Status label = literal schema value from data
+    // Status label = literal schema value from data (scoped to <span> +
+    // exact-match — substring matchers collide with descriptions containing
+    // the enum value, e.g. 'in-dev' status appearing inside 'in-development'
+    // description text; exact-match alone collides with tag enum values like
+    // 'archived' which appear both in the badge <span> and the tags <p>)
     await expect(
-      card.locator(`text=${project.status}`),
+      card.locator(`span:text-is("${project.status}")`),
       `card ${i} (${project.slug}): status label "${project.status}" should appear`
     ).toHaveCount(1);
   }
