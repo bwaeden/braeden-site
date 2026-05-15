@@ -58,6 +58,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# GSD orchestrator worktree directories (cleaned after wave completes)
+.claude/worktrees/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

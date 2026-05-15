@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-14T07:46:15.943Z"
+last_updated: "2026-05-15T01:46:55.595Z"
 progress:
   total_phases: 6
   completed_phases: 3
@@ -26,7 +26,7 @@ contact-conversion #2.
 **Stack:** Next.js 16.2.6 (App Router) + React 19.2 + TypeScript 5.9 +
 Tailwind v4 + `@next/mdx` + Fraunces / Geist Sans / Geist Mono + Vercel.
 
-**Current focus:** Phase 04 — Work + Projects
+**Current focus:** Phase 05 — contact-modal
 visual + Vercel-dashboard review before merge. Currently on branch
 `test/phase-1-found-05-final` (one ahead of `test/phase-1-preview`).
 
@@ -54,13 +54,13 @@ unblock final verification.**
 
 ## Current Position
 
-Phase: 04 (Work + Projects) — EXECUTING
-Plan: 1 of 2
+Phase: 05 (contact-modal) — EXECUTING
+Plan: 1 of 3
 **Milestone:** v1 (initial launch at braehods.com)
 **Phase:** 4
 **Plan:** Not started
 **Branch:** `main` (Phase 2 plans commit directly to main per project branching strategy)
-**Status:** Ready to execute
+**Status:** Executing Phase 05
 **Phase 2 plan progress:** 02-01 ✅ · 02-02 ✅ · 02-03 ✅ · 02-04 ✅ · 02-05 ✅ · 02-06 ✅ · 02-07 ⏳
 
 **Spec scoreboard (after Phase 4 close):** **+4 newly-GREEN Phase 4 specs** layered on top of the prior Phase 1+2+3 baseline (`tests/work-grid-renders.spec.ts`, `tests/work-status-badges.spec.ts`, `tests/work-no-flagship.spec.ts`, `tests/work-descriptions-cliche-scrub.spec.ts` — all flipped RED → GREEN at Task 4 commit `95d1d7d`). Targeted Phase 4 + regression-canary set: **24 pass / 0 fail / 0 skip**. Full suite (`npm run test:full`): **83 pass / 7 fail / 2 skip** — the 7 failures are PRE-EXISTING `/`-route specs (`tests/no-bare-outline-none.spec.ts` ×2, `tests/photo-lcp.spec.ts` ×4 incl. PERF-06 LCP, `tests/lighthouse.spec.ts` ×1) deferred to Phase 6 deploy per prior STATE.md "PERF-06 LCP RED on local dev/start deferred to Plan 07 Vercel preview"; CONFIRMED unchanged by Phase 4 via stash-and-rerun against the commit before Task 4. **Net Phase 4 movement: +4 newly-GREEN, 0 regressions caused by Phase 4.**
