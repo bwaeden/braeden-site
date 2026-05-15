@@ -103,3 +103,23 @@ body::after {
 .nav-mobile[open] .nav-icon-close {
   display: inline-block;
 }
+
+/* Phase 5 — Contact Modal entrance (D-16) + backdrop (D-18). Opacity-only
+   keyframe — translateY would conflict with browser-centered <dialog>
+   top-layer positioning per 05-RESEARCH.md Pitfall + Pattern 4. */
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+dialog[open] {
+  animation: modal-fade-in 240ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+dialog[open]::backdrop {
+  animation: modal-fade-in 150ms cubic-bezier(0.2, 0, 0, 1) both;
+  background-color: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(2px);
+}
