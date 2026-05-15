@@ -19,7 +19,7 @@ gates are reviewable from Phase 1 onward.
 - [x] **Phase 2: Home Page** — Shipped 2026-05-12. Curated `/` with hero (photo + name + Currently), Instagram channel button (YouTube dropped per 02-SCOPE-AMENDMENT.md), craft motion. 7 plans, 28 commits, 21/22 specs GREEN; PERF-06 LCP deferred to Phase 6 (2821ms post-AVIF on Slow-4G synthetic; Phase 6 owns the real-user Speed Insights gate).
 - [ ] **Phase 3: About Page** — `/about` route delivers a short bio that reads in under 60 seconds
 - [x] **Phase 4: Work + Projects** — Shipped 2026-05-14 (implementation complete; deploy + WebAIM contrast verification deferred to user-driven Phase 6 cycle). `/work` equal-weight 7-card grid renders all projects from typed `data/projects.ts`; CapitolLens leads, archived `braehods.com (v0)` orphan; ProjectCard Server Component (hairline-tile + status-dot+lowercase-label per A11Y-05); 4 Playwright specs flipped GREEN; 5 atomic commits + final docs commit; 0 new dependencies; Phase 1+2+3 chrome regression canaries unaffected (7 pre-existing `/`-route failures isolated to Phase 6 deploy concern).
-- [ ] **Phase 5: Contact Modal** — Native `<dialog>` modal posts to existing Formspree endpoint with focus trap and mailto fallback
+- [x] **Phase 5: Contact Modal** — Shipped 2026-05-14 (implementation complete; full 12-item Phase Exit Visual Verification + 22 spec failures across Categories A–D deferred to user-driven Phase 6 cycle). Native `<dialog>` client island (`components/contact/ContactModal.tsx` — the SOLE `'use client'` directive per FOUND-07 carve-out) posts to Formspree `xqeypnkw` with focus trap + ESC + scroll lock; honeypot (`name="company"`) + 1500ms min-time bot defense; mailto fallback to `fakegoat1@gmail.com`; 9 new specs across 3 plans; D-05 atomic Nav + /about trigger swap landed in single commit `48f0a10` (Plan 03 Task 1); Rule 1 fix `e9206a5` discovered Next.js Link pushState pitfall (hashchange never fires) and added delegated anchor click listener.
 - [ ] **Phase 6: Polish + SEO + Launch** — A11Y/PERF/SEO audit complete, OG images live, JSON-LD + sitemap shipped, DNS migrated to braehods.com
 
 ## Phase Details
@@ -99,7 +99,7 @@ gates are reviewable from Phase 1 onward.
 **Plans**: 3 plans, 3 waves (W0/Plan 01 = test infra + @formspree/react@3.0.0 + globals.css dialog rules; W1/Plan 02 = ContactModal client island [the SOLE 'use client' per FOUND-07 carve-out] + atomic spec update; W2/Plan 03 = atomic D-05 commit [mount + Nav swap + about swap + spec assertion swap, all in 1 commit] + Phase Exit verify + close)
 - [x] 05-01-PLAN.md — W0: install @formspree/react@3.0.0, append modal-fade-in keyframe + dialog rules to globals.css (D-16/D-18), stub 9 RED Playwright specs (verbatim copy + atomic swap + single-client-island)
 - [x] 05-02-PLAN.md — W1: ship components/contact/ContactModal.tsx (the SOLE 'use client' island per FOUND-07 carve-out — D-01..D-19); wire data/site.ts.email per D-15a; atomically update tests/no-client-components.spec.ts to allow ContactModal
-- [ ] 05-03-PLAN.md — W2: atomic D-05 commit (mount in app/layout.tsx + Nav LINKS href swap + /about CTA href swap + tests/about-renders.spec.ts assertion update — all in one commit); Phase Exit Visual Verification checkpoint; consolidated SUMMARY closing Phase 5
+- [x] 05-03-PLAN.md — W2: atomic D-05 commit `48f0a10` (4 files in 1 commit per `git log -n 1 --name-only` binding); Rule 1 fix `e9206a5` for Next.js Link pushState pitfall (delegated anchor click listener — hashchange listener alone insufficient); 12-item Phase Exit Visual Verification + 22 cross-project spec failures across Categories A–D (Plan 01 spec design + Plan 02 implementation gaps) DEFERRED by user to Phase 6 deploy-verify cycle; consolidated SUMMARY closing Phase 5
 **UI hint**: yes
 
 ### Phase 6: Polish + SEO + Launch
@@ -123,7 +123,7 @@ gates are reviewable from Phase 1 onward.
 | 2. Home Page | 7/7 | Complete | 2026-05-12 |
 | 3. About Page | 0/0 | Not started | - |
 | 4. Work + Projects | 2/2 | Complete | 2026-05-14 |
-| 5. Contact Modal | 0/0 | Not started | - |
+| 5. Contact Modal | 3/3 | Complete (local; deploy verify deferred to Phase 6) | 2026-05-14 |
 | 6. Polish + SEO + Launch | 0/0 | Not started | - |
 
 ## Cross-Cutting Concerns (How A11Y / PERF / SEO Are Distributed)

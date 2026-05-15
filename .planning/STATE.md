@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-15T01:46:55.595Z"
+last_updated: "2026-05-14T08:30:00.000Z"
 progress:
   total_phases: 6
-  completed_phases: 3
-  total_plans: 14
-  completed_plans: 10
-  percent: 71
+  completed_phases: 5
+  total_plans: 17
+  completed_plans: 15
+  percent: 83
 ---
 
 # Project State: Braeden Site (braehods.com)
@@ -26,9 +26,11 @@ contact-conversion #2.
 **Stack:** Next.js 16.2.6 (App Router) + React 19.2 + TypeScript 5.9 +
 Tailwind v4 + `@next/mdx` + Fraunces / Geist Sans / Geist Mono + Vercel.
 
-**Current focus:** Phase 05 — contact-modal
-visual + Vercel-dashboard review before merge. Currently on branch
-`test/phase-1-found-05-final` (one ahead of `test/phase-1-preview`).
+**Current focus:** Phase 6 — Polish + SEO + Launch (final phase)
+Implementation complete through Phase 5; site is feature-complete at `main` and
+deployable to Vercel preview without further code changes. Phase 6 owns the
+deploy-verify cycle for Phases 4 + 5 plus its own Lighthouse audit + OG + JSON-LD
++ sitemap + DNS swap workload.
 
 W4-T1 (Vercel project setup) done. W4-T2 (Playwright 32/32 against preview)
 **caveat — see Preview URL note below**. W4-T3 code-fix shipped: mobile
@@ -372,11 +374,28 @@ Plan 02-07 deploys Phase 2 to Vercel branch preview, re-runs the 22-spec Playwri
 - **Duration:** ~120 min total across 4 executor dispatches (Plan 04-01 + Plan 04-02 + Wave-3a TODO clearance + Wave-3c SUMMARY/traceability flip).
 - **Commits:** 5 atomic task-level + 1 final docs commit (this) = 6 total. All on `main`.
 
-### Next Session — Phase 5 (Contact Modal)
+### Last Session (2026-05-14 — Phase 5 Plans 01 + 02 + 03 — closed at implementation level)
 
-Phase 5 introduces the first client-island carve-out per FOUND-07 — the native `<dialog>` modal posting to Formspree `xqeypnkw`. Phase 4 introduces zero new patterns Phase 5 must inherit beyond what's already documented in Phase 2 + 3. Cross-route consumer pattern (Server-Component-only Pages reusing component primitives) is established; Phase 5's contact modal is a different concern from Phase 4's pure-static grid. Phase 5 plans must atomically swap the Phase 3 `/about` CTA `href="/"` → `#contact` (or modal-button `onClick`) across `components/layout/Nav.tsx` "Contact" link AND `app/about/page.tsx` CTA in one commit per D-15.
+- Phase 5 (Contact Modal) shipped across 3 plans, 3 waves, 8 atomic task commits + 4 orchestrator state/docs commits.
+- **Plan 05-01 (Wave 1 infra)** — 4 commits on worktree branch, ff-merged to main: `d8d8423` (`@formspree/react@3.0.0` exact-pin), `b1f6747` (`@keyframes modal-fade-in` opacity-only + `dialog[open]` + `dialog::backdrop` rules appended to `app/globals.css` per D-16/D-18), `afac70a` (9 RED Playwright specs stubbed encoding verbatim copy + invariants), `4e22c1f` (SUMMARY + deferred-items.md). 5/5 end-of-plan gates passed (exact-pin, no-translateY in new keyframe, spec collection clean, Phase 1 canaries 4/4 GREEN, FOUND-07 intact at 0 client islands). 2 deviations: Rule 2 hardening on `contact-modal-min-time.spec.ts` (added positive-path canary to close D-14 coverage gap surfaced by plan-checker WARNING); Rule 3 absolute-path #3099 auto-resolved (Read-cached main-repo path leaked to Edit, reverted main, re-applied via worktree relative path).
+- **Plan 05-02 (Wave 2 ContactModal)** — 2 commits on worktree, ff-merged: `859a6fd` (387-line `components/contact/ContactModal.tsx` — THE single `'use client'` carve-out per FOUND-07; native `<dialog>` + `useForm` from `@formspree/react` + hashchange listener + honeypot `name="company"` + 1500ms min-time + `bypassedSuccess` separate-state Pitfall 5 fix + char counter with `#c8a86a` flip at 800 chars + 4 state renders with verbatim D-08..D-12 copy in Unicode U+2014/U+2019/U+2192/U+2026 + mailto fallback + 2 `aria-live` regions; `data/site.ts.email` wired per D-15a; atomic `tests/no-client-components.spec.ts` update to allow-list `components/contact/ContactModal.tsx` in SAME commit), `b0a623b` (SUMMARY). 21/21 source-level locked-content checks PASS. 5 Rule 1 deviations (all proper plan-vs-spec contract corrections): mailto link rendered in both form-shown AND success branches (plan body's wrapping would have failed the mailto spec); JSX HTML entities replaced with literal Unicode (source-grep checks source chars); `_gotcha` references removed from comments (negative regex tripped on doc references); `transition-colors` references in comment text rewritten; verification-scope correction (plan body claimed 6/9 specs flip GREEN in Plan 02, only 2/9 actually do — the 2 filesystem-level FOUND-07 specs; the other 7 modal-behavior specs need Plan 03's mount + rewire to be testable).
+- **Plan 05-03 (Wave 3 atomic D-05 swap + Phase Exit checkpoint)** — 3 commits on worktree, ff-merged: `e9206a5` (Rule 1 fix: discovered Next.js `<Link href="#contact">` uses `history.pushState` which does NOT fire the `hashchange` event; Plan 02's ContactModal listened exclusively to `hashchange`, so post-D-05-swap modal would never open from Nav clicks; added bubble-phase document click listener detecting anchor.hash==='#contact' and calling `dialog.showModal()` directly — modifier-key+non-primary clicks bail so cmd/ctrl+click still opens new tab; native `hashchange` retained for deep-link URLs + location.hash assignment + back/forward), `48f0a10` (D-05 ATOMIC commit — all 4 files in ONE commit per `git log -n 1 --name-only` binding: `app/layout.tsx` ContactModal mount as sibling of `<main>` + `<Footer />`, `components/layout/Nav.tsx` line 15 `href: '/'` → `'#contact'`, `app/about/page.tsx` line 75 `<CTAArrowLink href="/">` → `'#contact'`, `tests/about-renders.spec.ts` assertion flip; verified clean by post-commit git log), `6bba689` (checkpoint breadcrumb at Task 2). Plan 03 Task 2 (`checkpoint:human-verify` — 12-item Phase Exit Visual Verification + real Formspree submit to fakegoat1@gmail.com + iOS Safari + NVDA/VoiceOver) DEFERRED by deliberate user choice per `defer` option, matching Phase 4 close pattern.
+- **Verify gate results (Phase 5 close):** `npm run typecheck` PASS, `npm run lint` PASS (0 errors; 1 pre-existing `_staggerIndex` warning unchanged), `npm run build` PASS (7 static routes prerendered, Turbopack 2.4s). FOUND-07 invariant: PASS — exactly 1 `'use client'` directive in `components/contact/ContactModal.tsx`. Atomic-commit gate: PASS — `git log -n 1 --name-only` on `48f0a10` lists exactly the 4 designated files. Phase 1-4 regression canaries 12/12 GREEN on chromium-mobile, 0 regressions caused by Phase 5.
+- **Phase 5 spec scoreboard at close (mid-flight):** chromium-desktop 9/17 GREEN; chromium-mobile (Pixel 5) 3/17 GREEN. The 22 cross-project failures trace to 4 inherited categories — NONE caused by Plan 03's atomic D-05 swap or the Rule 1 Next.js Link fix: **Cat A (7 mobile-only)** Plan 01 specs call `getByRole('link', { name: 'Contact' }).first()` on `/` without opening the `<details>` hamburger first — Contact link not in a11y tree on Pixel 5 viewport; **Cat B (4 both)** `inline-block` on mailto `→` arrow causes Playwright `:text-is` (uses `innerText`) to see `\n` between text and arrow; **Cat C (3 both)** error region role/aria-live attribute mismatch + silent-success rendering post-honeypot/min-time bypass; **Cat D (1)** `page.url()` doesn't reflect `history.replaceState` synchronously (probe confirmed `window.location.href === '/'` after ESC). All 4 categories deferred to Phase 6 per user choice; failure category analysis preserved in `.planning/phases/05-contact-modal/.checkpoint-state.md`.
+- **Net package.json diff:** +1 production dependency (`@formspree/react@3.0.0` exact-pinned). No transitive concerns; package hasn't been republished since 2024 but is stable hook-only API.
+- **FOUND-07 carve-out activated as planned:** `git grep -l "'use client'"` returns exactly `components/contact/ContactModal.tsx`. Both spec gates (`tests/single-client-island.spec.ts` filesystem-level count + `tests/no-client-components.spec.ts` allow-list) GREEN.
+- **D-05 atomic-swap binding satisfied:** Plan-checker enforced single-commit landing. `48f0a10` contains exactly 4 paths; no split-Wave variant possible at executor commit time. Lesson preserved for any future cross-file binding in Phase 6.
+- **Phase 6 carry-forwards from Phase 5 (added to the Phase 4 carry-forward list — both surface in Phase 6 deploy-verify cycle):** (1) Real Formspree end-to-end email delivery verification (real submit to fakegoat1@gmail.com via Vercel preview URL); (2) 12-item Phase Exit Visual Verification walkthrough on the Vercel preview URL (UI-SPEC lines 600-628); (3) Real-device iOS Safari verification (Pitfall 7 auto-zoom + Pitfall 8 dvh viewport — DevTools emulation doesn't catch all iOS Safari quirks); (4) Screen-reader manual audit (NVDA/VoiceOver) of all 4 state announcements (CTCT-03 + A11Y-03); (5) Category A spec fix: mobile-hamburger spec design — 7 specs need viewport detection + `<details>` open before clicking Contact; (6) Category B fix: mailto `→` arrow rendering — use CSS `::after` pseudo-element with `content: "→"; transform: translateX(...)` on hover OR remove inline-block; (7) Category C fix: error region role/aria-live + silent-success rendering; (8) Category D spec fix: replace `page.url()` reads with `await page.evaluate(() => window.location.href)` after `history.replaceState`; (9) WebAIM contrast measurement on `#c8a86a` against `#0a0a0a` (Phase 5 second consumer of literal — confirms Phase 4 D-09 audit still holds; a 3rd consumer would trigger `@theme` promotion per Phase 6 polish discipline); (10) PERF-03 first-page bundle size measurement now that the single client island ships (~5KB chunk for ContactModal+useForm graph; verify ≤50KB total target).
+- **Duration:** ~3 hours total across 3 executor dispatches (Plan 05-01 ~17min + Plan 05-02 ~32min + Plan 05-03 ~27min through checkpoint) + 3 orchestrator merge/cleanup/state-update cycles + this final docs commit.
+- **Commits:** 8 atomic worktree-task commits + 3 orchestrator state-update commits + 1 final docs commit (this) = 12 total on `main`.
 
-Phase 6 inherits the Phase 4 deploy-verify-WebAIM cycle (per the 6 carry-forwards documented in `04-01-SUMMARY.md` § Phase 6 Carry-Forwards) PLUS the 7 pre-existing `/`-route spec failures (lighthouse, photo-lcp, no-bare-outline-none) PLUS Lighthouse 95+ audit + OG images + JSON-LD + DNS swap.
+### Next Session — Phase 6 (Polish + SEO + Launch)
+
+Phase 6 is the final phase before launch at braehods.com. It inherits Phase 4's deploy-verify-WebAIM cycle (6 carry-forwards in `04-01-SUMMARY.md` § Phase 6 Carry-Forwards) PLUS Phase 5's 10 carry-forwards above PLUS its own ownership: Lighthouse 95+ audit + OG images + JSON-LD + sitemap + DNS swap to braehods.com + the 7 pre-existing `/`-route spec failures (lighthouse, photo-lcp, no-bare-outline-none) carried forward since Phase 2 Plan 06.
+
+The deploy-verify cycle for Phases 4 + 5 collapses into a single Vercel-preview walkthrough: real Formspree submit, 12-item modal checklist, iOS Safari hardware test, NVDA/VoiceOver audit, 28-item Phase 4 visual checklist, WebAIM contrast measurements on `#707070` (Phase 4 archived dot) AND `#c8a86a` (Phase 5 char counter + Phase 4 paper-trading dot — 2nd consumer trigger), and the 3 placeholder GitHub repo URL 404 walk. Phase 6 plans can either batch all deploy-verify into one human-driven plan or split per concern.
+
+Source code is feature-complete at `main`. The site can be deployed to a Vercel preview right now without any further code changes.
 
 ---
 *State initialized: 2026-05-07 by roadmapper*

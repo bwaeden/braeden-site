@@ -204,13 +204,13 @@ Which phases cover which requirements. Updated 2026-05-07 by roadmapper.
 | WORK-04 | Phase 4 | Complete |
 | WORK-05 | Phase 4 | Complete |
 | WORK-06 | Phase 4 | Complete |
-| CTCT-01 | Phase 5 | Pending |
-| CTCT-02 | Phase 5 | Pending |
-| CTCT-03 | Phase 5 | Pending |
-| CTCT-04 | Phase 5 | Pending |
-| CTCT-05 | Phase 5 | Pending |
-| CTCT-06 | Phase 5 | Pending |
-| CTCT-07 | Phase 5 | Pending |
+| CTCT-01 | Phase 5 | Complete (local; deploy verify deferred to Phase 6) |
+| CTCT-02 | Phase 5 | Complete (local; deploy verify deferred to Phase 6) |
+| CTCT-03 | Phase 5 | Complete (local; deploy verify deferred to Phase 6) |
+| CTCT-04 | Phase 5 | Complete (local; deploy verify deferred to Phase 6) |
+| CTCT-05 | Phase 5 | Complete (local; deploy verify deferred to Phase 6) |
+| CTCT-06 | Phase 5 | Complete (local; deploy verify deferred to Phase 6) |
+| CTCT-07 | Phase 5 | Complete (local; deploy verify deferred to Phase 6) |
 | SEO-01 | Phase 6 | Pending |
 | SEO-02 | Phase 6 | Pending |
 | SEO-03 | Phase 6 | Pending |
@@ -222,7 +222,7 @@ Which phases cover which requirements. Updated 2026-05-07 by roadmapper.
 | SEO-09 | Phase 6 | Pending |
 | A11Y-01 | Phase 6 | Pending |
 | A11Y-02 | Phase 1 | Pending |
-| A11Y-03 | Phase 5 | Pending |
+| A11Y-03 | Phase 5 | Complete (local; deploy verify deferred to Phase 6) |
 | A11Y-04 | Phase 6 | Pending |
 | A11Y-05 | Phase 4 | Complete |
 | A11Y-06 | Phase 1 | Pending |
