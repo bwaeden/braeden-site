@@ -7,7 +7,7 @@
  *  - `[data-test="about-section"]` resolves once (proves Phase 3 composition shipped)
  *  - `[data-test="hero-photo-tile"]` resolves once (proves Option A HeroPhoto reuse — D-08)
  *  - exactly one `<a>` whose accessible text matches /Get in touch|Drop me a line|Say hi/i
- *    AND whose href === '/' (D-13 default + variants; D-15 placeholder pending Phase 5)
+ *    AND whose href === '#contact' (D-13 default + variants; D-15 → D-05 atomic swap landed in Plan 05-03)
  *  - section innerText:
  *      • does NOT match the cliché-ban regex (ABOUT-01 / D-05)
  *      • word count is 150-300 (D-06 target band 150-250 + 300 hard ceiling)
@@ -38,12 +38,12 @@ test('ABOUT-01..04: /about section + photo + CTA + bio contract', async ({ page 
   const photoTile = page.locator('[data-test="hero-photo-tile"]');
   await expect(photoTile, 'HeroPhoto reuse (Option A per D-08) should render its tile on /about').toHaveCount(1);
 
-  // CTA: exactly one <a> with the approved-variant text + href="/" placeholder per D-15.
+  // CTA: exactly one <a> with the approved-variant text + href="#contact" per D-05 atomic swap (Plan 05-03).
   const cta = page.getByRole('link', { name: CTA_TEXT_REGEX });
   await expect(cta, 'exactly one CTA link matching /Get in touch|Drop me a line|Say hi/i').toHaveCount(1);
-  await expect(cta, 'CTA href should be "/" placeholder (D-15 — Phase 5 atomic swap)').toHaveAttribute(
+  await expect(cta, 'CTA href should be "#contact" — D-05 atomic swap landed in Plan 05-03').toHaveAttribute(
     'href',
-    '/',
+    '#contact',
   );
 
   // Extract bio prose scoped to the <p> elements only — excludes the CTA link

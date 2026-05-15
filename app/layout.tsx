@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Nav } from '@/components/layout/Nav';
 import { Footer } from '@/components/layout/Footer';
+import { ContactModal } from '@/components/contact/ContactModal';
 import { fraunces, GeistSans, GeistMono } from './fonts';
 import './globals.css';
 
@@ -17,6 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Nav />
         <main className="mx-auto max-w-3xl px-6 py-16 lg:px-12">{children}</main>
         <Footer />
+        <ContactModal />
         <Analytics />
         <SpeedInsights />
       </body>

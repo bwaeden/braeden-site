@@ -12,7 +12,7 @@ import { MonogramMark } from '@/components/ui/MonogramMark';
 const LINKS = [
   { href: '/about', label: 'About' },
   { href: '/work', label: 'Work' },
-  { href: '/', label: 'Contact' }, // stub until Phase 5 wires the modal trigger
+  { href: '#contact', label: 'Contact' }, // Phase 5: hash-driven trigger per D-06 (ContactModal listens for #contact via hashchange)
 ];
 
 const linkClass =

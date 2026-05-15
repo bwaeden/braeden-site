@@ -72,7 +72,7 @@ export default function AboutPage() {
             me.
           </p>
           <div className="mt-6">
-            <CTAArrowLink href="/" staggerIndex={4}>
+            <CTAArrowLink href="#contact" staggerIndex={4}>
               Get in touch
             </CTAArrowLink>
           </div>
