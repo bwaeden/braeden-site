@@ -75,6 +75,20 @@ export function ContactModal() {
   // Effect 1: hash-driven open/close per D-06.
   // - Initial mount sync: if URL already has #contact (deep-link), open modal.
   // - Hash listener: open on hash → #contact, close on hash → anything else.
+  // - Delegated-click listener (Plan 03 discovered Pitfall — see below).
+  //
+  // Plan 03 Rule-1 Pitfall fix — Next.js `<Link href="#contact">` updates the
+  // URL via history.pushState, which does NOT fire `hashchange` on window
+  // (browser spec: hashchange only fires for native fragment navigation,
+  // location.hash assignment, or back/forward). Without this fix, the
+  // Nav `Contact` link + /about `Get in touch` CTA click would update the
+  // URL to `#contact` but the modal would stay closed. We add a capture-phase
+  // delegated click listener that detects anchor clicks resolving to the
+  // `#contact` hash and schedules sync() via queueMicrotask (so Next.js's
+  // pushState lands first, then we read window.location.hash and showModal).
+  // Native browser fragment navigation (typing `#contact` in URL bar, or
+  // server-rendered `<a href="#contact">` outside Next.js's Link) is still
+  // covered by the `hashchange` listener — no regression.
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
@@ -87,10 +101,42 @@ export function ContactModal() {
       }
     };
 
+    const onDocumentClick = (event: MouseEvent) => {
+      // Ignore non-primary + modified clicks (new-tab, save-link, etc.).
+      // NOTE: do NOT bail on event.defaultPrevented — Next.js `<Link>` calls
+      // preventDefault before this bubble-phase handler runs (to suppress
+      // the native fragment navigation in favor of its own pushState).
+      // That preventDefault is precisely the signal we need to react to;
+      // skipping it leaves the modal closed forever after a `<Link>` click.
+      if (event.button !== 0) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+      const target = event.target as Element | null;
+      if (!target) return;
+      const anchor = target.closest('a[href]') as HTMLAnchorElement | null;
+      if (!anchor) return;
+      // Resolve the anchor's effective hash; anchor.hash works for both
+      // bare `#contact` and `/about#contact` shapes.
+      if (anchor.hash !== '#contact') return;
+
+      // Open immediately — do NOT wait for window.location.hash to update.
+      // Next.js's `<Link>` uses router.push which schedules a deferred
+      // history update (React transition); querying window.location.hash
+      // synchronously OR via queueMicrotask/setTimeout(0) returns the
+      // pre-push value. The user's intent ("open contact modal") is
+      // unambiguous from the anchor.hash === '#contact' check, so we
+      // open right here. The hash will land at #contact a moment later
+      // via Next.js's router; the close handler clears it via
+      // history.replaceState (Pitfall 1) when the dialog closes.
+      if (!dialog.open) dialog.showModal();
+    };
+
     sync(); // initial-mount: deep-link support (braehods.com/about#contact)
     window.addEventListener('hashchange', sync);
+    document.addEventListener('click', onDocumentClick);
     return () => {
       window.removeEventListener('hashchange', sync);
+      document.removeEventListener('click', onDocumentClick);
     };
   }, []);
 
