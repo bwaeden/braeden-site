@@ -11,6 +11,9 @@ export const site: SiteMeta = {
   tagline:
     'Business student and entrepreneur in LA, building things and running a small content brand',
   domain: 'braehods.com',
+  // Phase 5 D-15 — modal mailto target. Future: hi@braehods.com per D-15a once
+  // domain mail is configured (single-line edit, no code change elsewhere).
+  email: 'fakegoat1@gmail.com',
   // v1: github + instagram only. `youtube?` key intentionally omitted from
   // this literal per 02-SCOPE-AMENDMENT.md (no YT channel exists yet).
   // The optional `youtube?: string` field shape stays on the interface for

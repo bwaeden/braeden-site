@@ -1,20 +1,36 @@
 /**
- * FOUND-07: No `'use client'` directives in Phase 1 sources.
+ * FOUND-07 Phase 5 carve-out: exactly ONE `'use client'` directive allowed
+ * across `app/`, `components/`, `lib/`, and it MUST be at
+ * `components/contact/ContactModal.tsx`.
  *
- * Recursively scans `app/`, `components/`, `lib/` for `*.ts` and `*.tsx`,
- * strips top-of-file comments (// and / * * /), and asserts zero hits for
- * `'use client'` or `"use client"`.
+ * History:
+ *   Phase 1 — `'use client'` count must be 0 (asserted empty offenders array).
+ *   Phase 5 — count must be exactly 1; the one allowed file is ContactModal.
+ *
+ * This spec was atomically updated in Plan 05-02 alongside the creation of
+ * the new ContactModal client island. Without the atomic update, this spec
+ * would have gone RED the moment the directive landed. GREEN at Phase 5 once
+ * ContactModal lands as the sole carve-out per FOUND-07 — and stays GREEN
+ * for the life of v1 unless a second client island is justified.
+ *
+ * Companion spec: tests/single-client-island.spec.ts asserts the same
+ * invariant from a different angle (allow-list + count check). Both must
+ * stay GREEN together.
+ *
+ * Cross-platform path normalization: tests run on Windows 10 / PowerShell
+ * AND CI Linux. `path.relative(...)` returns back-slashes on Windows;
+ * .split(path.sep).join('/') normalizes to forward-slash form so the
+ * assertion is portable.
  *
  * Filesystem-only (no browser).
- *
- * RED until those directories exist (W1) and contain RSC-only sources
- * (W2/W3).
  */
 import { test, expect } from '@playwright/test';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
 const SCAN_ROOTS = ['app', 'components', 'lib'];
+
+const ALLOWED_CLIENT_ISLANDS = ['components/contact/ContactModal.tsx'];
 
 function collectSourceFiles(dir: string): string[] {
   if (!fs.existsSync(dir)) return [];
@@ -62,7 +78,7 @@ function stripLeadingComments(source: string): string {
   return source.slice(i);
 }
 
-test('no `use client` directives anywhere in app/ components/ lib/', () => {
+test(`exactly 1 'use client' directive (ContactModal — Phase 5 FOUND-07 carve-out)`, () => {
   const root = process.cwd();
   const offenders: string[] = [];
 
@@ -72,13 +88,18 @@ test('no `use client` directives anywhere in app/ components/ lib/', () => {
       const raw = fs.readFileSync(file, 'utf8');
       const stripped = stripLeadingComments(raw);
       if (/^\s*['"]use client['"]/.test(stripped)) {
-        offenders.push(path.relative(root, file));
+        // Cross-platform: Windows path.sep is `\`; normalize to `/` for
+        // portable assertion (CI Linux + dev Windows).
+        const rel = path.relative(root, file).split(path.sep).join('/');
+        offenders.push(rel);
       }
     }
   }
 
   expect(
-    offenders,
-    `Phase 1 must be RSC-only; found 'use client' in: ${offenders.join(', ')}`
-  ).toEqual([]);
+    offenders.sort(),
+    `Phase 5 carve-out: exactly 1 'use client' allowed (${ALLOWED_CLIENT_ISLANDS.join(
+      ',',
+    )}). Found: ${offenders.join(', ')}`,
+  ).toEqual([...ALLOWED_CLIENT_ISLANDS].sort());
 });
