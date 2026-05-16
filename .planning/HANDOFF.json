@@ -1,0 +1,40 @@
+{
+  "version": "1.0",
+  "timestamp": "2026-05-16T09:18:51.536Z",
+  "phase": "05",
+  "phase_name": "contact-modal",
+  "phase_dir": ".planning/phases/05-contact-modal",
+  "plan": 3,
+  "task": 7,
+  "total_tasks": 7,
+  "status": "phase-complete-awaiting-next",
+  "completed_tasks": [
+    {"id": "05-01", "name": "Plan 05-01 Wave 1 infra (formspree dep + modal-fade-in keyframe + 9 RED specs)", "status": "done", "commit": "4e22c1f"},
+    {"id": "05-02", "name": "Plan 05-02 ContactModal client island (sole 'use client' carve-out)", "status": "done", "commit": "b0a623b"},
+    {"id": "05-03-T1", "name": "Plan 05-03 Task 1: atomic D-05 4-file commit (mount + Nav href + about href + spec)", "status": "done", "commit": "48f0a10"},
+    {"id": "05-03-T2", "name": "Plan 05-03 Task 2: Phase Exit Visual Verification 12-item walkthrough", "status": "deferred-to-phase-6", "user_response": "defer"},
+    {"id": "05-03-T3", "name": "Plan 05-03 Task 3: SUMMARY + traceability flip + final docs commit", "status": "done", "commit": "5a95bab"},
+    {"id": "rule-1-fix", "name": "Rule 1 fix: Next.js Link pushState pitfall (delegated anchor click listener)", "status": "done", "commit": "e9206a5"},
+    {"id": "cleanup", "name": "Remove one-shot HANDOFF.json + stale .continue-here.md", "status": "done", "commit": "202ddcb"}
+  ],
+  "remaining_tasks": [],
+  "next_phase": {
+    "number": "06",
+    "name": "polish-seo-launch",
+    "status": "not-started",
+    "scope": "Lighthouse 95+ audit + OG images + JSON-LD + sitemap + DNS swap to braehods.com + deploy-verify cycle for Phases 4 + 5 + Category A-D spec/component fixes for Phase 5"
+  },
+  "blockers": [],
+  "human_actions_pending": [
+    {"action": "Deploy to Vercel preview for the combined Phase 4+5 deploy-verify cycle", "context": "Source is feature-complete on main. Phase 6's first plan should be the deploy + 28-item Phase 4 visual checklist + 12-item Phase 5 modal checklist + WebAIM contrast measurements on #707070 (Phase 4 archived dot) and #c8a86a (Phase 4+5 paper-trading dot / Phase 5 char counter) + real Formspree submit to fakegoat1@gmail.com + iOS Safari hardware test + NVDA/VoiceOver audit. Plan 04-01-SUMMARY.md lists the 6 Phase 4 items; Plan 05-03-SUMMARY.md lists the 10 Phase 5 items.", "blocking": false}
+  ],
+  "decisions": [
+    {"decision": "Plan 05-03 Task 2 deferred per user 'defer' response", "rationale": "Matches Phase 4 deliberate-deferral precedent. 12-item walkthrough requires deployed preview + real Formspree submit + iOS hardware + screen readers. Phase 6 inherits the combined cycle.", "phase": "05"},
+    {"decision": "Consolidated Phase 5 SUMMARY at 05-03-SUMMARY.md (per-plan SUMMARYs 05-01 + 05-02 preserved as wave-level detail)", "rationale": "Phase 4 precedent at 04-01-SUMMARY.md. Phase-level rollup links and references per-plan SUMMARYs rather than replacing them.", "phase": "05"},
+    {"decision": "FOUND-07 carve-out activated with dual-gate enforcement", "rationale": "Phase 5 introduces the FIRST 'use client' directive. tests/single-client-island.spec.ts (count) + tests/no-client-components.spec.ts (allow-list) both guard the invariant. Any future 2nd carve-out requires updating both specs atomically in the same commit as the directive.", "phase": "05"},
+    {"decision": "Next.js Link pushState pitfall handled by dual-listener pattern", "rationale": "hashchange listener for back/forward + deep-link + location.hash assignment; bubble-phase document click listener for next/link clicks (which use pushState and skip hashchange). Modifier-key + non-primary clicks bail; does NOT bail on event.defaultPrevented (Next.js sets it because it's handling the hash). Pattern reusable for any future hash-driven UI.", "phase": "05"}
+  ],
+  "uncommitted_files": [],
+  "next_action": "Run `/gsd-discuss-phase 6` to gather context on Phase 6 scope (which carry-forwards group into which plans, deploy cadence, DNS swap timing). Alternative: `/gsd-plan-phase 6` if Phase 6 scope is clear enough to plan directly from the carry-forward lists in 04-01-SUMMARY.md + 05-03-SUMMARY.md.",
+  "context_notes": "Phase 5 is fully closed at implementation level. Source code is feature-complete on main — the site is deployable to Vercel preview NOW without any further code changes. Phase 6 is the final phase before launch at braehods.com; it owns the combined deploy-verify cycle for Phases 4 + 5 (16 carry-forwards total: 6 from Phase 4 + 10 from Phase 5) PLUS its own Lighthouse 95+ audit, OG images, JSON-LD, sitemap, and DNS migration workload. The 22 cross-project Phase 5 spec failures (Categories A-D in 05-03-SUMMARY.md § Spec Scoreboard) are pre-existing Plan 01 spec-design + Plan 02 implementation gaps — they should be addressed in Phase 6's first plans alongside the spec/component edits needed to make the deploy-verify cycle clean."
+}
