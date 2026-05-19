@@ -12,9 +12,9 @@
  * (the Chrome DevTools Protocol port). We launch Chromium with a fixed
  * `--remote-debugging-port=9222` so Lighthouse can attach to the same
  * browser Playwright is driving. The mono assertion targets `.font-mono`
- * elements; these don't exist on `/` until W3-T4 ships `/_tokens`, so the
- * mono check tolerates absence in W2 by skipping when no mono surface is
- * found on the page.
+ * elements; CurrentlyLine renders one on `/` via the timestamp surface
+ * (Phase 2). Skip gracefully if no mono surface is present (defensive — the
+ * legacy hidden tokens-showcase route was deleted by Phase 6 06-01 / D-01).
  */
 import { test, expect } from '@playwright/test';
 // playwright-lighthouse exposes `playAudit` for assertions inside Playwright.
@@ -84,8 +84,9 @@ test('Lighthouse: zero CLS on / and three font families load via next/font', asy
     /Fraunces/i
   );
 
-  // Mono surface lives on `/_tokens` (W3-T4) — when absent in W2, skip the
-  // mono assertion gracefully rather than failing on the wave-pacing seam.
+  // Mono surface — CurrentlyLine renders a <time className="font-mono"> on
+  // `/` (Phase 2). Defensive skip if absent (the legacy tokens-showcase route
+  // that originally guaranteed a mono sample was deleted by Phase 6 06-01).
   const monoFont = await page.evaluate(() => {
     const el = document.querySelector('.font-mono, [data-test="mono"], code');
     return el ? getComputedStyle(el as Element).fontFamily : null;
@@ -101,7 +102,7 @@ test('Lighthouse: zero CLS on / and three font families load via next/font', asy
     test.info().annotations.push({
       type: 'wave-pacing',
       description:
-        'No .font-mono / code / [data-test="mono"] element on / — assertion deferred to W3-T4 (/_tokens).',
+        'No .font-mono / code / [data-test="mono"] element on / — mono assertion skipped (CurrentlyLine timestamp surface should provide one; verify presence on the live build).',
     });
   }
 });

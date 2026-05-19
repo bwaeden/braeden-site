@@ -7,11 +7,13 @@
 // stagger(2) = 160ms delay (CD-03). Date formatting in lib/format.ts
 // (server-side UTC-anchored — no client-side date math, no timezone surprises).
 //
-// Pattern analog: app/%5Ftokens/page.tsx color-row (lines 41-52) — flex
-// row with a small leading visual + Geist Sans label + mono value. Phase 2
-// transposes that shape: 6px accent dot prefix (w-1.5 h-1.5, the documented
-// sub-grid exception per UI-SPEC line 73) replaces the swatch; <time dateTime>
-// semantic element replaces the second mono span.
+// Pattern analog: the original Phase 1 hidden tokens-showcase route's
+// color-row layout — flex row with a small leading visual + Geist Sans label
+// + Geist Mono value. (That route was deleted by Phase 6 06-01 / D-01; the
+// pattern transposition lives here.) Phase 2 transposes that shape: a 6px
+// accent dot prefix (w-1.5 h-1.5, the documented sub-grid exception per
+// UI-SPEC line 73) replaces the swatch; <time dateTime> semantic element
+// replaces the second mono span.
 
 import type { CurrentlyStatement } from '@/data/currently';
 import { formatDate } from '@/lib/format';
