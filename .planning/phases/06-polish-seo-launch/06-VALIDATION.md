@@ -1,10 +1,12 @@
 ---
 phase: 6
 slug: polish-seo-launch
-status: draft
-nyquist_compliant: false
+status: approved
+nyquist_compliant: true
 wave_0_complete: false
 created: 2026-05-19
+approved: 2026-05-19
+approver: gsd-plan-checker (Dimension 8 PASS — auto + checkpoint sampling continuity, Wave 0 completeness, feedback latency, no watch flags)
 ---
 
 # Phase 6 — Validation Strategy
