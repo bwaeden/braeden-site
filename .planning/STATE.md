@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-14T08:30:00.000Z"
+last_updated: "2026-05-19T21:18:57.778Z"
 progress:
   total_phases: 6
-  completed_phases: 5
-  total_plans: 17
-  completed_plans: 15
-  percent: 83
+  completed_phases: 4
+  total_plans: 14
+  completed_plans: 13
+  percent: 93
 ---
 
 # Project State: Braeden Site (braehods.com)
@@ -30,6 +30,7 @@ Tailwind v4 + `@next/mdx` + Fraunces / Geist Sans / Geist Mono + Vercel.
 Implementation complete through Phase 5; site is feature-complete at `main` and
 deployable to Vercel preview without further code changes. Phase 6 owns the
 deploy-verify cycle for Phases 4 + 5 plus its own Lighthouse audit + OG + JSON-LD
+
 + sitemap + DNS swap workload.
 
 W4-T1 (Vercel project setup) done. W4-T2 (Playwright 32/32 against preview)
@@ -128,6 +129,13 @@ research sprints required. The one design dependency is the B monogram, which
 blocks favicon (Phase 1) but does not block other tokens.
 
 ## Session Continuity
+
+### Current Session (2026-05-19 — resume)
+
+- Resumed from between-phases pause (`.planning/.continue-here.md`, written 2026-05-16)
+- Verified state: working tree clean, on `main`, 22 commits ahead of `origin/main`, last commit `4a4f5ee` (WIP pause marker)
+- No Phase 6 directory yet — proceeding to `/gsd-discuss-phase 6` to scope before planning
+- Carry-forward inventory unchanged (6 from P4 + 10 from P5 + 4 Category fixes)
 
 ### Last Session (2026-05-09 — Phase 1 Wave 3 execution)
 
