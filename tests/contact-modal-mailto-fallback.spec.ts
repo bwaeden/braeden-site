@@ -17,7 +17,12 @@
 import { test, expect } from '@playwright/test';
 
 const D15_HREF = 'mailto:fakegoat1@gmail.com?subject=Hi%20Braeden';
-const D15_TEXT = 'Or just email me directly →'; // U+2192 arrow
+// Phase 6 06-01 Cat B refactor: the `→` arrow now renders via CSS `::after`
+// pseudo-element on the mailto anchor, so DOM `textContent` (what `toHaveText`
+// reads) is the leading copy ONLY. The pseudo-element content is asserted
+// separately in `tests/contact-modal-states.spec.ts` via
+// `getComputedStyle(el, '::after').content`.
+const D15_TEXT_DOM = 'Or just email me directly';
 
 async function openModal(page: import('@playwright/test').Page) {
   await page.goto('/');
@@ -41,10 +46,13 @@ test('CTCT-06: mailto fallback href + verbatim text in idle state', async ({ pag
     'mailto href must match D-15 verbatim (fakegoat1@gmail.com + subject param)',
   ).toHaveAttribute('href', D15_HREF);
 
+  // Phase 6 06-01 Cat B: assert the DOM textContent (leading copy only — the
+  // `→` arrow lives in the CSS `::after` pseudo-element, asserted separately
+  // in `tests/contact-modal-states.spec.ts`).
   await expect(
-    page.locator(`:text-is("${D15_TEXT}")`),
-    'mailto link text must read verbatim "Or just email me directly →" (D-15, U+2192 arrow)',
-  ).toHaveCount(1);
+    mailto,
+    'mailto link DOM textContent must be exactly "Or just email me directly" (Cat B — pseudo-element ::after arrow checked separately in states spec)',
+  ).toHaveText(D15_TEXT_DOM);
 });
 
 test('CTCT-06: mailto fallback stays visible during submitting state', async ({ page }) => {

@@ -31,7 +31,17 @@ const D09_IDLE_BUTTON = 'Send message';
 const D12_SUBMITTING_BUTTON = 'Sending…'; // U+2026 — NOT "..."
 const D10_SUCCESS_COPY = "Thanks — I'll get back to you within a day or two."; // U+2014 + U+2019
 const D11_ERROR_COPY = 'Something went wrong sending that. Try the email link below.';
-const D15_MAILTO_TEXT = 'Or just email me directly →'; // U+2192
+// Phase 6 06-01 Cat B refactor: the `→` arrow now renders via CSS `::after`
+// pseudo-element on the mailto anchor. We assert two things separately:
+//  - `D15_MAILTO_DOM_TEXT` — what `toHaveText` (textContent) returns: leading
+//    copy ONLY (no arrow), because pseudo-element content is excluded from
+//    `Node.textContent` per CSS spec.
+//  - `D15_MAILTO_AFTER`   — what `getComputedStyle(el, '::after').content`
+//    returns. CSS-parsed `content` values are returned as CSS-quoted strings
+//    by the browser, so the expected return is the arrow glyph surrounded by
+//    double-quote characters (i.e. literal '"→"'). U+2192 inside.
+const D15_MAILTO_DOM_TEXT = 'Or just email me directly';
+const D15_MAILTO_AFTER = '"→"';
 
 async function openModal(page: import('@playwright/test').Page) {
   await page.goto('/');
@@ -60,10 +70,21 @@ test('CTCT-02 idle state: D-08 heading + D-09 send button + D-15 mailto verbatim
     'idle submit button must read exactly "Send message" (D-09 verbatim)',
   ).toHaveCount(1);
 
+  // Phase 6 06-01 Cat B: arrow lives in `::after`, not in DOM text. Assert
+  // BOTH the leading copy (textContent) AND the pseudo-element content.
+  const mailtoLink = page.locator('a[href^="mailto:"]');
   await expect(
-    page.locator(`:text-is("${D15_MAILTO_TEXT}")`),
-    'mailto fallback link must read exactly "Or just email me directly →" (D-15 verbatim, U+2192 arrow)',
-  ).toHaveCount(1);
+    mailtoLink,
+    'mailto fallback DOM textContent must be exactly "Or just email me directly" (D-15 leading copy — arrow is in ::after)',
+  ).toHaveText(D15_MAILTO_DOM_TEXT);
+
+  const afterContent = await mailtoLink.evaluate(
+    (el) => getComputedStyle(el, '::after').content,
+  );
+  expect(
+    afterContent,
+    'mailto fallback ::after pseudo-element must render the `→` glyph (D-15 + Cat B refactor — getComputedStyle returns CSS-quoted form)',
+  ).toBe(D15_MAILTO_AFTER);
 });
 
 test('CTCT-05: empty submit blocks Formspree network call (native HTML required attrs)', async ({

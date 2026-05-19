@@ -247,30 +247,30 @@ export function ContactModal() {
                   setBypassedSuccess(false);
                   setMessage('');
                 }}
-                className="group inline-flex items-center gap-2 text-base font-sans hover:underline hover:decoration-1 hover:underline-offset-4"
+                className="group inline-flex items-center gap-2 text-base font-sans hover:underline hover:decoration-1 hover:underline-offset-4 after:content-['→'] after:ml-1 after:inline-block after:transition-transform group-hover:after:translate-x-1"
                 style={{ color: 'var(--color-accent)' }}
               >
-                Send another{' '}
-                <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">
-                  →
-                </span>
+                Send another
               </button>
             </div>
           </div>
 
           {/* D-15 mailto fallback — visible in success state too per
               tests/contact-modal-mailto-fallback.spec.ts:65 ("stays visible
-              after success render"). */}
+              after success render"). Phase 6 06-01 Cat B refactor: the `→`
+              glyph is rendered via a CSS `::after` pseudo-element (Tailwind
+              arbitrary `after:content-['→']`) so the visible text content is
+              the leading copy alone — pseudo-element content is excluded
+              from the accessibility tree and from `Node.textContent` reads.
+              The hover translate moved from the now-gone `<span>` child to
+              `group-hover:after:translate-x-1`. */}
           <div className="mt-6">
             <a
               href={MAILTO_HREF}
-              className="group inline-flex items-center gap-2 text-base font-sans hover:underline hover:decoration-1 hover:underline-offset-4"
+              className="group inline-flex items-center gap-2 text-base font-sans hover:underline hover:decoration-1 hover:underline-offset-4 after:content-['→'] after:ml-1 after:inline-block after:transition-transform group-hover:after:translate-x-1"
               style={{ color: 'var(--color-accent)' }}
             >
-              Or just email me directly{' '}
-              <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">
-                →
-              </span>
+              Or just email me directly
             </a>
           </div>
         </>
@@ -408,15 +408,15 @@ export function ContactModal() {
                 {state.submitting ? 'Sending…' : 'Send message'}
               </button>
             </div>
+            {/* D-15 mailto fallback (idle + submitting state). Phase 6 06-01
+                Cat B refactor: `→` glyph via CSS `::after` (see success-branch
+                copy of this anchor above for full rationale). */}
             <a
               href={MAILTO_HREF}
-              className="group inline-flex items-center gap-2 text-base font-sans hover:underline hover:decoration-1 hover:underline-offset-4"
+              className="group inline-flex items-center gap-2 text-base font-sans hover:underline hover:decoration-1 hover:underline-offset-4 after:content-['→'] after:ml-1 after:inline-block after:transition-transform group-hover:after:translate-x-1"
               style={{ color: 'var(--color-accent)' }}
             >
-              Or just email me directly{' '}
-              <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">
-                →
-              </span>
+              Or just email me directly
             </a>
           </div>
         </form>
