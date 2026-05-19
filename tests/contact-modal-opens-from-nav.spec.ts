@@ -17,10 +17,23 @@
  */
 import { test, expect } from '@playwright/test';
 
+// Phase 6 06-01 Cat A refactor — opens the mobile hamburger disclosure before
+// reaching the Contact link when running on a viewport < 640px (chromium-mobile
+// project, Pixel 5 viewport). On chromium-desktop (1280×800) the predicate is
+// a no-op and the link is already reachable in the inline nav.
+async function openMobileNavIfNeeded(page: import('@playwright/test').Page) {
+  const viewport = page.viewportSize();
+  if (viewport && viewport.width < 640) {
+    await page.locator('details.nav-mobile > summary').click();
+  }
+}
+
 test('CTCT-01: clicking Nav Contact opens the contact modal + focus moves inside', async ({
   page,
 }) => {
   await page.goto('/');
+
+  await openMobileNavIfNeeded(page);
 
   // Phase 5 ground-truth: Nav Contact href === '#contact' (post-Plan-03)
   const navContact = page.getByRole('link', { name: 'Contact' }).first();

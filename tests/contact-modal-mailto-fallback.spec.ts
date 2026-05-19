@@ -21,6 +21,12 @@ const D15_TEXT = 'Or just email me directly →'; // U+2192 arrow
 
 async function openModal(page: import('@playwright/test').Page) {
   await page.goto('/');
+  // Phase 6 06-01 Cat A: open the mobile hamburger on chromium-mobile
+  // (Pixel 5 viewport below the sm breakpoint). No-op on chromium-desktop.
+  const viewport = page.viewportSize();
+  if (viewport && viewport.width < 640) {
+    await page.locator('details.nav-mobile > summary').click();
+  }
   await page.getByRole('link', { name: 'Contact' }).first().click();
   await expect(page.locator('dialog[data-test="contact-modal"]')).toHaveAttribute('open', /.*/);
 }

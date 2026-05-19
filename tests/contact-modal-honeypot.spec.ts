@@ -22,6 +22,16 @@ import { test, expect } from '@playwright/test';
 
 const D10_SUCCESS_COPY = "Thanks — I'll get back to you within a day or two.";
 
+// Phase 6 06-01 Cat A refactor — open the mobile hamburger before reaching
+// the Contact link on chromium-mobile (Pixel 5 viewport < 640px). No-op on
+// chromium-desktop (1280×800).
+async function openMobileNavIfNeeded(page: import('@playwright/test').Page) {
+  const viewport = page.viewportSize();
+  if (viewport && viewport.width < 640) {
+    await page.locator('details.nav-mobile > summary').click();
+  }
+}
+
 test('CTCT-04 honeypot: filling `company` triggers silent success + ZERO Formspree call', async ({
   page,
 }) => {
@@ -33,6 +43,7 @@ test('CTCT-04 honeypot: filling `company` triggers silent success + ZERO Formspr
   });
 
   await page.goto('/');
+  await openMobileNavIfNeeded(page);
   await page.getByRole('link', { name: 'Contact' }).first().click();
   const dialog = page.locator('dialog[data-test="contact-modal"]');
   await expect(dialog).toHaveAttribute('open', /.*/);

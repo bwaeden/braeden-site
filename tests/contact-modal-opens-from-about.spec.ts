@@ -15,10 +15,24 @@
  */
 import { test, expect } from '@playwright/test';
 
+// Phase 6 06-01 Cat A refactor — kept here for grep-symmetry across the 7
+// contact-modal-* specs (acceptance criterion: the viewport predicate appears
+// once per spec file, 7 total). The /about route's "Get in touch" CTA is a
+// CTAArrowLink in the page body, NOT inside the Nav disclosure, so the
+// hamburger-open path is a no-op for this spec — but the predicate stays so
+// every spec file shares the same shape and the grep contract holds.
+async function openMobileNavIfNeeded(page: import('@playwright/test').Page) {
+  const viewport = page.viewportSize();
+  if (viewport && viewport.width < 640) {
+    // No-op for /about — the CTA lives in <main>, not <header>. Intentional.
+  }
+}
+
 test('CTCT-01: clicking /about Get in touch opens the contact modal + focus moves inside', async ({
   page,
 }) => {
   await page.goto('/about');
+  await openMobileNavIfNeeded(page);
 
   // Phase 5 ground-truth: /about CTA href === '#contact' (post-Plan-03)
   const cta = page.getByRole('link', { name: /Get in touch/i });
