@@ -36,6 +36,17 @@ test("D-05 atomic rewire: BOTH Nav Contact AND /about Get in touch resolve href 
 
   // Nav Contact — pre-Phase-5 ground truth was href="/"; Phase 5 swaps to #contact
   await page.goto('/');
+  // Phase 6 06-01 Cat A (W2 follow-up): open the mobile hamburger on
+  // chromium-mobile (Pixel 5 viewport below the sm breakpoint). No-op on
+  // chromium-desktop. Without this guard the Contact link is collapsed
+  // inside the closed <details> on mobile and `getByRole('link')` returns
+  // no element. Same pattern as the 7 contact-modal-*.spec.ts files
+  // refactored in W0 atomic commit a1c7a3f — this spec was missed in that
+  // commit and is corrected here.
+  const viewport = page.viewportSize();
+  if (viewport && viewport.width < 640) {
+    await page.locator('details.nav-mobile > summary').click();
+  }
   const navContact = page.getByRole('link', { name: 'Contact' }).first();
   await expect(
     navContact,
