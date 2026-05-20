@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-19T21:18:57.778Z"
+last_updated: "2026-05-20T03:10:00.000Z"
 progress:
   total_phases: 6
   completed_phases: 4
   total_plans: 14
-  completed_plans: 13
+  completed_plans: 13  # Plan 06-01 autonomous portion closed; 3 manual gates pending — bump to 14 in final close commit
   percent: 93
 ---
 
@@ -130,12 +130,25 @@ blocks favicon (Phase 1) but does not block other tokens.
 
 ## Session Continuity
 
-### Current Session (2026-05-19 — resume)
+### Current Session (2026-05-19 — Phase 6 Plan 06-01 W2 dispatch 2: spec triage fix + SUMMARY draft)
+
+- Continuing W2 with spec triage fix per user `spec-failures=fix-in-next-dispatch` decision
+- **Tasks closed this dispatch:** A (Cat A miss `e6e3956`), B (Cat E/F/G triple fix `264db73`), C (preview suite re-run: 117 passed / 3 failed / 2 skipped — 13 specs flipped RED→GREEN from prior dispatch), D (06-01-SUMMARY.md drafted)
+- **3 manual gates still pending (running in parallel):** visual sweep (sections 1-5, 34 rows) + real Formspree email arrival + WebAIM contrast measurements
+- **Branch state:** `phase-6/audit-preview`, 8 commits ahead of `main` since Phase 5 close
+- **Net Phase 6 Plan 06-01 spec movement:** 22 Cat A-D originally-RED + 3 newly-discovered Cat E/F/G = 25 spec-side bugs CLOSED on preview CDN; 0 real coverage failures remain in preview-suite (3 remaining are 1 known-deferred LCP + 2 Windows port-bind flakes)
+- **Carry-forwards to Plan 06-02:** visual-checklist sections 6+7 (404 + OG), 3 known-deferred specs (lighthouse threshold bump + photo-LCP audit), dialog-scoped ARIA assertion pattern (new convention for the 8 new SEO specs), Cat E/F/G evidence for spec-author reference
+- **CONTEXT D-06 amendment:** Cat A-D fix-strategy table now retroactively a Cat A-G table (E/F/G are spec-infrastructure-side, not source-code-side; surface only against real CDN-served bundles)
+
+### Last Session (2026-05-19 — resume + Phase 6 discuss/plan/W0/W1/W2-dispatch1)
 
 - Resumed from between-phases pause (`.planning/.continue-here.md`, written 2026-05-16)
 - Verified state: working tree clean, on `main`, 22 commits ahead of `origin/main`, last commit `4a4f5ee` (WIP pause marker)
-- No Phase 6 directory yet — proceeding to `/gsd-discuss-phase 6` to scope before planning
-- Carry-forward inventory unchanged (6 from P4 + 10 from P5 + 4 Category fixes)
+- Phase 6 directory created via `/gsd-discuss-phase 6` + `/gsd-plan-phase 6`; 3 plans landed (06-01 deploy+cleanup, 06-02 audit+SEO, 06-03 launch)
+- W0 atomic Cat A + Cat D spec refactor (`a1c7a3f`, 8 files), Cat B mailto `::after` arrow + Cat C verify (`b256198`), `%5Ftokens` delete (`7d7e80d`)
+- W1 worktree-disable orchestrator decision (`6a8e256`)
+- W2 dispatch 1: visual-checklist scaffold (`d0689cd`), gitignore (`ef9ab97`), 11-failure spec-triage surfaced for user decision
+- Carry-forward inventory at dispatch-1 close: 6 from P4 + 10 from P5 + 4 Category fixes resolved + 11 surfaced for user triage
 
 ### Last Session (2026-05-09 — Phase 1 Wave 3 execution)
 

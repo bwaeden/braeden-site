@@ -113,7 +113,7 @@ gates are reviewable from Phase 1 onward.
   4. braehods.com resolves to the new Vercel deployment over HTTPS — DNS swap completed in correct order (Vercel domain added first so SSL stages before CNAME flip); old `~/Projects/braehods` GitHub Pages repo is archived OR serves a 301 redirect to braehods.com (LNCH-01, LNCH-02)
   5. Post-launch checklist passes: real-device tests on iPhone Safari + Android Chrome; contact form delivers a real email end-to-end; GitHub profile / Instagram bio / YouTube About all link to braehods.com (LNCH-03, LNCH-04)
 **Plans**: 3 plans, 3 waves
-- [ ] 06-01-PLAN.md — Deploy + Cat A-D spec/component cleanup + %5Ftokens delete + Analytics verify + Vercel preview deploy + real Formspree on preview + 40-item visual checklist + GH URL/WebAIM contrast (Plan 06-01 exit gate)
+- [~] 06-01-PLAN.md — Deploy + Cat A-D spec/component cleanup + %5Ftokens delete + Analytics verify + Vercel preview deploy + real Formspree on preview + 40-item visual checklist + GH URL/WebAIM contrast (Plan 06-01 exit gate) — **Autonomous portion CLOSED 2026-05-19**: 22 Cat A-D + 3 newly-discovered Cat E/F/G spec-side bugs all CLOSED on preview CDN (117/122 GREEN); `app/%5Ftokens/` deleted; Analytics + SpeedInsights verified mounted; 3 GH URLs verified; 40-item checklist scaffolded; SUMMARY drafted. **3 manual gates pending** (visual sweep + real Formspree email + WebAIM contrast).
 - [ ] 06-02-PLAN.md — 8 new SEO specs (sitemap/robots/og/jsonld/not-found/proxy/canonical/metadata) + Lighthouse 95+ on 6 audits + PERF-03 bundle via next experimental-analyze + NVDA/VoiceOver iOS walks + 200%/320px verify + Google Rich Results + TTF vendoring + monogram triple-source + CTAArrowLink direction prop + 404 page
 - [ ] 06-03-PLAN.md — Pre-DNS-flip data/projects.ts href edit (D-16) + Vercel domain add + SSL stage + registrar CNAME flip + braehods.com smoke walk + iOS Safari + Android Chrome real-device + prod Formspree submit + OG validation + gh repo archive bwaeden/braehods + GH/IG/YT bio updates (v1 SHIP gate)
 **UI hint**: yes
@@ -127,7 +127,7 @@ gates are reviewable from Phase 1 onward.
 | 3. About Page | 0/0 | Not started | - |
 | 4. Work + Projects | 2/2 | Complete | 2026-05-14 |
 | 5. Contact Modal | 3/3 | Complete (local; deploy verify deferred to Phase 6) | 2026-05-14 |
-| 6. Polish + SEO + Launch | 0/0 | Not started | - |
+| 6. Polish + SEO + Launch | 0/3 (06-01 autonomous portion closed; 3 manual gates pending final close) | In Progress | - |
 
 ## Cross-Cutting Concerns (How A11Y / PERF / SEO Are Distributed)
 

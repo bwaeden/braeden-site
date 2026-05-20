@@ -202,15 +202,15 @@ Which phases cover which requirements. Updated 2026-05-07 by roadmapper.
 | WORK-02 | Phase 4 | Complete |
 | WORK-03 | Phase 4 | Complete |
 | WORK-04 | Phase 4 | Complete |
-| WORK-05 | Phase 4 | Complete |
+| WORK-05 | Phase 4+6 | Complete (Plan 06-01: 3 GH URL HTTP-status verified — all 200 except expected `no-more-short-form` 404; `data/projects.ts` slugs all live) |
 | WORK-06 | Phase 4 | Complete |
-| CTCT-01 | Phase 5 | Complete (local; deploy verify deferred to Phase 6) |
-| CTCT-02 | Phase 5 | Complete (local; deploy verify deferred to Phase 6) |
-| CTCT-03 | Phase 5 | Complete (local; deploy verify deferred to Phase 6) |
-| CTCT-04 | Phase 5 | Complete (local; deploy verify deferred to Phase 6) |
-| CTCT-05 | Phase 5 | Complete (local; deploy verify deferred to Phase 6) |
-| CTCT-06 | Phase 5 | Complete (local; deploy verify deferred to Phase 6) |
-| CTCT-07 | Phase 5 | Complete (local; deploy verify deferred to Phase 6) |
+| CTCT-01 | Phase 5+6 | Verified on preview (Plan 06-01: contact-modal-opens-from-* + esc-closes specs GREEN; prod verify in Plan 06-03) |
+| CTCT-02 | Phase 5+6 | Verified on preview (Plan 06-01: spec-level GREEN against preview CDN; real Formspree email arrival gate PENDING user verification; prod verify in Plan 06-03) |
+| CTCT-03 | Phase 5+6 | Verified on preview (Plan 06-01: contact-modal-states success/submitting/error specs GREEN on preview after Cat E/F/G fixes) |
+| CTCT-04 | Phase 5+6 | Verified on preview (Plan 06-01: honeypot + min-time silent-rejection specs GREEN; bypassedSuccess trace audited per Cat C) |
+| CTCT-05 | Phase 5+6 | Verified on preview (Plan 06-01: CTCT-05 empty-submit-blocks-network-call spec GREEN) |
+| CTCT-06 | Phase 5+6 | Verified on preview (Plan 06-01: mailto-fallback spec GREEN after Cat B `::after` refactor) |
+| CTCT-07 | Phase 5+6 | Verified on preview (scroll-lock + reopen-cleanly spec GREEN) |
 | SEO-01 | Phase 6 | Pending |
 | SEO-02 | Phase 6 | Pending |
 | SEO-03 | Phase 6 | Pending |
@@ -222,16 +222,16 @@ Which phases cover which requirements. Updated 2026-05-07 by roadmapper.
 | SEO-09 | Phase 6 | Pending |
 | A11Y-01 | Phase 6 | Pending |
 | A11Y-02 | Phase 1 | Pending |
-| A11Y-03 | Phase 5 | Complete (local; deploy verify deferred to Phase 6) |
+| A11Y-03 | Phase 5+6 | Verified on preview (Plan 06-01: aria-live polite + assertive regions GREEN on preview CDN after Cat G dialog-scope fix) |
 | A11Y-04 | Phase 6 | Pending |
-| A11Y-05 | Phase 4 | Complete |
+| A11Y-05 | Phase 4+6 | Complete (Plan 06-01: WebAIM contrast measurement PENDING user gate — archived dot `#707070` on `#1a1a1f`, char counter `#c8a86a` on `#0a0a0a`; both expected ≥3.0:1 per WCAG 1.4.11) |
 | A11Y-06 | Phase 1 | Pending |
 | A11Y-07 | Phase 6 | Pending |
 | PERF-01 | Phase 6 | Pending |
 | PERF-02 | Phase 6 | Pending |
 | PERF-03 | Phase 6 | Pending |
 | PERF-04 | Phase 2 | Complete |
-| PERF-05 | Phase 6 | Pending |
+| PERF-05 | Phase 6 | In Progress (Plan 06-01: `<Analytics />` + `<SpeedInsights />` verified mounted at app/layout.tsx lines 22-23; dashboard pageview confirmation pending) |
 | PERF-06 | Phase 2 | Complete |
 | LNCH-01 | Phase 6 | Pending |
 | LNCH-02 | Phase 6 | Pending |
