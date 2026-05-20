@@ -20,7 +20,7 @@
  */
 import { test, expect } from '@playwright/test';
 
-const D10_SUCCESS_COPY = "Thanks — I'll get back to you within a day or two.";
+const D10_SUCCESS_COPY = "Thanks — I’ll get back to you within a day or two.";
 
 // Phase 6 06-01 Cat A refactor — open the mobile hamburger before reaching
 // the Contact link on chromium-mobile (Pixel 5 viewport < 640px). No-op on
@@ -39,7 +39,17 @@ test('CTCT-04 honeypot: filling `company` triggers silent success + ZERO Formspr
   let formspreeCallCount = 0;
   await page.route('**/formspree.io/**', (route) => {
     formspreeCallCount += 1;
-    return route.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' });
+    // Phase 6 06-01 Cat E (W2): canonical success shape `{ next: "..." }` per
+    // @formspree/core parser. Defensive — this mock should NEVER fire on the
+    // honeypot path (the assertion below checks formspreeCallCount === 0).
+    // Returning the right shape ensures that if a regression breaks the
+    // honeypot, the resulting failure mode is "1 unexpected Formspree call"
+    // rather than "modal stuck in error state on the bypassedSuccess UI".
+    return route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: '{"next":"https://formspree.io/forms/xqeypnkw/submission"}',
+    });
   });
 
   await page.goto('/');

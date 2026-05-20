@@ -6,7 +6,7 @@
  *   D-08 modal heading       = "Get in touch"
  *   D-09 idle button label   = "Send message"
  *   D-12 submitting label    = "Sending…"  (U+2026 horizontal ellipsis, NOT "...")
- *   D-10 success copy        = "Thanks — I'll get back to you within a day or two."
+ *   D-10 success copy        = "Thanks — I’ll get back to you within a day or two."
  *                              (U+2014 em-dash, U+2019 typographic apostrophe)
  *   D-11 error copy          = "Something went wrong sending that. Try the email link below."
  *   D-15 mailto link wording = "Or just email me directly →"  (U+2192 rightwards arrow)
@@ -29,7 +29,7 @@ import { test, expect } from '@playwright/test';
 const D08_HEADING = 'Get in touch';
 const D09_IDLE_BUTTON = 'Send message';
 const D12_SUBMITTING_BUTTON = 'Sending…'; // U+2026 — NOT "..."
-const D10_SUCCESS_COPY = "Thanks — I'll get back to you within a day or two."; // U+2014 + U+2019
+const D10_SUCCESS_COPY = "Thanks — I’ll get back to you within a day or two."; // U+2014 + U+2019
 const D11_ERROR_COPY = 'Something went wrong sending that. Try the email link below.';
 // Phase 6 06-01 Cat B refactor: the `→` arrow now renders via CSS `::after`
 // pseudo-element on the mailto anchor. We assert two things separately:
@@ -93,7 +93,16 @@ test('CTCT-05: empty submit blocks Formspree network call (native HTML required 
   let formspreeCallCount = 0;
   await page.route('**/formspree.io/**', (route) => {
     formspreeCallCount += 1;
-    return route.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' });
+    // Phase 6 06-01 Cat E (W2): @formspree/core@4.0.0 parses success via
+    // `"next" in s && typeof s.next == "string"`. `{"ok":true}` matches
+    // neither the success nor error shape → falls through to
+    // `new SubmissionError({message:"Unexpected response format"})` (kind=error).
+    // Return the canonical success shape `{ next: "..." }`.
+    return route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: '{"next":"https://formspree.io/forms/xqeypnkw/submission"}',
+    });
   });
 
   await openModal(page);
@@ -113,10 +122,16 @@ test('CTCT-05: empty submit blocks Formspree network call (native HTML required 
 test('CTCT-02 + CTCT-03 + A11Y-03 submitting state: D-12 "Sending…" verbatim + aria-busy', async ({
   page,
 }) => {
-  // Delay the Formspree response so we can observe the submitting state
+  // Delay the Formspree response so we can observe the submitting state.
+  // Phase 6 06-01 Cat E: canonical success shape `{ next: "..." }` per
+  // @formspree/core parser (see CTCT-05 mock above for rationale).
   await page.route('**/formspree.io/**', async (route) => {
     await new Promise((r) => setTimeout(r, 1500));
-    return route.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' });
+    return route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: '{"next":"https://formspree.io/forms/xqeypnkw/submission"}',
+    });
   });
 
   await openModal(page);
@@ -145,8 +160,14 @@ test('CTCT-02 + CTCT-03 + A11Y-03 submitting state: D-12 "Sending…" verbatim +
 test('CTCT-02 + CTCT-03 + A11Y-03 success state: D-10 verbatim copy + polite aria-live', async ({
   page,
 }) => {
+  // Phase 6 06-01 Cat E: canonical success shape `{ next: "..." }` per
+  // @formspree/core parser (see CTCT-05 mock above for rationale).
   await page.route('**/formspree.io/**', (route) =>
-    route.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' }),
+    route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: '{"next":"https://formspree.io/forms/xqeypnkw/submission"}',
+    }),
   );
 
   await openModal(page);
@@ -163,17 +184,40 @@ test('CTCT-02 + CTCT-03 + A11Y-03 success state: D-10 verbatim copy + polite ari
   ).toHaveCount(1);
 
   // Success copy lives inside an aria-live="polite" container
-  // (D-10 explicit + UI-SPEC State 3 contract)
+  // (D-10 explicit + UI-SPEC State 3 contract).
+  // Phase 6 06-01 Cat F (W2): scope to `dialog` because ContactModal renders
+  // TWO `aria-live="polite"` regions in the success state:
+  //  - the visible D-10 success region (the one we're asserting)
+  //  - an SR-only status announcer at the bottom of the dialog (line 428 of
+  //    ContactModal.tsx) — always mounted for screen-reader transitions.
+  // Both are in-dialog and intentional. The original selector
+  // `[aria-live="polite"]` matched both, yielding count=2. Scoping with
+  // `dialog[data-test="contact-modal"] [aria-live="polite"]` plus
+  // `[role="status"]` AND the success-copy ancestor narrows to the visible
+  // success region only.
   await expect(
-    page.locator('[aria-live="polite"]'),
-    'success region must have aria-live="polite" (CTCT-03 + A11Y-03)',
+    page.locator('dialog[data-test="contact-modal"] [role="status"][aria-live="polite"]:not(.sr-only)'),
+    'success region must have aria-live="polite" inside dialog (CTCT-03 + A11Y-03)',
   ).toHaveCount(1);
 });
 
 test('CTCT-02 + CTCT-03 + A11Y-03 error state: D-11 verbatim copy + assertive aria-live', async ({
   page,
 }) => {
-  await page.route('**/formspree.io/**', (route) => route.fulfill({ status: 500 }));
+  // Phase 6 06-01 Cat E: @formspree/core parses errors via
+  // `"errors" in s && Array.isArray(s.errors) && every(r => typeof r.message == "string")`
+  // OR `"error" in s && typeof s.error == "string"`. Previously this mock
+  // was `status: 500` with no body — bundle's `.json()` threw on empty body
+  // and the catch produced a generic SubmissionError, which worked but is
+  // brittle. Return the canonical error shape so the parser hits the
+  // intended branch.
+  await page.route('**/formspree.io/**', (route) =>
+    route.fulfill({
+      status: 500,
+      contentType: 'application/json',
+      body: '{"errors":[{"code":"UNSPECIFIED","message":"Server error during Formspree submission."}]}',
+    }),
+  );
 
   await openModal(page);
   await page.waitForTimeout(1600); // past D-14 min-time gate
@@ -188,9 +232,17 @@ test('CTCT-02 + CTCT-03 + A11Y-03 error state: D-11 verbatim copy + assertive ar
     'error copy must read verbatim per D-11',
   ).toHaveCount(1);
 
-  // Error copy lives inside role="alert" with aria-live="assertive" per D-11
+  // Error copy lives inside role="alert" with aria-live="assertive" per D-11.
+  // Phase 6 06-01 Cat F (W2): scope to `dialog` because Next.js App Router
+  // injects `<div id="__next-route-announcer__" role="alert" aria-live="assertive">`
+  // at document root (a visually-hidden SR-only announcer for route changes).
+  // The original selector `[role="alert"][aria-live="assertive"]` matched
+  // BOTH that announcer AND the in-dialog D-11 error region, yielding count=2.
+  // Confirmed via diagnostic spec — the second element's id is
+  // `__next-route-announcer__`. Scoping with `dialog[data-test="contact-modal"]`
+  // narrows to the intended in-dialog region only.
   await expect(
-    page.locator('[role="alert"][aria-live="assertive"]'),
-    'error region must be role="alert" + aria-live="assertive" (D-11 + A11Y-03)',
+    page.locator('dialog[data-test="contact-modal"] [role="alert"][aria-live="assertive"]'),
+    'error region must be role="alert" + aria-live="assertive" inside dialog (D-11 + A11Y-03)',
   ).toHaveCount(1);
 });

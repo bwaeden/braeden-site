@@ -21,7 +21,7 @@
  */
 import { test, expect } from '@playwright/test';
 
-const D10_SUCCESS_COPY = "Thanks — I'll get back to you within a day or two.";
+const D10_SUCCESS_COPY = "Thanks — I’ll get back to you within a day or two.";
 
 // Phase 6 06-01 Cat A refactor — open the mobile hamburger before reaching
 // the Contact link on chromium-mobile (Pixel 5 viewport < 640px). No-op on
@@ -39,7 +39,15 @@ test('CTCT-04 min-time: submit within 1500ms of mount → silent reject + ZERO F
   let formspreeCallCount = 0;
   await page.route('**/formspree.io/**', (route) => {
     formspreeCallCount += 1;
-    return route.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' });
+    // Phase 6 06-01 Cat E (W2): canonical success shape `{ next: "..." }` per
+    // @formspree/core parser. The first test relies on this NEVER firing
+    // (silent-reject); the second test (canary) needs the success path to
+    // resolve to `state.succeeded` (formspreeCallCount === 1).
+    return route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: '{"next":"https://formspree.io/forms/xqeypnkw/submission"}',
+    });
   });
 
   await page.goto('/');
@@ -74,7 +82,15 @@ test('CTCT-04 min-time canary: submit AFTER 1500ms → real Formspree call goes 
   let formspreeCallCount = 0;
   await page.route('**/formspree.io/**', (route) => {
     formspreeCallCount += 1;
-    return route.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' });
+    // Phase 6 06-01 Cat E (W2): canonical success shape `{ next: "..." }` per
+    // @formspree/core parser. The first test relies on this NEVER firing
+    // (silent-reject); the second test (canary) needs the success path to
+    // resolve to `state.succeeded` (formspreeCallCount === 1).
+    return route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: '{"next":"https://formspree.io/forms/xqeypnkw/submission"}',
+    });
   });
 
   await page.goto('/');

@@ -56,10 +56,16 @@ test('CTCT-06: mailto fallback href + verbatim text in idle state', async ({ pag
 });
 
 test('CTCT-06: mailto fallback stays visible during submitting state', async ({ page }) => {
-  // Delay Formspree response so submitting state holds
+  // Delay Formspree response so submitting state holds.
+  // Phase 6 06-01 Cat E: canonical success shape `{ next: "..." }` per
+  // @formspree/core parser.
   await page.route('**/formspree.io/**', async (route) => {
     await new Promise((r) => setTimeout(r, 2000));
-    return route.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' });
+    return route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: '{"next":"https://formspree.io/forms/xqeypnkw/submission"}',
+    });
   });
 
   await openModal(page);
@@ -77,8 +83,14 @@ test('CTCT-06: mailto fallback stays visible during submitting state', async ({ 
 });
 
 test('CTCT-06: mailto fallback stays visible after success render', async ({ page }) => {
+  // Phase 6 06-01 Cat E: canonical success shape `{ next: "..." }` per
+  // @formspree/core parser.
   await page.route('**/formspree.io/**', (route) =>
-    route.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' }),
+    route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: '{"next":"https://formspree.io/forms/xqeypnkw/submission"}',
+    }),
   );
 
   await openModal(page);
@@ -89,7 +101,7 @@ test('CTCT-06: mailto fallback stays visible after success render', async ({ pag
   await page.locator('button:text-is("Send message")').click();
 
   // Wait for success state to render
-  await expect(page.locator(":text-is(\"Thanks — I'll get back to you within a day or two.\")"))
+  await expect(page.locator(":text-is(\"Thanks — I’ll get back to you within a day or two.\")"))
     .toHaveCount(1);
 
   await expect(
