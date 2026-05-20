@@ -362,6 +362,18 @@ None — no environment variables or external service configuration needed. `NEX
 
 If Gate 2 (Formspree) fails, the real-email path verification moves to Plan 06-03's prod-deploy gate (D-14e). If Gate 3 (contrast) returns < 3.0:1, Plan 06-02 absorbs the Phase 4 D-09 fallback recipe into its token-pass.
 
+## Self-Check: PASSED
+
+Executor-protocol self-check verified at 2026-05-20T03:11Z:
+
+- `06-01-SUMMARY.md` exists at `.planning/phases/06-polish-seo-launch/06-01-SUMMARY.md` ✓
+- `tests/helpers/live-url.ts` exists (created in `a1c7a3f`) ✓
+- `visual-checklist.md` exists at `.planning/phases/06-polish-seo-launch/visual-checklist.md` (created in `d0689cd`) ✓
+- All 9 spec files modified by this plan exist and compile ✓
+- All 8 commits (`a1c7a3f`, `b256198`, `7d7e80d`, `6a8e256`, `d0689cd`, `ef9ab97`, `e6e3956`, `264db73`) present in `git log --oneline --all` ✓
+- Final docs commit `2be3df9` (SUMMARY + STATE + ROADMAP + REQUIREMENTS + .gitignore) present ✓
+- Working tree clean per `git status --short` ✓
+
 ---
 *Phase: 06-polish-seo-launch*
 *Plan: 01*
