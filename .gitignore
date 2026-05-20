@@ -39,6 +39,9 @@ yarn-error.log*
 .lighthouse-report.json
 .lcp-element-runner.mjs
 
+# Phase 6 transient Playwright preview-run logs (Plan 06-01 W2; results captured into 06-01-SUMMARY.md)
+.planning/phases/06-polish-seo-launch/preview-suite-output.txt
+
 # editor / OS
 .DS_Store
 .vscode/
