@@ -30,11 +30,19 @@
 // components/home/ChannelButtonRow.tsx (Phase 2 analog). First card animates
 // at 80ms, last (7th) at 560ms.
 
+import type { Metadata } from 'next';
 import { fadeInUp, stagger } from '@/lib/motion';
 import { projects } from '@/data/projects';
 import { ProjectCard } from '@/components/work/ProjectCard';
 
-export const metadata = { title: 'Work' };
+// SEO-01 / SEO-06: per-route title (becomes "Work · Braeden Hodson" via the
+// layout template) + ≤160-char description + canonical /work.
+export const metadata: Metadata = {
+  title: 'Work',
+  description:
+    'Projects by Braeden Hodson — trading systems, short-form content tooling, prediction-market and AI side projects, shown equal-weight.',
+  alternates: { canonical: '/work' },
+};
 
 export default function WorkPage() {
   return (

@@ -18,11 +18,19 @@
 // animation; bio paragraphs animate fadeInUp at stagger(1)/(2)/(3); CTA
 // animates last at staggerIndex={4}.
 
+import type { Metadata } from 'next';
 import { HeroPhoto } from '@/components/home/HeroPhoto';
 import { CTAArrowLink } from '@/components/home/CTAArrowLink';
 import { fadeInUp, stagger } from '@/lib/motion';
 
-export const metadata = { title: 'About' };
+// SEO-01 / SEO-06: per-route title (becomes "About · Braeden Hodson" via the
+// layout template) + ≤160-char description + canonical /about.
+export const metadata: Metadata = {
+  title: 'About',
+  description:
+    'Braeden Hodson — a mechanical engineering student in LA building software around markets, content, and AI tooling.',
+  alternates: { canonical: '/about' },
+};
 
 export default function AboutPage() {
   return (
