@@ -204,6 +204,11 @@ export function ContactModal() {
 
   const showSuccess = state.succeeded || bypassedSuccess;
 
+  // Dialog className uses `m-auto` to restore native modal-<dialog> centering:
+  // Tailwind v4 Preflight's universal `margin:0` reset overrides the UA
+  // `margin:auto` that centers a top-layer dialog, otherwise pinning it to (0,0).
+  // `w-[calc(100%-2rem)]` is the small-screen gutter — done via width, NOT margin,
+  // because `mx-*` would re-break the horizontal centering.
   return (
     <dialog
       id="contact"
@@ -211,7 +216,7 @@ export function ContactModal() {
       onClick={onDialogClick}
       data-test="contact-modal"
       aria-labelledby="contact-modal-heading"
-      className="mx-4 max-w-md max-h-[calc(100vh-2rem)] overflow-y-auto rounded border border-[var(--color-border)] bg-[var(--color-bg-end)] p-6 md:p-8"
+      className="m-auto w-[calc(100%-2rem)] max-w-md max-h-[calc(100vh-2rem)] overflow-y-auto rounded border border-[var(--color-border)] bg-[var(--color-bg-end)] p-6 md:p-8"
     >
       <h2
         id="contact-modal-heading"
