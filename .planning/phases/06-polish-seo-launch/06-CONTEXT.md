@@ -100,15 +100,29 @@ Phase 6 is the **last phase before v1 launch of braehods.com**. It closes every 
   1. Vercel dashboard → braeden-site project → Domains → add `braehods.com` + `www.braehods.com`.
   2. Vercel auto-issues SSL via Let's Encrypt; wait for "Valid" status (typically <5 minutes).
   3. Briefly test the Vercel-provisioned domain (e.g., `braehods.com` resolves once SSL is staged — but DNS still points to GH Pages, so this test must use a `--resolve` curl flag or `/etc/hosts` override to verify before propagation).
-  4. Update CNAME at registrar: `braehods.com` → `cname.vercel-dns.com` (or A record `76.76.21.21` if registrar doesn't support apex CNAMEs).
-  5. Verify DNS propagation via `dig braehods.com +short` (expect Vercel IPs).
+  4. **Registrar = Namecheap (user-confirmed 2026-05-26).** Namecheap does NOT support apex CNAMEs, so at Namecheap → Domain List → braehods.com → Advanced DNS:
+     - Apex: **A record**, host `@` → `76.76.21.21` (Vercel anycast IP).
+     - `www`: **CNAME record**, host `www` → `cname.vercel-dns.com`.
+     - Remove the old GitHub Pages records (the GH Pages apex A-records and/or the existing `www`/CNAME pointing at `bwaeden.github.io`). Confirm against the exact records Vercel shows in the Domains tab after the domain is added.
+  5. Verify DNS propagation via `dig braehods.com +short` (expect `76.76.21.21`) and `dig www.braehods.com +short` (expect a Vercel CNAME target).
   6. Curl `https://braehods.com` — expect 200 + new site content.
 
-- **D-14:** Production deploy gate = **strict, all of: (a) all specs GREEN on preview both projects (chromium-mobile + chromium-desktop + Pixel 5), (b) Lighthouse 95+ on all 6 audits (3 routes × 2 form factors), (c) 40-item visual checklist clean, (d) real Formspree email arrives at `fakegoat1@gmail.com` from a real preview submission, (e) bundle ≤50KB gz first-page**. `[auto]` Selected: "Strictest gate". Core value is "nice site" + "follow up with him" — both depend on the contact form working in production. The Formspree real-email check (d) is the single highest-stakes signal: a CDN/SSL/DNS issue could break form submission silently (Formspree endpoint hard-coded in client bundle reads `NEXT_PUBLIC_FORMSPREE_ID` — set in Vercel env Production scope per Phase 1 D-13, but worth verifying once with a real submit). The production deploy command itself is `vercel --prod` from the project root OR Vercel dashboard "Promote to Production" on the satisfied preview.
+- **D-14:** Production deploy gate = **pragmatic must-haves (user-confirmed 2026-05-26, REVISED from the auto-selected "strictest gate").** The DNS flip is HARD-BLOCKED on, and only on:
+  - **(a)** `https://braehods.com` loads over valid HTTPS (SSL "Valid" in Vercel + curl 200 with new content),
+  - **(b)** a **real Formspree submission from the production URL** arrives at `fakegoat1@gmail.com` (the single highest-stakes signal — a CDN/SSL/DNS issue could break form submission silently; endpoint reads `NEXT_PUBLIC_FORMSPREE_ID`, set in Vercel Production scope per Phase 1 D-13),
+  - **(c)** the visual sweep (`visual-checklist.md`) is clean,
+  - **(d)** production Lighthouse ≥95 on Performance + SEO (the lighthouse spec auto-applies STRICT 95 on a braehods.com base URL, where the preview `noindex` is gone — this finally verifies deferred gates #5 SEO and #6 homepage-mobile-perf).
+
+  **Moved to POST-LAUNCH (NOT a flip blocker):** the NVDA + VoiceOver iOS screen-reader walk (deferred gate #1). Rationale: core value is "nice site" + "follow up with him" — (a)–(d) directly protect both; the SR walk is important for accessibility polish but a P0 SR bug found post-launch is a fast inline fix, not a reason to hold the whole launch. Any P0 SR bug found post-launch ships as a v1.0.1 hotfix. The production deploy itself is `vercel --prod` OR Vercel dashboard "Promote to Production" on the satisfied preview. Bundle ≤50KB (PERF-03) and full-spec-suite-green were already verified GREEN on the preview at 06-02 close, so they are confirmed-not-re-gated here.
 
 - **D-15:** Old `bwaeden/braehods` GitHub Pages repo handling = **archive (read-only) only — NO 301 redirect**. `[auto]` Selected: "Archive". LNCH-02 wording: "archived OR serves a 301 redirect stub". The DNS flip in D-13 itself moves traffic; the only remaining old-site URL is `bwaeden.github.io/braehods` (the GH Pages subdomain), which no one is likely sharing (the `braehods.com` CNAME masked it). Archiving = single GitHub setting flip ("Archive this repository") + adds a deprecation banner on the repo page. The redirect alternative would require either a `meta refresh` in the GH Pages HTML (still slow, anti-SEO) OR a GH Actions workflow (yak-shave). Defer 301 redirect to v1.x if anyone actually hits the old URL — Vercel Analytics on the new site will show referrer data if so.
 
 - **D-16:** Archived braehods href target post-DNS-swap = **`https://github.com/bwaeden/braehods` (archived repo URL)**. `[auto]` Selected: "Link to archived repo on GitHub". The "archived braehods.com (v0)" project card in `data/projects.ts` currently links to `https://braehods.com` (the old URL). Post-DNS-swap, that URL serves the NEW site — so the archived card would be a self-link. Three options were on the table: (a) link to the archived GH repo, (b) link to a Wayback Machine snapshot, (c) remove the card entirely. Recommendation: (a) — the GitHub-archive URL is canonical, doesn't expire, and reads as "here's the actual previous version's source." Wayback snapshot is brittle (URL can change, screenshot may be unflattering). Card removal loses the breadth-of-projects signal. Plan 06-03 W0 makes the single-line edit to `data/projects.ts` immediately BEFORE the DNS flip so the new site never serves a self-loop link.
+
+- **D-19:** Launch rollback + go/no-go = **explicit (user-confirmed 2026-05-26, NEW).** Plan 06-03 must structure the launch as: DNS flip → **go/no-go checkpoint** → (only on GO) archive old repo + update bios. Concretely:
+  - **Go/no-go checkpoint** sits immediately after the D-13 flip + D-14 gate verification, BEFORE the irreversible-ish/visible D-15 archive (Task 7) and D-16-adjacent bio updates (Task 8). It is a `checkpoint:human-verify` gate: confirm (a)–(d) of the D-14 pragmatic gate all pass on the live `braehods.com`.
+  - **Rollback path (on NO-GO):** revert the Namecheap records to the prior GitHub Pages config (restore the GH Pages apex A-records + the `bwaeden.github.io` CNAME that were removed in D-13 step 4). Capture the EXISTING Namecheap records (screenshot or text) BEFORE editing them in D-13 step 4 so the rollback is a known-good restore, not a reconstruction. DNS is reversible at the registrar; the archive (D-15) and bio updates (LNCH-03) are deliberately sequenced AFTER the go/no-go so a NO-GO leaves the old site fully intact and re-pointable.
+  - Rationale: the DNS flip is the one step with real blast radius (the live personal domain). Sequencing archive + bios after a passing go/no-go means a failed launch is a clean CNAME-revert with nothing else to undo.
 
 ### Area 6: Asset Replacement Scope (Monogram + Photo)
 
@@ -144,7 +158,7 @@ These are sub-implementation details that don't move the gray-area needle; plann
 - Specific `next/og` font weights (Fraunces 700 only vs 700+400 for OG body text) — defer to planner; minimize fetched font bytes
 - Whether the 3 GitHub URL real-link verifications (#3) trigger spec or just manual curl — spec is reusable but the URLs themselves are stable; manual curl is fine, document in `06-01-SUMMARY.md`
 - `STATUS_DOT_COLOR` `@theme` promotion timing (carry-forward #5) — defer entirely; only triggers if a 3rd consumer appears in v1.x
-- Bio-link update copy for GH/IG/YT profiles (LNCH-03) — user-driven, planner does NOT auto-edit external services
+- Bio-link updates (LNCH-03) = **GitHub + Instagram only** (user-confirmed 2026-05-26; YouTube excluded — it was dropped from the v1 site, so a YT-bio update is out of scope). Claude DRAFTS the bio copy + the exact link; the user pastes it into each profile. The executor/planner does NOT auto-edit external services. The exact copy wording is Claude's discretion (editorial-restrained register, links to `https://braehods.com`).
 
 </decisions>
 

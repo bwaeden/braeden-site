@@ -233,3 +233,22 @@ Captured during decision logging; not in Phase 6 scope:
 - `/writing` route — v2 (WRIT-01..04)
 - Light-mode toggle — v2 (LITE-01)
 - JAWS screen-reader audit — v1.x if accessibility feedback warrants
+
+---
+
+## Re-discussion — Launch decision review (2026-05-26, pre-06-03)
+
+Triggered by `/gsd-discuss-phase 6` after 06-01 + 06-02 closed, to confirm the
+auto-selected launch decisions before executing the DNS-flip launch (06-03).
+Four launch gray areas surfaced; all four changed or hardened a prior `[auto]` call.
+
+| # | Question | Options presented | User chose | Effect |
+|---|----------|-------------------|------------|--------|
+| 1 | What hard-blocks the DNS flip? | Pragmatic must-haves / Strict (all 6 gates) / Minimal | **Pragmatic must-haves** | D-14 REVISED — flip blocks on HTTPS-load + real prod Formspree email + clean visual sweep + prod Lighthouse/SEO ≥95; NVDA/VoiceOver SR walk moved POST-launch (P0 SR bug → v1.0.1 hotfix) |
+| 2 | DNS registrar / apex handling | Cloudflare / Namecheap / GoDaddy / Not sure | **Namecheap** | D-13 step 4 REVISED — apex `@` A-record → `76.76.21.21`; `www` CNAME → `cname.vercel-dns.com` (Namecheap has no apex CNAME) |
+| 3 | Which bios to update (LNCH-03)? | GH+IG / GH+IG+YT / I'll do it myself | **GitHub + Instagram only** | Bios decision REVISED — YouTube excluded (dropped from v1 site); Claude drafts copy, user pastes |
+| 4 | Add a rollback step? | Yes (rollback + go/no-go) / No | **Yes** | D-19 NEW — go/no-go checkpoint after flip+gate, BEFORE archive/bios; rollback = revert Namecheap records to GH Pages (capture existing records first) |
+
+**Confirmed as-is (not changed):** D-15 (archive old repo, no 301), D-16 (archived card → archived GH repo URL), D-17 (monogram + photo deferred to v1.x), D-18 (proxy.ts noindex).
+
+**Consequence:** 06-03-PLAN.md was generated against the old (strict) D-14 + generic-registrar D-13 + GH/IG/YT bios + no-rollback. It must be REPLANNED to reflect D-14 (pragmatic gate), D-13 (Namecheap A-record specifics), bios (GH+IG only), and D-19 (go/no-go + rollback sequencing).
