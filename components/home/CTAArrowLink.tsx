@@ -14,6 +14,12 @@
 // D-19's "plain text label" contract — keeps the underline-offset render
 // clean. Reduced-motion globally defeats the arrow translate via
 // app/globals.css lines 54-63.
+//
+// Phase 6 extension (06-UI-SPEC § CTAArrowLink Adaptation): optional
+// `direction?: 'forward' | 'back'` prop (default 'forward', backwards-compat
+// with every existing Phase 2 + Phase 5 caller). 'back' renders a LEADING '←'
+// glyph before the children with a negative hover translate — used only by the
+// 404 page "Back home" return link (app/not-found.tsx).
 
 import Link from 'next/link';
 import { fadeInUp, stagger } from '@/lib/motion';
@@ -22,22 +28,42 @@ interface CTAArrowLinkProps {
   href: string;
   children: string;
   staggerIndex: number;
+  direction?: 'forward' | 'back';
 }
 
-export function CTAArrowLink({ href, children, staggerIndex }: CTAArrowLinkProps) {
+export function CTAArrowLink({
+  href,
+  children,
+  staggerIndex,
+  direction = 'forward',
+}: CTAArrowLinkProps) {
   return (
     <Link
       href={href}
       className={`group inline-flex items-center gap-2 text-base font-sans hover:underline hover:decoration-1 hover:underline-offset-4 ${fadeInUp}`}
       style={{ color: 'var(--color-accent)', ...stagger(staggerIndex) }}
     >
-      {children}
-      <span
-        aria-hidden
-        className="inline-block transition-transform group-hover:translate-x-1"
-      >
-        →
-      </span>
+      {direction === 'back' ? (
+        <>
+          <span
+            aria-hidden
+            className="inline-block transition-transform group-hover:-translate-x-1"
+          >
+            ←
+          </span>
+          {children}
+        </>
+      ) : (
+        <>
+          {children}
+          <span
+            aria-hidden
+            className="inline-block transition-transform group-hover:translate-x-1"
+          >
+            →
+          </span>
+        </>
+      )}
     </Link>
   );
 }
