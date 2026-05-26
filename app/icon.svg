@@ -11,9 +11,13 @@
        RESEARCH.md A3 we use the static Fraunces Black source instead. Phase 6
        designer-pass (D-01) replaces this with the final designed monogram.
 
-     Single source (D-04): the <path d="..."> below is byte-identical to the
-     <path> in components/ui/MonogramMark.tsx. The favicon adds rendering
-     hints only (rect background, shape-rendering="crispEdges", explicit fill). -->
+     Triple source (D-04, extended Phase 6): the <path d="..."> below MUST be
+     byte-identical to MONOGRAM_PATH in lib/og/monogram-path.ts (also consumed
+     by components/ui/MonogramMark.tsx and the OG ImageResponse JSX). This is a
+     static .svg file — it cannot import — so the path stays an inline literal;
+     any monogram update must propagate to all 3 surfaces in one commit. The
+     favicon adds rendering hints only (rect background,
+     shape-rendering="crispEdges", explicit fill). -->
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 64 64" shape-rendering="crispEdges">
   <rect width="64" height="64" fill="#0a0a0a"/>
   <path
