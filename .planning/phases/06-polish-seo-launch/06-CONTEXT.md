@@ -99,13 +99,15 @@ Phase 6 is the **last phase before v1 launch of braehods.com**. It closes every 
 - **D-13:** DNS swap order = **add Vercel domain FIRST, confirm SSL stages, THEN flip CNAME** (locked by LNCH-01). `[auto]` Selected: "Vercel-first". Verbatim from LNCH-01: "DNS swap performed in correct order (add domain to Vercel before swapping CNAME so SSL stages)". Concrete sequence in Plan 06-03 W0:
   1. Vercel dashboard → braeden-site project → Domains → add `braehods.com` + `www.braehods.com`.
   2. Vercel auto-issues SSL via Let's Encrypt; wait for "Valid" status (typically <5 minutes).
-  3. Briefly test the Vercel-provisioned domain (e.g., `braehods.com` resolves once SSL is staged — but DNS still points to GH Pages, so this test must use a `--resolve` curl flag or `/etc/hosts` override to verify before propagation).
-  4. **Registrar = Namecheap (user-confirmed 2026-05-26).** Namecheap does NOT support apex CNAMEs, so at Namecheap → Domain List → braehods.com → Advanced DNS:
-     - Apex: **A record**, host `@` → `76.76.21.21` (Vercel anycast IP).
-     - `www`: **CNAME record**, host `www` → `cname.vercel-dns.com`.
-     - Remove the old GitHub Pages records (the GH Pages apex A-records and/or the existing `www`/CNAME pointing at `bwaeden.github.io`). Confirm against the exact records Vercel shows in the Domains tab after the domain is added.
-  5. Verify DNS propagation via `dig braehods.com +short` (expect `76.76.21.21`) and `dig www.braehods.com +short` (expect a Vercel CNAME target).
-  6. Curl `https://braehods.com` — expect 200 + new site content.
+  3. Briefly test the Vercel-provisioned domain via `curl --resolve braehods.com:443:<vercel-ip>` before propagation (DNS still points to the old origin until step 4).
+  4. **DNS is managed in CLOUDFLARE, NOT Namecheap (CORRECTED 2026-05-26 from live `dig` evidence).** Namecheap is only the registrar; the nameservers are `chris.ns.cloudflare.com` / `katelyn.ns.cloudflare.com`, so all records are edited in the **Cloudflare dashboard → DNS → Records**. braehods.com is currently **proxied (orange cloud)** in Cloudflare with a GitHub Pages origin. User-chosen apex method = **CNAME flatten**:
+     - Apex: **CNAME**, name `braehods.com` (`@`) → `cname.vercel-dns.com` (Cloudflare auto-flattens apex CNAMEs).
+     - `www`: **CNAME**, name `www` → `cname.vercel-dns.com`.
+     - **BOTH records MUST be set to DNS-only / grey cloud (proxy OFF).** Cloudflare's proxy in front of Vercel breaks Vercel SSL issuance + domain verification (handshake errors / redirect loops). This is the #1 Vercel-behind-Cloudflare gotcha.
+     - Remove the old GitHub Pages records (apex GH Pages A-records 185.199.108–111.153 and/or the `www`/CNAME pointing at `bwaeden.github.io`).
+  5. Verify propagation via `dig braehods.com +short` (expect a Vercel edge IP, e.g. `76.76.21.x`, NOT the Cloudflare 104.21.x/172.67.x IPs and NOT the GH Pages 185.199.x IPs) and `dig www.braehods.com +short`.
+  6. Curl `https://braehods.com` — expect 200 + new site content + NO `cf-ray`/`Server: cloudflare` header (confirms the proxy is off and Vercel is serving directly).
+  - **Rollback capture (D-19):** the records to screenshot/capture before editing are the **Cloudflare** records, and rollback restores them (re-pointing Cloudflare back at the GH Pages origin, proxy as it was).
 
 - **D-14:** Production deploy gate = **pragmatic must-haves (user-confirmed 2026-05-26, REVISED from the auto-selected "strictest gate").** The DNS flip is HARD-BLOCKED on, and only on:
   - **(a)** `https://braehods.com` loads over valid HTTPS (SSL "Valid" in Vercel + curl 200 with new content),
