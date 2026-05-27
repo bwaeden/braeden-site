@@ -104,6 +104,6 @@ export const projects: Project[] = [
       'The original braehods.com — minimal Geist-font landing page on GitHub Pages, archived for v1.',
     tags: ['archived'],
     status: 'archived',
-    href: 'https://braehods.com',
+    href: 'https://github.com/bwaeden/braehods',
   },
 ];
